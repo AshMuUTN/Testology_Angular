@@ -1,1 +1,5 @@
+@import '/lib/kolektor-bootstrap/dist/scss/global.scss';
 /* You can add global styles to this file, and also import other style files */
+@import 'scss/_variables';
+@import 'scss/_mixins';
+@import 'scss/_buttons';

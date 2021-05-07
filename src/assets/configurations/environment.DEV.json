@@ -1,0 +1,28 @@
+{
+  "settings": {
+    "environment": "local",
+    "webSubdomain": "preprod",
+    "servicesSubdomain": "http://localhost:8882/",
+    "cookieName": "RENTASPREPROD",
+    "baseWebUrl": "https://preprod.rentascordoba.gob.ar/",
+    "baseServicesUrl": "http://localhost:8882/",
+    "miRentasUrl": "https://preprod.rentascordoba.gob.ar/mirentas/rentas.html",
+    "osbUrl": "http://localhost:8882",
+    "authCaptcha": "https://apppreprod.rentascordoba.gob.ar/WSRestDeudaR2/loginservice/anonymous/",
+    "headerData": {
+      "linkLogoRentas": "https://www.rentascordoba.gob.ar/mirentas/rentas.html",
+      "loginStatusOptions": {
+        "linkMiPerfil": "https://www.rentascordoba.gob.ar/nuevorentas/situacion-fiscal",
+        "linkCorredor": "https://preprod.rentascordoba.gob.ar/mirentas/rentas.html?page=tramite_corredores",
+        "linkMartillero": "https://preprod.rentascordoba.gob.ar/mirentas/rentas.html?page=procurador_martillero",
+        "linkProcurador": "https://preprod.rentascordoba.gob.ar/mirentas/rentas.html?page=procurador_martillero",
+        "linkMisRepresentados": "https://www.rentascordoba.gob.ar/nuevorentas/mis-representados",
+        "linkLogOut": "https://www.rentascordoba.gob.ar/mirentas/rentas.html",
+        "linkCidiLogin": "https://cidi.cba.gov.ar/Cuenta/Login",
+        "linkCidiSignIn": "https://cidi.cba.gov.ar/Cuenta/Registracion",
+        "linkAfipLogin": "https://auth.afip.gob.ar/contribuyente_/login.xhtml?action=SYSTEM&system=afip-gobcba",
+        "linkAfipSingIn": "http://www.afip.gob.ar/claveFiscal/informacion-basica/solicitud.asp"
+      }
+    }
+  }
+}

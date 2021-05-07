@@ -1,0 +1,14 @@
+{
+  "kolektorBaseApp": {
+    "home": {
+      "welcomeTitle": "Welcome to App {{title}}!",
+      "linksSubtitle": "Here are some links to help you start:",
+      "links": {
+        "tourOfHeroes": "Tour of Heroes",
+        "cliDocumentation": "CLI Documentation",
+        "angularBlog": "Angular blog"
+      },
+      "download": "Try to download a <a href=\"http://localhost:8882/home/download-file\">json file</a>"
+    }
+  }
+}

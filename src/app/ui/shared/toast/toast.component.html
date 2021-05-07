@@ -1,0 +1,25 @@
+<div
+  class="toast toast-container"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  data-autohide="false"
+  id="toast-{{ id }}"
+>
+  <div
+    class="toast-header"
+    [class.toast-success]="type === 'success'"
+    [class.bg-info]="type === 'info'"
+    [class.bg-danger]="type === 'error'"
+  >
+    <i
+      class="kui-24"
+      [class.icon-ok-circled]="type === 'success'"
+      [class.icon-attention-circled]="type === 'info'"
+      [class.icon-cancel-circled]="type === 'error'"
+    >
+    </i>
+
+    <strong class="mr-auto text-white">{{ message }}</strong>
+  </div>
+</div>

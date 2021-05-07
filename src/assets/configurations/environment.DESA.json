@@ -1,0 +1,30 @@
+{
+  "settings": {
+    "environment": "DESA",
+    "webSubdomain": "desa",
+    "servicesSubdomain": "appdesa",
+    "cookieName": "RENTASDESA",
+    "baseServicesUrl": "https://appdesa.rentascordoba.gob.ar/",
+    "baseWebUrl": "https://desa.rentascordoba.gob.ar/",
+    "osbUrl": "https://appdesa.rentascordoba.gob.ar/integraciones",
+    "miRentasUrl": "https://desa.rentascordoba.gob.ar/mirentas/rentas.html",
+    "authCaptcha": "https://appdesa.rentascordoba.gob.ar/WSRestDeudaR2/loginservice/anonymous/",
+    "basicAuthToken": "a2xrLWNsaWVudDprbGstc2VjcmV0",
+    "headerData": {
+      "linkLogoRentas": "https://desa.rentascordoba.gob.ar/mirentas/rentas.html",
+      "loginStatusOptions": {
+        "linkMiPerfil": "/emisiontributaria/perfil/impuestos",
+        "linkCorredor": "/mirentas/rentas.html?page=tramite_corredores",
+        "linkMartillero": "/mirentas/rentas.html?page=procurador_martillero",
+        "linkProcurador": "/mirentas/rentas.html?page=procurador_martillero",
+        "linkMisRepresentados": "/nuevorentas/mis-representados",
+        "linkFiscalizaciones": "http://policiafiscal.test.cba.gov.ar/Default",
+        "linkLogOut": "https://appdesa.rentascordoba.gob.ar/rentas/servlet/acerrarsesion",
+        "linkCidiLogin": "https://appdesa.rentascordoba.gob.ar/oauth-server/loginOnBehalfOf.jsp?metodo=POST&success_url=https://appdesa.rentascordoba.gob.ar/rentas/servlet/aprcinicio",
+        "linkCidiSignIn": "https://appdesa.rentascordoba.gob.ar/oauth-server/loginOnBehalfOf.jsp?metodo=POST&success_url=https://appdesa.rentascordoba.gob.ar/rentas/servlet/aprcinicio",
+        "linkAfipLogin": "https://appdesa.rentascordoba.gob.ar/oauth-server/loginOnBehalfOf.jsp?metodo=POST&success_url=https://appdesa.rentascordoba.gob.ar/rentas/servlet/aprcinicio",
+        "linkAfipSingIn": ""
+      }
+    }
+  }
+}

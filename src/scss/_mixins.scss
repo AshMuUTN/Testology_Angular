@@ -1,0 +1,14 @@
+//Typography
+$browser-context: 16; // Default
+
+@mixin font-size($sizeValue: 1.6) {
+  font-size: ($sizeValue * 10) + px;
+  font-size: $sizeValue + rem;
+}
+
+@function em($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}em;
+}
+@function rem($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}rem;
+}

@@ -1,0 +1,27 @@
+<div class="header-wrapper shadow">
+  <div class="kh-fixed-nav">
+  </div>
+</div>
+
+<main class="main-app">
+  <p>APP FUNCIONA</p>
+  <div class="container main-container">
+    <router-outlet></router-outlet>
+  </div>
+
+  <div
+    class="app-loader__container"
+    [ngClass]="isLoading ? 'd-flex' : 'd-none'"
+  >
+    <div
+      class="spinner-grow text-primary"
+      role="status"
+      style="width: 3rem; height: 3rem"
+    ></div>
+    <div class="app-loader__container--text">
+      <span id="loadingText" class="app-loader__container--text"
+        >Cargando...</span
+      >
+    </div>
+  </div>
+</main>

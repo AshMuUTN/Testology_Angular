@@ -1,0 +1,32 @@
+{
+  "settings": {
+    "environment": "TEST",
+    "webSubdomain": "test",
+    "servicesSubdomain": "apptest",
+    "cookieName": "RENTASTEST",
+    "baseServicesUrl": "https://apptest.rentascordoba.gob.ar/",
+    "osbUrl": "http://osbde01.gobiernocba.gov.ar:8003",
+    "baseWebUrl": "https://test.rentascordoba.gob.ar/",
+    "miRentasUrl": "https://test.rentascordoba.gob.ar/mirentas/rentas.html",
+    "authCaptcha": "https://apptest.rentascordoba.gob.ar/WSRestDeudaR2/loginservice/anonymous/",
+    "basicAuthToken": "a2xrLWNsaWVudDprbGstc2VjcmV0",
+    "headerData": {
+      "linkLogoRentas": "/mirentas/rentas.html",
+      "loginStatusOptions": {
+        "linkMiPerfil": "/emisiontributaria/perfil/impuestos",
+        "linkCorredor": "/mirentas/rentas.html?page=tramite_corredores",
+        "linkMartillero": "/mirentas/rentas.html?page=procurador_martillero",
+        "linkProcurador": "/mirentas/rentas.html?page=procurador_martillero",
+        "linkMisRepresentados": "/nuevorentas/mis-representados",
+        "linkFiscalizaciones": "http://policiafiscal.test.cba.gov.ar/Default",
+        "linkLogOut": "https://apptest.rentascordoba.gob.ar/rentas/servlet/acerrarsesion",
+        "linkCidiLogin": "https://apppreprod.rentascordoba.gob.ar/oauth-server/loginOnBehalfOf.jsp?metodo=POST",
+        "linkCidiSignIn": "https://apppreprod.rentascordoba.gob.ar/oauth-server/loginOnBehalfOf.jsp?metodo=POST",
+        "linkAfipLogin": "https://apppreprod.rentascordoba.gob.ar/oauth-server/loginOnBehalfOf.jsp?metodo=POST",
+        "linkAfipSingIn": ""
+      },
+      "linkTramite": "https://apptest.rentascordoba.gob.ar/rentas/servlet/wptrmseleccionado?20015,543,DDMMAAAALOABJFG125324ASEDFRT/rentas/servlet/wptrmseleccionado?20015,543,DDMMAAAALOABJFG125324ASEDFRT",
+      "linkConstanciaRegular": "https://apptest.rentascordoba.gob.ar/rentas/servlet/wpconstanciasitfiscal?FRN"
+    }
+  }
+}

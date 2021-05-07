@@ -1,0 +1,16 @@
+@import "../../../../scss/variables";
+
+.error {
+  font-family: $roboto;
+  margin: 5rem 0 0 0;
+
+  &__svg {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .error__svg {
+    background-image: url(../../../../assets/images/error-500.svg);
+  }
+}

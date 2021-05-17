@@ -1,10 +1,6 @@
-<div class="header-wrapper shadow">
-  <div class="kh-fixed-nav">
-  </div>
-</div>
+<app-testology-header></app-testology-header>
 
-<main class="main-app">
-  <p>APP FUNCIONA</p>
+<main [ngClass]="notificationScreen ? 'main-app-msg' : 'main-app-reg'" class="main-app">
   <div class="container main-container">
     <router-outlet></router-outlet>
   </div>

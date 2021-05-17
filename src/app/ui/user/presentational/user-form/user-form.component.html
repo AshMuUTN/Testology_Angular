@@ -1,0 +1,26 @@
+<form class="userForm" [formGroup]="parentFormGroup">
+  <div class="userFormInputGroup">
+    <app-input
+      class="userFormInput"
+      *ngFor="let field of fields"
+      [parentFormGroup]="parentFormGroup"
+      [options]="field"
+      (keyup.enter)="enterPressedAction()"
+    >
+    </app-input>
+    <p class="userFormSubtext">{{ subtext }}</p>
+  </div>
+  <app-button
+    class="userFormButton"
+    [options]="buttonOptions"
+    [buttonDisabled]="buttonDisabled"
+    (wasClicked)="buttonClick()"
+    >{{ buttonText }}</app-button
+  >
+<br>
+  <p>
+    <a class="secondaryLink" (click)="secondaryLinkAction()">
+      {{ secondaryActionText }}
+    </a>
+  </p>
+</form>

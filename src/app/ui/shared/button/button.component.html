@@ -1,0 +1,11 @@
+<button
+  type="button"
+  class="kui-button"
+  [ngClass]="buttonClassName"
+  [disabled]="buttonDisabled"
+  [class.kui-button--disabled]="buttonDisabled"
+  (click)="buttonClick()"
+>
+  <i *ngIf="options.icon" [ngClass]="options.icon"></i>
+  <ng-content></ng-content>
+</button>

@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 
 import { HttpClientModule } from "@angular/common/http";
 
-import { AppRoutingModule } from "./app-routing.module";
+import { UiRoutingModule } from "./ui-routing.module";
 
 // Components
 import { AppComponent } from "./app.component";
@@ -25,7 +25,7 @@ registerLocaleData(localeES, "es");
   imports: [
     NgbModule,
     BrowserModule,
-    AppRoutingModule,
+    UiRoutingModule,
     HttpClientModule,
     InfrastructureModule,
     SharedModule,

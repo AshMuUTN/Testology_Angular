@@ -1,0 +1,7 @@
+.testologyHeader {
+    padding-left: 20px;
+    z-index: 999;
+    @media screen and (max-width: 425px) {
+        display: none;
+    }
+}

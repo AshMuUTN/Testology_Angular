@@ -1,0 +1,28 @@
+<div class="loginFormContainer">
+    <div class="loginFormContent" *ngIf="!formSent">
+      <app-title
+        [titleText]="titleText"
+        [titleForwardText]="titleForwardText"
+        [titleForwardUrl]="titleForwardUrl"
+      ></app-title>
+      <app-user-form
+        [parentFormGroup]="form"
+        [fields]="fields"
+        [buttonText]="formButtonText"
+        [secondaryActionText]="secondaryActionText"
+        (secondaryAction)="statusSecondaryAction()"
+        [buttonDisabled]="disableButton()"
+        (submitAttempt)="submitIfValid()"
+      ></app-user-form>
+    </div>
+    <div class="loginFormStatusContent"  *ngIf="formSent">
+      <app-user-form-status
+        [buttonText]="statusButtonText"
+        [title]="statusTitle"
+        [text]="statusText"
+        [secondaryActionText]="secondaryActionText"
+        (secondaryAction)="statusSecondaryAction()"
+        (acceptStatus)="statusAcceptedAction()"
+      ></app-user-form-status>
+    </div>
+  </div>

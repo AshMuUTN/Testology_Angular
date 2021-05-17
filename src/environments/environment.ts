@@ -5,7 +5,7 @@ import { Settings, SettingsPrototype } from "@entities/settings-configuration.in
 
 export const environment = {
   production: false,
-  backendServer: 'http://127.0.0.1:5001'
+  backendServer: 'https://localhost:5001'
 };
 
 /*

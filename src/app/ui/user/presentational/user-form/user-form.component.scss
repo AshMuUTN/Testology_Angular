@@ -1,0 +1,36 @@
+@import "/lib/extra-bootstrap/dist/scss/global.scss";
+.userForm{
+    
+    text-align: center;
+
+    .userFormInputGroup {
+        margin-bottom: 20%;
+        margin-top: 15%;
+        .userFormSubtext {
+            text-align: center;
+            margin-top: 10px;
+            @extend .color-gray;
+        }
+    }
+    .userFormButton {
+        padding: 20px;
+    }
+
+    p {
+        margin-top: 10px;
+    }
+
+    a {
+        color: $greenPrimary;
+        text-decoration: none;
+        font-weight: 400;
+        font-size: smaller;
+    }
+    
+    a:hover {
+        color: $greenSecondary;
+        cursor: pointer;
+    }
+
+}
+

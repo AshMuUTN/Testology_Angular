@@ -1,43 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-
-
-import { User } from '../login/login';
+import { AuthInfo } from '@entities/user/auth-info';
+import { UserData } from '@entities/user/user-data';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    private currentUserSubject: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
 
     constructor(private http: HttpClient) {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-        this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    public get currentUserValue(): User {
-        let user = JSON.parse(localStorage.getItem('currentUser'));
-        return user;
+    public saveAuthInfoLocally(authInfo: AuthInfo){
+        localStorage.setItem('testology_auth', JSON.stringify(authInfo));
     }
 
-    login(user: User) {
-        if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            localStorage.setItem('token', user.token);
-            this.currentUserSubject.next(user);
-        }
-        return user;
+    public saveUserDetailsLocally(user : UserData){
+        localStorage.setItem('testology_user', user.email);
     }
 
-    updateUser(user){
-        localStorage.setItem('currentUser', JSON.stringify(user));
+    public getAuthInfoLocally(): AuthInfo{
+        return JSON.parse(localStorage.getItem('testology_auth'));
     }
 
-    logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('token');
-        this.currentUserSubject.next(null);
+    public getUserDetailsLocally(): UserData{
+        return JSON.parse(localStorage.getItem('testology_user'));
     }
+
+    public removeLocalAuthInfo() {
+        localStorage.removeItem('testology_auth');
+    }
+
+    public removeLocalUserDetails() {
+        localStorage.removeItem('testology_user');
+    }
+
 }

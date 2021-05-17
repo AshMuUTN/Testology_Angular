@@ -1,0 +1,26 @@
+@import "/lib/extra-bootstrap/dist/scss/global.scss";
+
+.alertPageContainer {
+  @extend .container;
+  @extend .d-flex;
+  @extend .justify-content-center;
+  .alertStatusContent {
+    @extend .flex-column;
+    @extend .shadow;
+    @extend .rounded;
+    padding: 50px 10px;
+    margin: 30px 20px;
+    background-color: $white;
+    .statusTextContent {
+      padding: 15% 0;
+      max-width: 280px;
+      p {
+          text-align: center;
+      }
+    }
+  }
+}
+
+
+
+

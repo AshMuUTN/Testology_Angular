@@ -1,0 +1,11 @@
+<div class="alertPageContainer">
+  <div class="alertStatusContent">
+    <app-title [titleText]="title"></app-title>
+    <div class="statusTextContent">
+      <p>{{ text }}</p>
+    </div>
+    <app-button (wasClicked)="accept()" [options]="buttonOptions">
+      {{ buttonText }}
+    </app-button>
+  </div>
+</div>

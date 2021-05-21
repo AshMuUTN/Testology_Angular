@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { MessagePageParams } from "@ui/view-models/interfaces/message-page-params";
+import { MessagePageParams } from "@ui/view-models/interfaces/message-page-params.interface";
 import * as notificationScreenActions from "src/app/application/state/ui-state/notification-screen/notification-screen.actions";
 
 
@@ -27,12 +27,24 @@ export class RedirectorService {
     this.router.navigateByUrl('sesion/login');
   }
 
+  goToRegistration(){
+    this.router.navigateByUrl('sesion/registrarse');
+  }
+
   goToPasswordChange(){
     this.router.navigateByUrl('sesion/cambiar');
   }
 
   goToTests(){
     this.router.navigateByUrl('tests');
+  }
+
+  goToTestForm(){
+    this.router.navigateByUrl('tests/form');
+  }
+
+  goToSubtests(){
+    this.router.navigateByUrl('tests/subtests');
   }
 
  

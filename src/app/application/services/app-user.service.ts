@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { MessageResponse } from "@entities/message-response";
 import { AuthInfo } from "@entities/user/auth-info";
 import { UserCredentials } from "@entities/user/user-credentials.interface";
@@ -6,9 +7,11 @@ import { UserData } from "@entities/user/user-data";
 import { UserPasswordChangeCredentials } from "@entities/user/user-password-change-credentials";
 import { UserRefreshCredentials } from "@entities/user/user-refresh-credentials";
 import { AuthService } from "@infrastructure/core/auth.service";
+import { MessagePageParams } from "@ui/view-models/interfaces/message-page-params.interface";
 import { Observable, Subject } from "rxjs";
 import { map, tap } from "rxjs/operators";
 import { UserRepositoryService } from "src/app/domain/repository/user-repository.service";
+import { RedirectorService } from "./redirector.service";
 
 @Injectable({
   providedIn: "root",
@@ -16,7 +19,9 @@ import { UserRepositoryService } from "src/app/domain/repository/user-repository
 export class AppUserService {
   constructor(
     private userRepository: UserRepositoryService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private redirectorService: RedirectorService
   ) {}
 
   /**
@@ -46,7 +51,7 @@ export class AppUserService {
   loginUser(params: UserCredentials): Observable<AuthInfo> {
     return this.userRepository
       .loginUser(params)
-      .pipe(map((response) => this.saveToken(response)));
+      .pipe(map((response) => this.saveTokenAndEmail(response, params.email)));
   }
 
   /**
@@ -65,24 +70,25 @@ export class AppUserService {
    */
   refreshUserTokens(): Observable<AuthInfo> {
     const token = this.authService.getAuthInfoLocally().refreshToken;
-    const userEmail = this.authService.getUserDetailsLocally().email;
+    const userEmail = this.authService.getUserEmailLocally();
     const params: UserRefreshCredentials = { token, userEmail };
 
     return this.userRepository
       .refreshUserToken(params)
-      .pipe(map((response) => this.saveToken(response)));
+      .pipe(map((response) => this.saveTokenAndEmail(response, userEmail)));
   }
 
   /**
    * @description saves testology auth if valid
    * @returns observable of type AuthInfo if valid, otherwise throw error
    */
-  private saveToken(response: AuthInfo) {
+  private saveTokenAndEmail(response: AuthInfo, userEmail: string) {
     if (!this.validateAuthInfo(response)) {
       const err = new Error("invalid auth object");
       throw err;
     }
     this.authService.saveAuthInfoLocally(response);
+    this.authService.saveUserEmailLocally(userEmail);
     return response;
   }
 
@@ -96,13 +102,43 @@ export class AppUserService {
 
   /**
    * @description calls user repository method revokeUserToken and removes local authInfo upon receiving api success
+   * @param isManualLogout boolean that helps determine message to be shown upon logout
    * @returns 'success' when successful
    */
-  removeLocalAuthAndRefreshToken(): Observable<string> {
+  removeAuthAndMoveAway(isManualLogout = false): Observable<string> {
     const token = this.authService.getAuthInfoLocally().refreshToken;
     return this.userRepository.revokeUserToken(token).pipe(
-      tap(() => this.authService.removeLocalAuthInfo()), // remove local auth when token successfuly revoked
+      tap(() => {
+        this.authService.removeLocalAuthInfo(); // remove local auth when token successfuly revoked
+        this.goToMessageAboutLogout(isManualLogout);
+      }),
       map((response) => response)
     );
+  }
+
+  goToMessageAboutLogout(manual){
+    const message: MessagePageParams = manual ? this.getManualLogoutMessageParams()
+                    : this.getExpiredSessionMessageParams();
+    this.redirectorService.goToMessage(message);
+  }
+
+  getExpiredSessionMessageParams() : MessagePageParams {
+    const redirectUrl = this.router.url;
+    return { 
+        text: 'Se venció la sesión. Hay que ingresar los credenciales nuevamente.', 
+        title: 'Lo sentimos', 
+        buttonText: 'Login', 
+        redirectUrl: 'sesion/login?redirectUrl=' + redirectUrl
+    } 
+  }
+
+  getManualLogoutMessageParams() : MessagePageParams {
+    const redirectUrl = this.router.url;
+    return { 
+        text: 'Saliste de tu sesión con éxito.', 
+        title: 'Listo!', 
+        buttonText: 'Login', 
+        redirectUrl: 'sesion/login?redirectUrl=' + redirectUrl
+    } 
   }
 }

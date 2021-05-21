@@ -1,0 +1,35 @@
+@import "/lib/extra-bootstrap/dist/scss/global.scss";
+.testologyLinks {
+    a {
+        color: $greenPrimary;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: $greenSecondary;
+        cursor: pointer;
+    }
+    
+    font-weight: 400;
+    font-size: smaller;
+    padding-top: 6px;
+    
+    .backLink {
+        @extend .d-flex;
+        float: left;
+        margin-left: -20px;
+        i {
+            margin-right: 5px;
+        }
+    }
+    .forwardLink {
+        float: right;
+        margin-right: -20px;
+        @media screen and (max-width: 425px) {
+            margin-right: 10px;
+        }
+    }
+}
+.testologyTitle {
+    text-align: center;
+}

@@ -1,0 +1,14 @@
+<hr>
+<div class="emptyListContainer">
+  <div class="emptyListMessage">
+    <p class="emptyListText">
+      No hay {{ itemName }}s todavía. Hacé clic para agregar algo a esta lista.
+    </p>
+    <app-button
+      class="emptyListButton"
+      [options]="buttonOptions"
+      (wasClicked)="emitAddAction()"
+      >Crear {{ capitalizedItemName }}</app-button
+    >
+  </div>
+</div>

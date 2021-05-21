@@ -45,6 +45,20 @@ export const cleanLoginUserSuccess = createAction(
   '[User/API] Clean Login User Success'
 );
 
+export const logoutUser = createAction(
+  '[User/API] Logout User',
+  props<{ manual: boolean }>()
+);
+
+export const logoutUserSuccess = createAction(
+  '[User/API] Logout User Success',
+  props<{ success: boolean }>()
+);
+
+export const cleanLogoutUserSuccess = createAction(
+  '[User/API] Clean Logout User Success'
+);
+
 export const changeUserPasswordRequest = createAction(
   '[User/API] Change User Password',
   props<{ user: { email : string } }>()

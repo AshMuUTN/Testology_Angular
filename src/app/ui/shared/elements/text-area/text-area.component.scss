@@ -1,0 +1,289 @@
+@import '/lib/extra-bootstrap/dist/scss/global.scss';
+.kui-form-container {
+    margin-left: 20px;
+    margin-right: 20px;
+    min-width: 840px;
+    display: flex;
+    flex-direction: column;
+    @media screen and(min-width: 765px) and(max-width: 990px)  {
+        min-width: 520px;
+    }
+    @media screen and(min-width: 425px) and(max-width: 765px) {
+        min-width: 320px;
+    }
+    @media screen and(min-width: 320px) and(max-width: 425px) {
+        min-width: 280px;
+    }
+    .kui-textfield-outlined-helper-line {
+        padding-right: 16px;
+        padding-left: 16px;
+        display: flex;
+        justify-content: space-between;
+        box-sizing: border-box;
+        .kui-textfield-outlined-helper-text {
+            color: rgba(0, 0, 0, 0.6);
+            font-family: system-ui, sans-serif;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.0333333333em;
+            text-decoration: inherit;
+            text-transform: inherit;
+            display: block;
+            margin-top: 0;
+            line-height: normal;
+            margin: 0;
+            will-change: opacity;
+            &::before {
+                display: inline-block;
+                width: 0;
+                height: 16px;
+                content: '';
+                vertical-align: 0;
+            }
+            &__error {
+                color: red;
+            }
+        }
+        &__persistent {
+            transition: none;
+            opacity: 1;
+            will-change: initial;
+        }
+    }
+    /* textarea */
+    .kui-textfield-outlined {
+        --pure-material-safari-helper1: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+        position: relative;
+        display: inline-block;
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        overflow: hidden;
+        > textarea {
+            box-sizing: border-box;
+            margin: 0;
+            border: solid 1px;
+            /* Safari */
+            border-color: rgba(0, 0, 0, 0.6);
+            border-top-color: transparent;
+            border-radius: 4px;
+            padding: 10px 13px 10px;
+            width: 100%;
+            height: inherit;
+            color: rgba(0, 0, 0, 0.87);
+            background-color: $very-light-gray;
+            box-shadow: none;
+            /* Firefox */
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            caret-color: $iris;
+            transition: border 0.2s, box-shadow 0.2s;
+            + span {
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: flex;
+                border-color: rgba(0, 0, 0, 0.6);
+                width: 100%;
+                max-height: 100%;
+                color: rgba(0, 0, 0, 0.6);
+                font-size: 75%;
+                line-height: 15px;
+                cursor: text;
+                transition: color 0.2s, font-size 0.2s, line-height 0.2s;
+                /* Corners */
+                &::before,
+                &::after {
+                    content: '';
+                    display: block;
+                    box-sizing: border-box;
+                    margin-top: 6px;
+                    border-top: solid 1px;
+                    border-top-color: rgba(0, 0, 0, 0.6);
+                    min-width: 10px;
+                    height: 8px;
+                    pointer-events: none;
+                    box-shadow: inset 0 1px transparent;
+                    transition: border-color 0.2s, box-shadow 0.2s;
+                }
+                &::before {
+                    margin-right: 4px;
+                    border-left: solid 1px transparent;
+                    border-radius: 4px 0;
+                }
+                &::after {
+                    flex-grow: 1;
+                    margin-left: 4px;
+                    border-right: solid 1px transparent;
+                    border-radius: 0 4px;
+                }
+            }
+            /* Placeholder-shown */
+            &:not(:focus):placeholder-shown {
+                border-top-color: rgba(0, 0, 0, 0.6);
+                + span {
+                    font-size: inherit;
+                    line-height: 68px;
+                    &::before,
+                    &::after {
+                        border-top-color: transparent;
+                    }
+                }
+            }
+            /* Focus */
+            &:focus {
+                border-color: $iris;
+                border-top-color: transparent;
+                box-shadow: inset 1px 0 $iris,
+                    inset -1px 0 $iris, inset 0 -1px $iris;
+                outline: none;
+                + span {
+                    color: $iris;
+                    &::before,
+                    &::after {
+                        border-top-color: $iris !important;
+                        box-shadow: inset 0 1px $iris;
+                    }
+                }
+                &:hover {
+                    border-color: $iris;
+                    border-top-color: transparent;
+                    outline: none;
+                }
+            }
+            /* Disabled */
+            &:disabled,
+            &:disabled + span {
+                border-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38) !important;
+                border-top-color: transparent !important;
+                color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+                pointer-events: none;
+            }
+            &:disabled {
+                + span {
+                    &::before,
+                    &::after {
+                        border-top-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38) !important;
+                    }
+                }
+                &:placeholder-shown,
+                &:placeholder-shown + span {
+                    border-top-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38) !important;
+                }
+                &:placeholder-shown + span {
+                    &::before,
+                    &::after {
+                        border-top-color: transparent !important;
+                    }
+                }
+            }
+        }
+        /* Hover */
+        &:hover {
+            > textarea {
+                border-color: rgba(0, 0, 0, 0.87);
+                border-top-color: transparent;
+                + span {
+                    &::before,
+                    &::after {
+                        border-top-color: rgba(0, 0, 0, 0.87);
+                    }
+                }
+                &:not(:focus):placeholder-shown {
+                    border-color: rgba(0, 0, 0, 0.87);
+                }
+            }
+        }
+        /* Error */
+        &__error {
+            > textarea {
+                border-color: red;
+                border-top-color: transparent;
+                outline: none;
+                &:not(:focus):placeholder-shown {
+                    border-color: red;
+                }
+                + span {
+                    height: 0px;
+                    background-color: #ffffff;
+                    color: red;
+                    &:after {
+                        border-top-color: red !important;
+                    }
+                    &:before {
+                        border-top-color: red !important;
+                        border-left-color: red !important;
+                    }
+                }
+                /* Focus */
+                &:focus {
+                    border-color: red;
+                    border-top-color: transparent;
+                    box-shadow: inset 1px 0 red, inset -1px 0 red, inset 0 -1px red;
+                    outline: none;
+                    + span {
+                        color: red;
+                        &::before,
+                        &::after {
+                            border-top-color: red !important;
+                            box-shadow: inset 0 1px red;
+                        }
+                    }
+                }
+                + span {
+                    border-color: red;
+                }
+            }
+            &:hover {
+                > textarea {
+                    border-color: red;
+                    border-top-color: transparent;
+                    outline: none;
+                    + span {
+                        color: red;
+                        &::before,
+                        &::after {
+                            border-top-color: red;
+                        }
+                    }
+                    /* Focus */
+                    &:focus {
+                        border-color: red;
+                        border-top-color: transparent;
+                        box-shadow: inset 1px 0 red, inset -1px 0 red, inset 0 -1px red;
+                        outline: none;
+                        + span {
+                            color: red;
+                            &::before,
+                            &::after {
+                                border-top-color: red !important;
+                                box-shadow: inset 0 1px red;
+                            }
+                        }
+                    }
+                    &:not(:focus):placeholder-shown {
+                        border-color: red;
+                    }
+                }
+            }
+        }
+    }
+    /* Faster transition in Safari for less noticable fractional font-size issue */
+    @media not all and (min-resolution: 0.001dpcm) {
+        @supports (-webkit-appearance: none) {
+            .kui-textfield-outlined > input,
+            .kui-textfield-outlined > input + span,
+            .kui-textfield-outlined > textarea,
+            .kui-textfield-outlined > textarea + span,
+            .kui-textfield-outlined > input + span::before,
+            .kui-textfield-outlined > input + span::after,
+            .kui-textfield-outlined > textarea + span::before,
+            .kui-textfield-outlined > textarea + span::after {
+                transition-duration: 0.1s;
+            }
+        }
+    }
+}

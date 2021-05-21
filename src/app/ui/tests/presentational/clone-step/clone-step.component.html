@@ -1,0 +1,16 @@
+<div class="cloneStepContainer" [formGroup]="formGroup">
+  <app-radio-button-option
+    [parentFormGroup]="formGroup"
+    [name]="fieldName"
+    [label]="noCloneLabel"
+    [value]="'noClone'"
+    [selected]="noCloneSelected"
+  ></app-radio-button-option>
+  <app-radio-button-option
+    [parentFormGroup]="formGroup"
+    [name]="fieldName"
+    [label]="cloneLabel"
+    [value]="'clone'"
+    [selected]="cloneSelected"
+  ></app-radio-button-option>
+</div>

@@ -48,6 +48,21 @@ export class UserEffects {
     );
   });
 
+  logoutUserSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.logoutUser),
+      switchMap((props) =>
+        this.appService.removeAuthAndMoveAway(props.manual).pipe( 
+          map(() => UserActions.logoutUserSuccess({ success: true })),
+          catchError((err) => {
+            console.log(err)
+            return of(UserActions.logoutUserSuccess({ success: false }))
+          })
+        )
+      )
+    );
+  });
+
   passwordChangeSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(UserActions.changeUserPasswordRequest),

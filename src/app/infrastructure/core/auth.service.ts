@@ -13,23 +13,23 @@ export class AuthService {
         localStorage.setItem('testology_auth', JSON.stringify(authInfo));
     }
 
-    public saveUserDetailsLocally(user : UserData){
-        localStorage.setItem('testology_user', user.email);
+    public saveUserEmailLocally(userEmail : string){
+        localStorage.setItem('testology_user', userEmail);
     }
 
     public getAuthInfoLocally(): AuthInfo{
         return JSON.parse(localStorage.getItem('testology_auth'));
     }
 
-    public getUserDetailsLocally(): UserData{
-        return JSON.parse(localStorage.getItem('testology_user'));
+    public getUserEmailLocally(): string{
+        return localStorage.getItem('testology_user');
     }
 
     public removeLocalAuthInfo() {
         localStorage.removeItem('testology_auth');
     }
 
-    public removeLocalUserDetails() {
+    public removeLocalUserEmail() {
         localStorage.removeItem('testology_user');
     }
 

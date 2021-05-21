@@ -1,0 +1,26 @@
+<div class="kui-form-container" [formGroup]="parentFormGroup">
+    <label class="kui-textfield-outlined mb-0" [class.kui-textfield-outlined__error]="hasError && hasDirty">
+        <textarea
+            [formControlName]="options.name"
+            placeholder=" "
+            name="{{ options.name }}"
+            maxlength="{{ maxlength || null }}"
+            rows="10"
+        ></textarea>
+        <span>{{ options.label }}</span>
+    </label>
+    <div class="kui-textfield-outlined-helper-line">
+        <div
+            class="kui-textfield-outlined-helper-text"
+            [ngClass]="
+                hasError && hasDirty
+                    ? 'kui-textfield-outlined-helper-text__error'
+                    : 'kui-textfield-outlined-helper-text__persistent'
+            "
+        >
+            <ng-container *ngIf="displayTextFieldMessage || showTexfield">
+                {{ options.textfield }}
+            </ng-container>
+        </div>
+    </div>
+</div>

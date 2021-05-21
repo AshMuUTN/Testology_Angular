@@ -1,33 +1,35 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanLoad, Route, UrlSegment } from '@angular/router';
 import { AuthService } from '@infrastructure/core/auth.service';
-import { MessagePageParams } from '@ui/view-models/interfaces/message-page-params';
+import { MessagePageParams } from '@ui/view-models/interfaces/message-page-params.interface';
+import { Observable } from 'rxjs';
 import { RedirectorService } from 'src/app/application/services/redirector.service';
 
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanLoad {
     constructor(
         private redirectorService: RedirectorService,
         private authService: AuthService
     ) {}
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
 
         const authInfo = this.authService.getAuthInfoLocally();
-        const loggedUser = this.authService.getUserDetailsLocally();
-        
-        if (authInfo) {
-            return true;
-        }
+        const loggedUser = this.authService.getUserEmailLocally();
 
-        const redirectUrl = state.url;
-        // if loggedUser present, logout was likely forced via expired refresh token
-        const loginExpired = !!loggedUser;
-        const messagePageParams : MessagePageParams = this.getMessageParams(loginExpired, redirectUrl);
-        
-        this.redirectorService.goToMessage(messagePageParams);
-        return false;
+        const loggedPromise = new Promise<boolean>((resolve) => {
+            if (!authInfo) {
+                const redirectUrl = segments.join('/');
+                const loginExpired = !!loggedUser; // if loggedUser present, logout was likely forced via expired refresh token
+                const messagePageParams : MessagePageParams = this.getMessageParams(loginExpired, redirectUrl);
+                this.redirectorService.goToMessage(messagePageParams);
+            }
+            
+            resolve(!!authInfo);
+        });
+
+        return loggedPromise;
     }
 
     getMessageParams(loginExpired : boolean, redirectUrl: string) : MessagePageParams {

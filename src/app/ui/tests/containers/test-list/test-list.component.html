@@ -1,0 +1,33 @@
+<div class="testListContainer">
+  <div class="testListTitleContainer">
+    <app-title
+      [titleText]="titleText"
+      [titleForwardText]="titleForwardText"
+      (goForward)="newTest()"
+    ></app-title>
+  </div>
+  <div class="testListSearchFlexContainer">
+    <div class="testListSearchBar">
+      <app-search-bar
+        [name]="searchField"
+        [parentFormGroup]="searchForm"
+      ></app-search-bar>
+    </div>
+  </div>
+
+  <app-test-list-item
+    *ngFor="let test of tests | filterList: filter"
+    [test]="test"
+    [cloneFlag]="cloneFlag"
+    (showTestEvent)="showTest(test)"
+    (editOrCloneAction)="editTest(test)"
+  ></app-test-list-item>
+
+  <app-empty-list-message 
+    *ngIf="!tests.length"
+    [itemName]="itemName"
+    (addAction)="newTest()"
+  >
+  </app-empty-list-message>
+
+</div>

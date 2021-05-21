@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ButtonOptions } from '@ui/view-models/interfaces/button-options';
+import { ButtonOptions } from '@ui/view-models/interfaces/button-options.interface';
 
 @Component({
   selector: 'app-user-form',

@@ -4,8 +4,10 @@ import { Component, OnInit } from "@angular/core";
 import { LoaderService } from "@infrastructure/core/loader.service";
 import { Store } from "@ngrx/store";
 import * as notificationScreenSelectors from 'src/app/application/state/ui-state/notification-screen/notification-screen.selectors';
+import * as userSelectors from 'src/app/application/state/domain-state/user/user.selectors';
 
-import { delay, map } from "rxjs/operators";
+import { delay, filter, map } from "rxjs/operators";
+import { AuthService } from "@infrastructure/core/auth.service";
 
 @Component({
   selector: "app-root",
@@ -17,43 +19,40 @@ export class AppComponent implements OnInit {
   public title = "Testology";
   public isLoading = false;
   public notificationScreen = false;
-  private configLoaded = false;
-
-  
-  isLogged = false;
+  public isLogged = false;
 
   constructor(
     public loaderService: LoaderService,
-    private store$: Store
+    private store$: Store,
+    private authService: AuthService
   ) {
     this.loaderService.isLoading.pipe(delay(0)).subscribe((res) => {
       this.isLoading = res;
     });
-    this.store$.select(notificationScreenSelectors.selectNotificationScreenBool)
-      .pipe(
-        map((notificationScreen) => 
-          this.notificationScreen = notificationScreen
-        )
-      ).subscribe();
+    this.isLogged = !!authService.getAuthInfoLocally();
+    this.listenToStoreAndRespond();
   }
 
   ngOnInit() {
     
   }
 
-  /**
-   * Method to handle all user data
-   */
-  private handleUserData(): void {
-    //TODO: write method
-  
-  }
-
-  /**
-   * Method to format the user data necessary for the header.
-   * @param user - User data.
-   */
-  private setUserDataToHeader(email: string): void {
-    //TODO: write method
+  listenToStoreAndRespond(){
+    this.store$.select(notificationScreenSelectors.selectNotificationScreenBool)
+      .pipe(
+        map((notificationScreen) => 
+          this.notificationScreen = notificationScreen
+        )
+      ).subscribe();
+    this.store$.select(userSelectors.selectLoginUserSuccess)
+      .pipe(
+        filter(status => status),
+        map(() => this.isLogged = true)
+      ).subscribe();
+    this.store$.select(userSelectors.selectLogoutSuccess)
+      .pipe(
+        filter(status => status),
+        map(() => this.isLogged = false)
+      ).subscribe();
   }
 }

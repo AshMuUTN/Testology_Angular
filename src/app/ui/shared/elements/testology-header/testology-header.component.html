@@ -1,0 +1,21 @@
+<nav class="testologyHeader navbar navbar-expand navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">Testology</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul *ngIf="!userLogged" class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" (click)="goToLogin()" >Log in</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="goToRegistration()">Registrarse</a>
+        </li>
+      </ul>
+      <ul *ngIf="userLogged" class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" (click)="logout()" >Salir</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="goToTests()">Tests</a>
+        </li>
+      </ul>
+    </div>
+  </nav>

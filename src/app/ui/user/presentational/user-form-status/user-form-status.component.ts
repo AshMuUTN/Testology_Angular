@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { ButtonOptions } from '@ui/view-models/interfaces/button-options';
+import { ButtonOptions } from '@ui/view-models/interfaces/button-options.interface';
 
 @Component({
   selector: 'app-user-form-status',

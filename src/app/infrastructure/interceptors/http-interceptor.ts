@@ -10,7 +10,7 @@ import {
 import { Observable, throwError } from "rxjs";
 import { AuthInfo } from "@entities/user/auth-info";
 import { AuthService } from "@infrastructure/core/auth.service";
-import { catchError, map, tap } from "rxjs/operators";
+import { catchError, concatMap, map, tap } from "rxjs/operators";
 import { AppUserService } from "src/app/application/services/app-user.service";
 
 /** Pass untouched request through to the next request handler. */
@@ -86,9 +86,9 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<any> {
     return this.appUserService.refreshUserTokens().pipe(
-      map((response: AuthInfo) => {
+      concatMap((response: AuthInfo) => {
         this.accessToken = response.accessToken;
-        this.authErrorFlag = true; // flag to avoid endless recursion loop
+        this.authErrorFlag = true; // flag to avoid endless recursion loop, let's just try twice ;-)
         return this.sendRequestAndHandleErrors(next, request);
       })
     );
@@ -97,8 +97,8 @@ export class AuthInterceptor implements HttpInterceptor {
   private checkForExpiredRefreshToken(error: HttpErrorResponse) {
     if(this.errorIsJson(error.error)) {
       if (this.isInvalidRefreshTokenOrRecursion(error.error.message)) {
-        this.appUserService.removeLocalAuthAndRefreshToken(); // upon doing this, guard will handle browser redirect
-        return throwError(error.error);
+        return this.appUserService.removeAuthAndMoveAway(); 
+        
       }
     }
     return throwError(error);

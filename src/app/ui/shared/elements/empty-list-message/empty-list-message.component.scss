@@ -1,0 +1,16 @@
+@import "/lib/extra-bootstrap/dist/scss/global.scss";
+.emptyListContainer {
+    @extend .d-flex;
+    @extend .justify-content-center;
+    .emptyListMessage {
+        @extend .flex-column;
+        padding: 50px 10px;
+        text-align: center;
+        .emptyListText {
+            padding: 15% 0;
+        }
+        .emptyListButton {
+            align-self: center;
+        }
+    }
+}

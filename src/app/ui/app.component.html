@@ -1,4 +1,4 @@
-<app-testology-header></app-testology-header>
+<app-testology-header [userLogged]="isLogged"></app-testology-header>
 
 <main [ngClass]="notificationScreen ? 'main-app-msg' : 'main-app-reg'" class="main-app">
   <div class="container main-container">

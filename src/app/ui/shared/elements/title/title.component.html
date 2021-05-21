@@ -1,0 +1,10 @@
+<div class="testologyLinks">
+  <a *ngIf="titleBackText" (click)="backLinkClicked()" class="backLink">
+    <i class="bi bi-arrow-left d-none d-md-block"></i>
+    {{ titleBackText }}
+  </a>
+  <a (click)="forwardLinkClicked()" class="forwardLink">{{
+    titleForwardText
+  }}</a>
+</div>
+<h1 class="testologyTitle">{{ titleText }}</h1>

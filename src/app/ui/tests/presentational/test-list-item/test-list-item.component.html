@@ -1,0 +1,37 @@
+<hr />
+<div class="row testItem">
+  <div class="col-md-auto testItemName">
+    <a (click)="showTest()">{{ test.name }}</a>
+    <a
+      data-toggle="tooltip"
+      title="{{ cloneFlag ? 'Clonar' : 'Editar' }}"
+      class="d-md-none editLink editLinkSmall"
+      (click)="editOrCloneTest()"
+      ><i class="bi" [ngClass]="cloneFlag ? 'bi-clipboard' : 'bi-pencil-square'"></i
+    ></a>
+  </div>
+  <div
+    class="col testItemDescription"
+    data-toggle="tooltip"
+    title="{{ test.description }}"
+  >
+    <div class="testItemDescriptionText">
+      {{ test.description }}
+    </div>
+    <span class="visually-hidden">{{ test.description }}</span>
+  </div>
+  <div class="col-md-auto testItemDate">
+    {{ test.createdAt | date: "mediumDate":"es-AR" }}
+  </div>
+  <div class="col-md-auto testItemEditButton">
+    <div class="col-md-auto testItemEditButton">
+      <a
+        data-toggle="tooltip"
+        title="{{ cloneFlag ? 'Clonar' : 'Editar' }}"
+        class="d-none d-md-block editLink"
+        (click)="editOrCloneTest()"
+        ><i class="bi" [ngClass]="cloneFlag ? 'bi-clipboard' : 'bi-pencil-square' "></i
+      ></a>
+    </div>
+  </div>
+</div>

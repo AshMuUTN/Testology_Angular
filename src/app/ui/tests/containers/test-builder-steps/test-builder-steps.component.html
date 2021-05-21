@@ -1,0 +1,54 @@
+<div class="testBuilderContainer" *ngIf="currentStep && !formSent">
+  <div class="testBuilderTitleContainer">
+    <app-title
+      [titleText]="currentOptions.titleText"
+      [titleBackText]="currentOptions.titleBackText"
+      (goBack)="goBackActionForStep()"
+    ></app-title>
+  </div>
+  <div class="testBuilderStepContainer" [ngSwitch]="currentStep">
+    <app-clone-step
+      [cloneLabel]="cloneLabel"
+      [noCloneLabel]="noCloneLabel"
+      [formGroup]="form"
+      [fieldName]="'clone'"
+      *ngSwitchCase="'clone'"
+    ></app-clone-step>
+    <app-title-step
+      [formGroup]="form"
+      [label]="titleLabel"
+      [name]="'title'"
+      [textfield]="titleTextfield"
+      (attemptSubmit)="submitAttemptedViaEnter()"
+      *ngSwitchCase="'title'"
+    ></app-title-step>
+    <app-description-step
+      [formGroup]="form"
+      [label]="descriptionLabel"
+      [name]="'description'"
+      [textfield]="descriptionTextfield"
+      (attemptSubmit)="submitAttemptedViaEnter()"
+      *ngSwitchCase="'description'"
+    ></app-description-step>
+  </div>
+  <div class="testBuilderButtonContainer">
+    <app-button
+      [buttonDisabled]="disableButton()"
+      [options]="buttonOptions"
+      (wasClicked)="confirmActionForStep()"
+    >
+      {{ currentOptions.confirmText }}
+    </app-button>
+  </div>
+</div>
+<div class="testBuilderStatusContentWrapper">
+  <div class="testBuilderStatusContent"  *ngIf="formSent">
+    <app-form-status
+      [buttonText]="statusButtonText"
+      [title]="statusTitle"
+      [text]="statusText"
+      (acceptStatus)="statusAcceptedAction()"
+    ></app-form-status>
+  </div>
+</div>
+

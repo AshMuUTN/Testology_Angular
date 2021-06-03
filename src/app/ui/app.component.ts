@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
   listenToStoreAndRespond(){
     this.store$.select(notificationScreenSelectors.selectNotificationScreenBool)
       .pipe(
+        delay(0),
         map((notificationScreen) => 
           this.notificationScreen = notificationScreen
         )

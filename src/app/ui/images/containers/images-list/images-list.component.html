@@ -1,0 +1,26 @@
+<div class="testListContainer" [ngClass]="images?.length ? 'testListContainer__hasItems' : ''">
+    <div class="testListTitleContainer">
+      <app-title
+        [titleText]="titleText"
+        [titleForwardText]="titleForwardText"
+        (goForward)="newImage()"
+      ></app-title>
+    </div>
+  
+  <div class="testListImageGallery">
+    <app-image-list-item
+      *ngFor="let image of images"
+      [imageItem]="image"
+      [imageForQuestionFlag]="imageForQuestionFlag"
+      (showImageEvent)="showImage(image)"
+    ></app-image-list-item>
+  
+    <app-empty-list-message 
+      *ngIf="!images.length"
+      [itemName]="itemName"
+      (addAction)="newImage()"
+    >
+    </app-empty-list-message>
+  </div>
+</div>
+  

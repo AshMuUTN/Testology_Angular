@@ -1,18 +1,20 @@
-@import '/lib/extra-bootstrap/dist/scss/variables';
+@import '/lib/extra-bootstrap/dist/scss/global.scss';
 
-.statusTextContainer {
-    padding: 15% 0;
-    max-width: 280px;
+.alertStatusContent {
     p {
-        text-align: center;
         margin-top: 10px;
+        text-align: center;
     }
-
+    .statusTextContent {
+      padding: 15% 0;
+      max-width: 280px;
+    }
     a {
         color: $greenPrimary;
         text-decoration: none;
         font-weight: 400;
         font-size: smaller;
+        text-align: center;
     }
     
     a:hover {

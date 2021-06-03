@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { Store } from '@ngrx/store';
 import { RedirectorService } from 'src/app/application/services/redirector.service';
 import { State } from 'src/app/application/state/core/reducers';
+import { cleanSingleQuestion } from 'src/app/application/state/domain-state/question/question.actions';
 import { setCloneFlagFalse } from 'src/app/application/state/domain-state/test/test.actions';
 import { logoutUser } from 'src/app/application/state/domain-state/user/user.actions';
 
@@ -31,6 +32,12 @@ export class TestologyHeaderComponent implements OnInit {
   goToTests(){
     this.store$.dispatch(setCloneFlagFalse());
     this.redirectorService.goToTests();
+  }
+
+  goToImages(){
+    // remove question, so we can upload image without associating it to a question
+    this.store$.dispatch(cleanSingleQuestion());
+    this.redirectorService.goToImages();
   }
 
   logout(){

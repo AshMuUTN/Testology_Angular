@@ -19,13 +19,14 @@ export class AlertPageComponent implements OnInit, OnDestroy {
   
   constructor(private redirectorService : RedirectorService, private store$: Store, private router: Router) {
     this.store$.dispatch(notificationScreenActions.loadNotificationScreens());
-    if(this.router.getCurrentNavigation().extras.state){
+    const nav = this.router.getCurrentNavigation();
+    if(nav ? nav.extras.state : false){
       const routeParams = this.router.getCurrentNavigation().extras.state
       this.text = routeParams.text;
       this.buttonText = routeParams.buttonText;
       this.title = routeParams.title;
       this.redirectUrl = routeParams.redirectUrl;
-  } 
+    } 
   }
 
   ngOnInit() {}

@@ -1,0 +1,8 @@
+<div (click)="showImage()" disabled="'!imageForQuestionFlag'"class="imageListItemContainer">
+  <img
+    [ngClass]="imageForQuestionFlag ? '__clickable' : ''"
+    class="imageListItemImage"
+    [src]="createImagePath(imageItem.path)"
+    alt="imagen de pregunta"
+  />
+</div>

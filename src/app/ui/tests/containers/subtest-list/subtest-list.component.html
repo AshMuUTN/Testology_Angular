@@ -1,1 +1,45 @@
-<p>subtest-list works!</p>
+<div class="testListContainer" [ngClass]="subtests.length ? '__hasItems' : ''">
+    <div class="testListTitleContainer">
+      <app-title
+        [titleText]="titleText"
+        [subtitleText]="subtitleText"
+        [titleForwardText]="titleForwardText"
+        [titleBackText]="titleBackText"
+        [titleBackUrl]="titleBackUrl"
+        (goForward)="newSubtest()"
+      ></app-title>
+    </div>
+    <div class="testListFormFlexContainer">
+      <app-checkbox
+        class="testListFormCheckbox" 
+        [parentFormGroup]="form"
+        [name]="deletingEnabledField"
+        [label]="deletingEnabledLabel"
+        (change)="readDeletingEnabledField()"
+      ></app-checkbox>
+      <div class="testListForm">
+        <app-search-bar
+          [name]="searchField"
+          [parentFormGroup]="form"
+        ></app-search-bar>
+      </div>
+    </div>
+  
+    <app-test-list-item
+      *ngFor="let subtest of subtests | filterList: filter"
+      [testItem]="subtest"
+      [deletingEnabled]="deletingEnabled"
+      (showTestEvent)="showSubtest(subtest)"
+      (editOrCloneAction)="editSubtest(subtest)"
+      (deleteAction)="deleteSubtest(subtest)"
+    ></app-test-list-item>
+  
+    <app-empty-list-message 
+      *ngIf="!subtests.length"
+      [itemName]="itemName"
+      (addAction)="newSubtest()"
+    >
+    </app-empty-list-message>
+  
+  </div>
+  

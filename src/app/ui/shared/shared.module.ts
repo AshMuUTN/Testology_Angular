@@ -16,6 +16,8 @@ import { RadioButtonOptionComponent } from './elements/radio-button-option/radio
 import { TextAreaComponent } from './elements/text-area/text-area.component';
 import { FormStatusComponent } from './elements/form-status/form-status.component';
 import { EmptyListMessageComponent } from './elements/empty-list-message/empty-list-message.component';
+import { ArrayGroupInputsComponent } from './elements/array-group-inputs/array-group-inputs.component';
+import { CheckboxComponent } from "./elements/checkbox/checkbox.component";
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { EmptyListMessageComponent } from './elements/empty-list-message/empty-l
     RadioButtonOptionComponent,
     TextAreaComponent,
     FormStatusComponent,
-    EmptyListMessageComponent
+    EmptyListMessageComponent,
+    ArrayGroupInputsComponent,
+    CheckboxComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +54,9 @@ import { EmptyListMessageComponent } from './elements/empty-list-message/empty-l
     RadioButtonOptionComponent,
     TextAreaComponent,
     FormStatusComponent,
-    EmptyListMessageComponent
+    EmptyListMessageComponent,
+    ArrayGroupInputsComponent,
+    CheckboxComponent
   ],
   entryComponents: [],
 })

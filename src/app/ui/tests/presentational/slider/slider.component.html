@@ -1,0 +1,11 @@
+<div class="sliderContainer" [formGroup]="formGroup" >
+<label class="switch">
+    <input 
+        [formControlName]="name"
+        type="checkbox"
+        name="{{name}}"
+        (ngModelChange)="onChange($event)"
+    >
+    <span class="slider round">{{text}}</span>
+  </label>
+</div>

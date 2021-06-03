@@ -1,0 +1,44 @@
+<div class="testListContainer" [ngClass]="questions.length ? 'testListContainer__hasItems' : ''">
+    <div class="testListTitleContainer">
+      <app-title
+        [titleText]="titleText"
+        [titleForwardText]="titleForwardText"
+        [titleBackText]="titleBackText"
+        [titleBackUrl]="titleBackUrl"
+        (goForward)="newQuestion()"
+      ></app-title>
+    </div>
+    <div class="testListFormFlexContainer">
+      <app-checkbox
+        class="testListFormCheckbox" 
+        [parentFormGroup]="form"
+        [name]="deletingEnabledField"
+        [label]="deletingEnabledLabel"
+        (change)="readDeletingEnabledField()"
+      ></app-checkbox>
+      <div class="testListform">
+        <app-search-bar
+          [name]="searchField"
+          [parentFormGroup]="form"
+        ></app-search-bar>
+      </div>
+    </div>
+  
+    <app-question-list-item
+      *ngFor="let question of questions | filterList: filter : 'text' : 'text'"
+      [testItem]="question"
+      [deletingEnabled]="deletingEnabled"
+      (showQuestionEvent)="showQuestion(question)"
+      (editAction)="editQuestion(question)"
+      (deleteAction)="deleteQuestion(question)"
+    ></app-question-list-item>
+  
+    <app-empty-list-message 
+      *ngIf="!questions.length"
+      [itemName]="itemName"
+      (addAction)="newQuestion()"
+    >
+    </app-empty-list-message>
+  
+  </div>
+  

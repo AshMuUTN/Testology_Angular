@@ -3,7 +3,6 @@
 .main-app {
   width: 100vw;
   height: 100vh;
-
   &.main-app-msg {
     background-color: $greenPrimary;
   }
@@ -16,17 +15,21 @@
   }
 }
 
-
-
-
-.main-container {
-  margin: 0 auto;
-  margin-top: 3.5rem;
-  padding-top: 4.5rem;
-
+.main-container-wrapper {
+  padding: 5rem;
   @media screen and (max-width: 425px) {
-    margin-top: 0rem;
-    padding-top: 0rem;
+    padding: 0;
+  }
+  
+  &.main-container-msg {
+    background-color: $greenPrimary;
+  }
+
+  &.main-container-reg {
+    background-color: $greenPrimary;
+    @media screen and (max-width: 425px) {
+      background-color: $white;
+    }
   }
 }
 

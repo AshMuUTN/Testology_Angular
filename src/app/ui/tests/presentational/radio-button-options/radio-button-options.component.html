@@ -1,0 +1,11 @@
+<div class="radioButtonStepContainer" [formGroup]="formGroup">
+    <app-radio-button-option
+      *ngFor="let label of radioButtonLabels; index as i"
+      [parentFormGroup]="formGroup"
+      [name]="name"
+      [label]="label"
+      [value]="i"
+      [selected]="selected"
+      (keyup.enter)="enterPressedAction()"
+    ></app-radio-button-option>
+  </div>

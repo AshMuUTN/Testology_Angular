@@ -1,32 +1,37 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 import * as fromDomainState from '../core/reducers/index';
 
-const selectTest = createSelector(
+const selectTestState = createSelector(
   fromDomainState.selectDomainState,
   (state) => state.test
 )
  
 export const selectPostTestSuccess = createSelector(
-  selectTest,
+  selectTestState,
   (state) => state.postSuccess
 );
 
 export const selectLoadTestSuccess = createSelector(
-  selectTest,
+  selectTestState,
   (state) => state.loadSuccess
 );
 
 export const selectAllTests = createSelector(
-  selectTest,
+  selectTestState,
   (state) => state.tests
 );
 
 export const selectCurrentTest = createSelector(
-  selectTest,
+  selectTestState,
   (state) => state.test
 );
 
 export const selectCloneFlag = createSelector(
-  selectTest,
+  selectTestState,
   (state) => state.cloneFlag
+);
+
+export const selectDeleteTestSuccess = createSelector(
+  selectTestState,
+  (state) => state.deleteSuccess
 );

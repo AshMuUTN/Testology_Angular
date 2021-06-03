@@ -1,0 +1,39 @@
+<div [formGroup]="parentFormGroup">
+    <div [formArrayName]="name">
+        <div *ngFor="let control of arrayControls; index as i;" class="kui-form-container">
+            <label class="array-textfield-outlined mb-0" [class.array-textfield-outlined__error]="hasError(i) && hasDirty(i)">
+                <div
+                    class="close closeButton" 
+                    aria-label="Eliminar opción" 
+                    data-toggle="tooltip" 
+                    title="eliminar opción"
+                    (click)="removeItem(i)"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </div>
+                <input
+                    [formControlName]="i"
+                    placeholder=" "
+                    name="{{i}}"
+                    [type]="type || 'text'"
+                    maxlength="{{ maxlength || null }}"
+                />
+                <span>{{ label }}</span>
+            </label>
+            <div class="array-textfield-outlined-helper-line">
+                <div
+                    class="array-textfield-outlined-helper-text"
+                    [ngClass]="
+                        hasError(i) && hasDirty(i)
+                            ? 'array-textfield-outlined-helper-text__error'
+                            : 'array-textfield-outlined-helper-text__persistent'
+                    "
+                >
+                    <ng-container *ngIf="displayTextFieldMessage(i) || showTexfield">
+                        {{ textfield }}
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

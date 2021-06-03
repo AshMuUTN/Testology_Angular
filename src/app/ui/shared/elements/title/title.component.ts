@@ -10,6 +10,7 @@ import { RedirectorService } from 'src/app/application/services/redirector.servi
 export class TitleComponent implements OnInit {
 
   @Input() titleText : string;
+  @Input() subtitleText : string;
   @Input() titleForwardText : string;
   @Input() titleForwardUrl: string;
   @Input() titleBackText : string;

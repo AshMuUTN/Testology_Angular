@@ -53,4 +53,34 @@ export class TestEffects {
     );
   });
 
+  deleteTest$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TestActions.deleteTest),
+      switchMap((props) =>
+        this.appService.deleteTest(props.testId).pipe(
+          map(() =>
+            TestActions.deleteTestSuccess({ success: true, testId: props.testId })
+          ),
+          catchError(() =>
+            of(
+              TestActions.deleteTestSuccess({
+                success: false,
+                testId: 0,
+              })
+            )
+          )
+        )
+      )
+    );
+  });
+
+  deleteTestSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TestActions.deleteTestSuccess),
+      switchMap((props) =>
+        of(TestActions.removeTestFromState({ testId: props.testId }))
+      )
+    );
+  });
+
 }

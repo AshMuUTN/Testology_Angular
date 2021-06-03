@@ -1,0 +1,16 @@
+<div class="radioButtonStepContainer" [formGroup]="formGroup">
+  <app-radio-button-option
+    [parentFormGroup]="formGroup"
+    [name]="fieldName"
+    [label]="falseLabel"
+    [value]="false"
+    [selected]="selected"
+  ></app-radio-button-option>
+  <app-radio-button-option
+    [parentFormGroup]="formGroup"
+    [name]="fieldName"
+    [label]="trueLabel"
+    [value]="true"
+    [selected]="selected"
+  ></app-radio-button-option>
+</div>

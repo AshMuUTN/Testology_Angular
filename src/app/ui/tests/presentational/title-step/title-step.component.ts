@@ -13,6 +13,7 @@ export class TitleStepComponent implements OnInit {
   @Input() label: string;
   @Input() name: string;
   @Input() textfield: string;
+  @Input() subtext: string;
   @Output() attemptSubmit = new EventEmitter<void>();
 
   field: InputOptions;

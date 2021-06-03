@@ -1,0 +1,77 @@
+<div class="testBuilderContainer" *ngIf="currentStep && !formSent">
+    <div class="testBuilderTitleContainer">
+      <app-title
+        [titleText]="currentOptions.titleText"
+        [titleBackText]="currentOptions.titleBackText"
+        (goBack)="goBackActionForStep()"
+      ></app-title>
+    </div>
+    <app-slider
+      *ngIf="currentStep === 'question' && subtestConfig.isOpenQuestionsAllowed && !deleteFlag"
+      [selectedText]="openQuestionLabel"
+      [deselectedText]="multipleChoiceQuestionLabel"
+      [formGroup]="form"
+      [name]="'hasOptions'"
+      (sliderChange)="updateHasOptionsValue($event)"
+    ></app-slider>
+    <div class="testBuilderStepContainer" [ngSwitch]="currentStep">
+      <div *ngSwitchCase="'question'">
+        <app-title-step
+          [formGroup]="form"
+          [label]="questionLabel"
+          [name]="'question'"
+          [textfield]="questionTextfield"
+          [subtext]="questionSubtext"
+          (attemptSubmit)="submitAttemptedViaEnter()"
+        ></app-title-step>
+        <app-question-options
+          class="testBuilderOptionsWrapper"  
+          *ngIf="appQuestion.hasOptions && !deleteFlag"
+          [formGroup]="form"
+          [label]="optionLabel"
+          [textfield]="optionTextfield"
+          [name]="'options'"
+          (addItem)="addItem()"
+          (removeItem)="removeItem($event)"
+          (attemptSubmit)="submitAttemptedViaEnter()"
+        ></app-question-options>
+        <app-checkbox
+          class="testBuilderCheckboxContainer" 
+          *ngIf="appQuestion.hasOptions && !subtestConfig.optionsMustBeNumbers && !deleteFlag"
+          [parentFormGroup]="form"
+          [name]="'optionsMustBeNumbers'"
+          [label]="numbersOnlyLabel"
+          (change)="setOrRemoveNumbersOnlyValidators()"
+        ></app-checkbox>
+      </div>
+      <app-radio-button-options
+        *ngSwitchCase="'correctOption'"
+        [formGroup]="form"
+        [radioButtonLabels]="getFormFieldValue('options')"
+        (attemptSubmit)="submitAttemptedViaEnter()"
+        [name]="'correctOption'"
+      ></app-radio-button-options>
+    </div>
+    <div class="testBuilderButtonContainer">
+      <app-button
+        [buttonDisabled]="disableButton()"
+        [options]="buttonOptions"
+        (wasClicked)="confirmActionForStep()"
+      >
+        {{ currentOptions.confirmText }}
+      </app-button>
+    </div>
+  </div>
+  <div class="testBuilderStatusContentWrapper">
+    <div class="testBuilderStatusContent"  *ngIf="formSent">
+      <app-form-status
+        [buttonText]="statusButtonText"
+        [title]="statusTitle"
+        [text]="statusText"
+        [secondaryActionText]="statusSecondaryActionText"
+        (acceptStatus)="statusAcceptedAction()"
+        (secondaryAction)="statusAcceptedSecondaryAction()"
+      ></app-form-status>
+    </div>
+  </div>
+

@@ -1,0 +1,37 @@
+<div class="testBuilderContainer" *ngIf="currentStep && !formSent">
+    <div class="testBuilderTitleContainer">
+      <app-title
+        [titleText]="currentOptions.titleText"
+        [titleBackText]="currentOptions.titleBackText"
+        (goBack)="goBackActionForStep()"
+      ></app-title>
+    </div>
+    <div class="testBuilderStepContainer">
+      <app-image-upload-step
+        [parentFormGroup]="form"
+        [name]="currentStep"
+        [image]="image"
+        (attemptSubmit)="submitAttemptedViaEnter()"
+        (processFileEvent)="processFile($event)"
+      ></app-image-upload-step>
+    </div>
+    <div class="testBuilderButtonContainer">
+      <app-button
+        [buttonDisabled]="disableButton()"
+        [options]="buttonOptions"
+        (wasClicked)="confirmActionForStep()"
+      >
+        {{ currentOptions.confirmText }}
+      </app-button>
+    </div>
+  </div>
+  <div class="testBuilderStatusContentWrapper">
+    <div class="testBuilderStatusContent"  *ngIf="formSent">
+      <app-form-status
+        [buttonText]="statusButtonText"
+        [title]="statusTitle"
+        [text]="statusText"
+        (acceptStatus)="statusAcceptedAction()"
+      ></app-form-status>
+    </div>
+  </div>

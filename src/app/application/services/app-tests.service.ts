@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MessageResponse } from '@entities/message-response';
 import { Test } from '@entities/test/test';
 import { AuthService } from '@infrastructure/core/auth.service';
 import { Observable } from 'rxjs';
@@ -30,6 +31,17 @@ export class AppTestsService {
      const userEmail = this.authService.getUserEmailLocally();
     return this.testsRepositoryService
       .getUserTests(userEmail)
+      .pipe(map((response) => response));
+  }
+
+  /**
+   * @description funtion that logically deletes a test
+   * @param testId the id of the test we want to delete
+   * @returns observable of type MessageResponse, the value returned by the backend
+   */
+  public deleteTest(testId : number) : Observable<MessageResponse> {
+    return this.testsRepositoryService
+      .deleteTest(testId)
       .pipe(map((response) => response));
   }
 }

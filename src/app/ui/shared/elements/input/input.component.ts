@@ -29,6 +29,7 @@ export class InputComponent {
     get hasDirty() {
         return this.parentFormGroup.controls[this.options.name].dirty;
     }
+
     /**
      * Cheks if the message is to be displayed below the text field.
      * @returns boolean

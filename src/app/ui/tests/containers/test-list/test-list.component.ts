@@ -7,6 +7,7 @@ import { MessagePageParams } from '@ui/view-models/interfaces/message-page-param
 import { Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import { RedirectorService } from 'src/app/application/services/redirector.service';
+import { setDeleteFlagFalse, setDeleteFlagTrue } from 'src/app/application/state/app-state/delete-flag/delete-flag.actions';
 import { State } from 'src/app/application/state/core/reducers';
 import { cleanLoadTestsSuccess, cleanSingleTest, loadTests, saveSingleTestToStore, setCloneFlagFalse } from "src/app/application/state/domain-state/test/test.actions";
 import * as testSelectors from "src/app/application/state/domain-state/test/test.selectors";
@@ -21,11 +22,14 @@ export class TestListComponent implements OnInit, OnDestroy {
   titleText = "Tests";
   titleForwardText = "Nuevo";
 
-  searchForm: FormGroup;
+  form: FormGroup;
   searchField = 'search';
   filter = '';
   isCloneSearch = false;
+  deletingEnabled = false;
 
+  deletingEnabledField = 'deletingEnabled';
+  deletingEnabledLabel = 'Borrar algo';
 
   tests: Test[];
 
@@ -34,8 +38,12 @@ export class TestListComponent implements OnInit, OnDestroy {
   onDestroy$: Subject<void>;
 
   constructor(private formBuilder: FormBuilder, private store$ : Store<State>, private router: Router, private redirectorService: RedirectorService) { 
-    this.searchForm = this.createForm();
+    this.form = this.createForm();
     this.onDestroy$ = new Subject<void>();
+    this.store$.select(testSelectors.selectCloneFlag).pipe(
+      takeUntil(this.onDestroy$),
+      map((cloneFlag) => this.isCloneSearch = cloneFlag)
+    ).subscribe();
   }
 
   ngOnInit(): void {
@@ -55,9 +63,10 @@ export class TestListComponent implements OnInit, OnDestroy {
       map((tests) => this.tests = tests)
     ).subscribe();
     this.store$.select(testSelectors.selectLoadTestSuccess).pipe(
+      takeUntil(this.onDestroy$),
       filter((val) => val !== undefined),
       map((success) => this.handleLoadSuccessOrError(success))
-    )
+    ).subscribe();
   }
 
   handleLoadSuccessOrError(success){
@@ -81,30 +90,46 @@ export class TestListComponent implements OnInit, OnDestroy {
   newTest(){
     this.store$.dispatch(cleanSingleTest());
     this.store$.dispatch(setCloneFlagFalse());
+    this.store$.dispatch(setDeleteFlagFalse());
     this.redirectorService.goToTestForm();
   }
 
   showTest(test: Test){
-
+    this.store$.dispatch(saveSingleTestToStore({ test }));
+    this.store$.dispatch(setCloneFlagFalse());
+    this.store$.dispatch(setDeleteFlagFalse());
+    this.redirectorService.goToSubtests();
   }
 
   editTest(test: Test){
+    this.store$.dispatch(setDeleteFlagFalse());
+    this.store$.dispatch(saveSingleTestToStore({test}));
+    this.redirectorService.goToTestForm();
+  }
+
+  deleteTest(test: Test){
+    this.store$.dispatch(setDeleteFlagTrue());
     this.store$.dispatch(saveSingleTestToStore({test}));
     this.redirectorService.goToTestForm();
   }
 
   private createForm() {
     return this.formBuilder.group({
-      search: new FormControl("")
+      search: new FormControl(""),
+      deletingEnabled: new FormControl(false)
     });
   }
 
   listenForSearchChangesAndUpdateFilter(){
-    this.searchForm.controls.search.valueChanges
+    this.form.controls.search.valueChanges
     .pipe(takeUntil(this.onDestroy$))
     .subscribe((change) =>
       this.filter = change
     )
+  }
+
+  readDeletingEnabledField(){
+    this.deletingEnabled = this.form.controls.deletingEnabled.value;
   }
 
 }

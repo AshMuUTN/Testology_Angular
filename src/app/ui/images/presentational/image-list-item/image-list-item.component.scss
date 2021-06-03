@@ -1,0 +1,17 @@
+@import "/lib/extra-bootstrap/dist/scss/global.scss";
+
+.imageListItemContainer {
+    @extend .shadow;
+    margin: 10px;
+
+    &.__clickable:hover {
+        cursor: pointer;
+    }
+    .imageListItemImage {
+        height: 160px;
+        @media screen and (max-width: 425px) {
+            height: auto;
+            width: 280px;
+        }
+    }
+}

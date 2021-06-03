@@ -7,6 +7,7 @@ export const testFeatureKey = "test";
 export interface State {
   loadSuccess: boolean;
   postSuccess: boolean;
+  deleteSuccess: boolean;
   tests: Test[];
   test: Test;
   cloneFlag: boolean;
@@ -15,6 +16,7 @@ export interface State {
 export const initialState: State = {
   loadSuccess: undefined,
   postSuccess: undefined,
+  deleteSuccess: undefined,
   tests: [],
   test: null,
   cloneFlag: false,
@@ -54,5 +56,14 @@ export const reducer = createReducer(
   }),
   on(TestActions.setCloneFlagFalse, (state) => {
     return { ...state, cloneFlag: false };
-  })
+  }),
+  on(TestActions.deleteTestSuccess, (state, action) => {
+    return { ...state, deleteSuccess: action.success };
+  }),
+  on(TestActions.cleanDeleteTestSuccess, (state) => {
+    return { ...state, deleteSuccess: undefined };
+  }),
+  on(TestActions.removeTestFromState, (state, action) => {
+    return { ...state, Tests : state.tests.filter(t => t.id !== action.testId) };
+  }),
 );

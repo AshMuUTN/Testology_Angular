@@ -7,11 +7,10 @@ import { RegistrationFormComponent } from './containers/registration-form/regist
 import { LoginFormComponent } from './containers/login-form/login-form.component';
 import { PasswordChangeComponentComponent } from './containers/password-change-component/password-change-component.component';
 import { UserFormComponent } from './presentational/user-form/user-form.component';
-import { UserFormStatusComponent } from './presentational/user-form-status/user-form-status.component';
 import { NewPasswordFormComponent } from './containers/new-password-form/new-password-form.component';
 
 @NgModule({
-  declarations: [RegistrationFormComponent, LoginFormComponent, PasswordChangeComponentComponent, UserFormComponent, UserFormStatusComponent, NewPasswordFormComponent],
+  declarations: [RegistrationFormComponent, LoginFormComponent, PasswordChangeComponentComponent, UserFormComponent, NewPasswordFormComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

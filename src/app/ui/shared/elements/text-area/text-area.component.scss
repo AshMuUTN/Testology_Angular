@@ -43,7 +43,7 @@
                 vertical-align: 0;
             }
             &__error {
-                color: red;
+                color: $fuscia;
             }
         }
         &__persistent {
@@ -200,72 +200,72 @@
         /* Error */
         &__error {
             > textarea {
-                border-color: red;
+                border-color: $fuscia;
                 border-top-color: transparent;
                 outline: none;
                 &:not(:focus):placeholder-shown {
-                    border-color: red;
+                    border-color: $fuscia;
                 }
                 + span {
                     height: 0px;
                     background-color: #ffffff;
-                    color: red;
+                    color: $fuscia;
                     &:after {
-                        border-top-color: red !important;
+                        border-top-color: $fuscia !important;
                     }
                     &:before {
-                        border-top-color: red !important;
-                        border-left-color: red !important;
+                        border-top-color: $fuscia !important;
+                        border-left-color: $fuscia !important;
                     }
                 }
                 /* Focus */
                 &:focus {
-                    border-color: red;
+                    border-color: $fuscia;
                     border-top-color: transparent;
                     box-shadow: inset 1px 0 red, inset -1px 0 red, inset 0 -1px red;
                     outline: none;
                     + span {
-                        color: red;
+                        color: $fuscia;
                         &::before,
                         &::after {
-                            border-top-color: red !important;
+                            border-top-color: $fuscia !important;
                             box-shadow: inset 0 1px red;
                         }
                     }
                 }
                 + span {
-                    border-color: red;
+                    border-color: $fuscia;
                 }
             }
             &:hover {
                 > textarea {
-                    border-color: red;
+                    border-color: $fuscia;
                     border-top-color: transparent;
                     outline: none;
                     + span {
-                        color: red;
+                        color: $fuscia;
                         &::before,
                         &::after {
-                            border-top-color: red;
+                            border-top-color: $fuscia;
                         }
                     }
                     /* Focus */
                     &:focus {
-                        border-color: red;
+                        border-color: $fuscia;
                         border-top-color: transparent;
                         box-shadow: inset 1px 0 red, inset -1px 0 red, inset 0 -1px red;
                         outline: none;
                         + span {
-                            color: red;
+                            color: $fuscia;
                             &::before,
                             &::after {
-                                border-top-color: red !important;
+                                border-top-color: $fuscia !important;
                                 box-shadow: inset 0 1px red;
                             }
                         }
                     }
                     &:not(:focus):placeholder-shown {
-                        border-color: red;
+                        border-color: $fuscia;
                     }
                 }
             }

@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Subtest } from '@entities/subtest/subtest';
 import { Test } from '@entities/test/test';
 import { ButtonOptions } from '@ui/view-models/interfaces/button-options.interface';
 
@@ -10,10 +11,12 @@ import { ButtonOptions } from '@ui/view-models/interfaces/button-options.interfa
 })
 export class TestListItemComponent implements OnInit {
 
-  @Input() test: Test;
+  @Input() testItem: Test|Subtest;
   @Input() cloneFlag: boolean;
+  @Input() deletingEnabled: boolean;
   @Output() showTestEvent = new EventEmitter<void>();
   @Output() editOrCloneAction =  new EventEmitter<void>();
+  @Output() deleteAction =  new EventEmitter<void>();
   buttonOptions: ButtonOptions = { type : 'primary-sm'}
 
 
@@ -28,6 +31,10 @@ export class TestListItemComponent implements OnInit {
 
   editOrCloneTest(){
     this.editOrCloneAction.emit();
+  }
+
+  deleteTest(){
+    this.deleteAction.emit();
   }
 
 }

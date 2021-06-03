@@ -7,18 +7,19 @@
     ></app-title>
   </div>
   <div class="testBuilderStepContainer" [ngSwitch]="currentStep">
-    <app-clone-step
-      [cloneLabel]="cloneLabel"
-      [noCloneLabel]="noCloneLabel"
+    <app-radio-button-step
+      [trueLabel]="cloneLabel"
+      [falseLabel]="noCloneLabel"
       [formGroup]="form"
       [fieldName]="'clone'"
       *ngSwitchCase="'clone'"
-    ></app-clone-step>
+    ></app-radio-button-step>
     <app-title-step
       [formGroup]="form"
       [label]="titleLabel"
       [name]="'title'"
       [textfield]="titleTextfield"
+      [subtext]="titleSubtext"
       (attemptSubmit)="submitAttemptedViaEnter()"
       *ngSwitchCase="'title'"
     ></app-title-step>

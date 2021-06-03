@@ -1,0 +1,33 @@
+<hr />
+<div class="testItem">
+  <div class="testItemName">
+    <a (click)="showQuestion()">{{ testItem.text }}</a>
+    <div class="testItemEditButton">
+      <div class="testItemEditButton">
+        <a
+          *ngIf="deletingEnabled"
+          data-toggle="tooltip"
+          title="Borrar"
+          class="deleteLink"
+          (click)="deleteTest()"
+          ><i class="bi bi-trash"></i
+        ></a>
+        <a
+          data-toggle="tooltip"
+          title="'Editar'"
+          class="editLink"
+          (click)="editQuestion()"
+          ><i class="bi bi-pencil-square"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="testItem.image" class="imageListItemContainer">
+    <img
+      class="imageListItemImage"
+      [src]="createImagePath(testItem.image.path)"
+      alt="imagen de pregunta"
+    />
+  </div>
+</div>
+

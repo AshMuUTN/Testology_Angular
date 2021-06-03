@@ -58,10 +58,9 @@ export class NewPasswordFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.listenForNewPasswordSuccess();
     this.route.params.subscribe(params => {
+      debugger;
       this.token = params['token'];
-    }
-      
-      )
+    })
   }
 
   ngOnDestroy() {

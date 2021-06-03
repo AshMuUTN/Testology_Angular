@@ -47,6 +47,26 @@ export class RedirectorService {
     this.router.navigateByUrl('tests/subtests');
   }
 
+  goToSubtestForm(){
+    this.router.navigateByUrl('tests/subtest-form')
+  }
+
+  goToQuestions(){
+    this.router.navigateByUrl('tests/questions');
+  }
+
+  goToQuestionForm(){
+    this.router.navigateByUrl('tests/question-form')
+  }
+
+  goToImages(){
+    this.router.navigateByUrl('images');
+  }
+
+  goToImageForm(){
+    this.router.navigateByUrl('images/form')
+  }
+
  
 
   // helpers 

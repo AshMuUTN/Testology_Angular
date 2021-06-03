@@ -1,37 +1,72 @@
 <hr />
 <div class="row testItem">
-  <div class="col-md-auto testItemName">
-    <a (click)="showTest()">{{ test.name }}</a>
-    <a
-      data-toggle="tooltip"
-      title="{{ cloneFlag ? 'Clonar' : 'Editar' }}"
-      class="d-md-none editLink editLinkSmall"
-      (click)="editOrCloneTest()"
-      ><i class="bi" [ngClass]="cloneFlag ? 'bi-clipboard' : 'bi-pencil-square'"></i
-    ></a>
-  </div>
-  <div
-    class="col testItemDescription"
-    data-toggle="tooltip"
-    title="{{ test.description }}"
-  >
-    <div class="testItemDescriptionText">
-      {{ test.description }}
-    </div>
-    <span class="visually-hidden">{{ test.description }}</span>
-  </div>
-  <div class="col-md-auto testItemDate">
-    {{ test.createdAt | date: "mediumDate":"es-AR" }}
-  </div>
-  <div class="col-md-auto testItemEditButton">
-    <div class="col-md-auto testItemEditButton">
+  <div class="col-lg-auto testItemName">
+    <a (click)="showTest()">{{ testItem.name }}</a>
+    <div class="d-lg-none testItemsLinkContainer">
+      <a
+        *ngIf="deletingEnabled"
+        data-toggle="tooltip"
+        title="Borrar"
+        class="deleteLink deleteLinkSmall"
+        (click)="deleteTest()"
+        ><i class="bi bi-trash"></i
+      ></a>
       <a
         data-toggle="tooltip"
         title="{{ cloneFlag ? 'Clonar' : 'Editar' }}"
-        class="d-none d-md-block editLink"
+        class="editLink editLinkSmall"
         (click)="editOrCloneTest()"
-        ><i class="bi" [ngClass]="cloneFlag ? 'bi-clipboard' : 'bi-pencil-square' "></i
+        ><i
+          class="bi"
+          [ngClass]="cloneFlag ? 'bi-clipboard' : 'bi-pencil-square'"
+        ></i
       ></a>
     </div>
+    <div
+      class="col d-lg-none testItemDescription"
+      data-toggle="tooltip"
+      title="{{ testItem.description }}"
+    >
+      <div class="testItemDescriptionText">
+        {{ testItem.description }}
+      </div>
+      <span class="visually-hidden">{{ testItem.description }}</span>
+    </div>
+    <div class="col-auto d-lg-none testItemDate">
+      {{ testItem.createdAt | date: "mediumDate":"es-AR" }}
+    </div>
+  </div>
+  <div
+    class="col d-none d-lg-block testItemDescription"
+    data-toggle="tooltip"
+    title="{{ testItem.description }}"
+  >
+    <div class="testItemDescriptionText">
+      {{ testItem.description }}
+    </div>
+    <span class="visually-hidden">{{ testItem.description }}</span>
+  </div>
+  <div class="col-auto d-none d-lg-block testItemDate">
+    {{ testItem.createdAt | date: "mediumDate":"es-AR" }}
+  </div>
+  <div class="col-auto d-none d-lg-block testItemEditButton">
+    <a
+      *ngIf="deletingEnabled"
+      data-toggle="tooltip"
+      title="Borrar"
+      class="d-none d-lg-block deleteLink"
+      (click)="deleteTest()"
+      ><i class="bi bi-trash"></i
+    ></a>
+    <a
+      data-toggle="tooltip"
+      title="{{ cloneFlag ? 'Clonar' : 'Editar' }}"
+      class="d-none d-lg-block editLink"
+      (click)="editOrCloneTest()"
+      ><i
+        class="bi"
+        [ngClass]="cloneFlag ? 'bi-clipboard' : 'bi-pencil-square'"
+      ></i
+    ></a>
   </div>
 </div>

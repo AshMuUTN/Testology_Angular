@@ -12,12 +12,14 @@ export class RadioButtonOptionComponent implements OnInit {
   @Input() name: string;
   @Input() label: string;
   @Input() parentFormGroup: FormGroup;
-  @Input() value: string;
-  @Input() selected: boolean;
+  @Input() value: string | boolean;
+  @Input() selected: string | boolean;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
   }
-
+  get isSelected(){
+    return this.value === this.selected;
+  }
 }

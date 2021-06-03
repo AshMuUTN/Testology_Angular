@@ -3,11 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { AuthGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
-  {
-    path: "",
-    redirectTo: "tests",
-    pathMatch: "full",
-  },
+  
   {
     path: "sesion",
     loadChildren: () => import("./user/user.module").then((m) => m.UserModule),
@@ -18,10 +14,8 @@ const routes: Routes = [
     loadChildren: () =>
       import("./tests/tests.module").then((m) => m.TestsModule),
   },
-  {
-    path: "**",
-    redirectTo: "message", // default for message is a 404 not found message
-  },
+  { path: 'images', loadChildren: () => import('./images/images.module').then(m => m.ImagesModule) },
+  
 ];
 
 @NgModule({

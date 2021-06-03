@@ -1,0 +1,20 @@
+<div *ngIf="!image.path" [formGroup]="parentFormGroup">
+  <label class="imageUploadContainer btn">
+    <span>Elegir Imagen</span>
+    <input
+      #imageInput
+      [formControlName]="name"
+      type="file"
+      accept="image/*"
+      (change)="processFile(imageInput)"
+      (keyup.enter)="enterPressedAction()"
+    />
+  </label>
+</div>
+<div *ngIf="image.path">
+  <img
+    class="imageUploadImage"
+    [src]="createImagePath(image.path)"
+    alt="imagen de pregunta"
+  />
+</div>

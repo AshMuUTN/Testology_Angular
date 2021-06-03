@@ -10,7 +10,7 @@ export const loadTestsSuccess = createAction(
   props<{ success: boolean, tests: Test[]}>()
 );
 export const cleanLoadTestsSuccess = createAction(
-  '[User/API] Clean Load Success'
+  '[Test] Clean Load Success'
 );
 
 export const saveTestsToStore = createAction(
@@ -19,7 +19,7 @@ export const saveTestsToStore = createAction(
 );
 
 export const cleanTests = createAction(
-  '[User/API] Clean Tests'
+  '[Test] Clean Tests'
 );
 
 export const postTest = createAction(
@@ -33,7 +33,7 @@ export const postTestSuccess = createAction(
 );
 
 export const cleanPostTestSuccess = createAction(
-  '[User/API] Clean Post Test Success'
+  '[Test] Clean Post Test Success'
 );
 
 export const saveSingleTestToStore = createAction(
@@ -42,16 +42,34 @@ export const saveSingleTestToStore = createAction(
 );
 
 export const cleanSingleTest = createAction(
-'[User/API] Clean Single Test'
+'[Test] Clean Single Test'
 );
 
 export const setCloneFlagTrue = createAction(
-  '[User/API] Set Clone Flag True'
+  '[Test] Set Clone Flag True'
 );
 
 export const setCloneFlagFalse = createAction(
-  '[User/API] Set Clone Flag False'
+  '[Test] Set Clone Flag False'
 );
 
+export const deleteTest = createAction(
+  '[Test] Delete Test',
+  props<{ testId: number}>()
+);
+
+export const deleteTestSuccess = createAction(
+  '[Test] Delete Test Success',
+  props<{ success: boolean, testId : number }>()
+);
+
+export const cleanDeleteTestSuccess = createAction(
+  '[User/API] Clean Delete Test Success'
+);
+
+export const removeTestFromState = createAction(
+  '[Test] Remove Test From State',
+  props<{ testId: number}>()
+)
 
 

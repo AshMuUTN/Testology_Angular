@@ -71,10 +71,22 @@
         .slider.round:before {
             border-radius: 34px;
         }
-    }
-      
-    
-      
-   
+
+        &.rangeOrCalculation {
+            /* The slider */
+           .slider {
+               padding: 8px 0 8px 180px;
+           }
+           input:checked + .slider {
+               padding: 8px 50px;
+           }
+           .slider:before {
+               content: "Cálculo";
+           }
+           input:checked + .slider:before {
+               content: "Rango";
+           }
+       }
+    }   
 }
   

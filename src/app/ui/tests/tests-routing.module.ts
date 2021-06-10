@@ -13,8 +13,8 @@ const routes: Routes = [
   { path: 'form', component: TestBuilderStepsComponent},
   { path: 'subtests', component: SubtestListComponent},
   { path: 'subtest-form', component: SubtestBuilderStepsComponent},
-  { path: 'questions', component: QuestionListComponent},
-  { path: 'question-form', component: QuestionBuilderComponent}
+  { path: 'preguntas', component: QuestionListComponent},
+  { path: 'pregunta-form', component: QuestionBuilderComponent}
 ];
 
 @NgModule({

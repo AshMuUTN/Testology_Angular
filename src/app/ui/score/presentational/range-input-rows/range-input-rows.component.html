@@ -1,0 +1,87 @@
+<div [formGroup]="parentFormGroup">
+    <div [formArrayName]="name">
+        <div *ngFor="let group of arrayGroups; index as i;" class="kui-form-container" [formGroup]="group">
+            <label class="array-textfield-outlined mb-0" [class.array-textfield-outlined__error]="hasError(i,'from') && hasDirty(i,'from')">
+                <input
+                    [formControlName]="'from'"
+                    placeholder=" "
+                    name="from"
+                    [type]="type || 'text'"
+                    maxlength="{{ maxlength || null }}"
+                />
+                <span>{{ labels[0] }}</span>
+            </label>
+            <div class="array-textfield-outlined-helper-line">
+                <div
+                    class="array-textfield-outlined-helper-text"
+                    [ngClass]="
+                        hasError(i,'from') && hasDirty(i,'from')
+                            ? 'array-textfield-outlined-helper-text__error'
+                            : 'array-textfield-outlined-helper-text__persistent'
+                    "
+                >
+                    <ng-container *ngIf="displayTextFieldMessage(i, 'from') || showTexfield">
+                        {{ textfield }}
+                    </ng-container>
+                </div>
+            </div>
+            <label class="array-textfield-outlined mb-0" [class.array-textfield-outlined__error]="hasError(i,'to') && hasDirty(i,'to')">
+                <input
+                    [formControlName]="'to'"
+                    placeholder=" "
+                    name="to"
+                    [type]="type || 'text'"
+                    maxlength="{{ maxlength || null }}"
+                />
+                <span>{{ labels[1] }}</span>
+            </label>
+            <div class="array-textfield-outlined-helper-line">
+                <div
+                    class="array-textfield-outlined-helper-text"
+                    [ngClass]="
+                        hasError(i,'to') && hasDirty(i,'to')
+                            ? 'array-textfield-outlined-helper-text__error'
+                            : 'array-textfield-outlined-helper-text__persistent'
+                    "
+                >
+                    <ng-container *ngIf="displayTextFieldMessage(i, 'to') || showTexfield">
+                        {{ textfield }}
+                    </ng-container>
+                </div>
+            </div>
+            <label class="array-textfield-outlined mb-0" [class.array-textfield-outlined__error]="hasError(i,'value') && hasDirty(i,'value')">
+                <div
+                    class="close closeButton" 
+                    aria-label="Eliminar opción" 
+                    data-toggle="tooltip" 
+                    title="eliminar opción"
+                    (click)="removeItem(i)"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </div>
+                <input
+                    [formControlName]="'value'"
+                    placeholder=" "
+                    name="value"
+                    [type]="type || 'text'"
+                    maxlength="{{ maxlength || null }}"
+                />
+                <span>{{ labels[2] }}</span>
+            </label>
+            <div class="array-textfield-outlined-helper-line">
+                <div
+                    class="array-textfield-outlined-helper-text"
+                    [ngClass]="
+                        hasError(i,'value') && hasDirty(i,'value')
+                            ? 'array-textfield-outlined-helper-text__error'
+                            : 'array-textfield-outlined-helper-text__persistent'
+                    "
+                >
+                    <ng-container *ngIf="displayTextFieldMessage(i, 'value') || showTexfield">
+                        {{ textfield }}
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="scoreContainer" *ngIf="!formSent">
+    <div class="scoreTitleContainer">
+      <app-title
+        [titleText]="titleText"
+        [titleBackText]="titleBackText"
+        (goBack)="goBack()"
+      ></app-title>
+    </div>
+    <div class="scoreForm">
+      <div class="scoreFieldsContainer">
+          <app-input
+              *ngFor="let field of inputFields"
+              class="scoreFieldInput"
+              [parentFormGroup]="form"
+              [options]="field"
+              (keyup.enter)="enterPressedAction()"
+          ></app-input>
+      </div>
+      <div class="scoreButtonContainer">
+        <app-button
+          [buttonDisabled]="disableButton()"
+          [options]="buttonOptions"
+          (wasClicked)="confirmAction()"
+        >
+          {{ confirmText }}
+        </app-button>
+        <p>
+          <a class="secondaryLink" (click)="deleteAction()">
+            {{ secondaryActionText }}
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="scoreStatusContentWrapper">
+    <div class="scoreStatusContent"  *ngIf="formSent">
+      <app-form-status
+        [buttonText]="statusButtonText"
+        [title]="statusTitle"
+        [text]="statusText"
+        [secondaryActionText]="statusSecondaryActionText"
+        (acceptStatus)="statusAcceptedAction()"
+        (secondaryAction)="statusAcceptedSecondaryAction()"
+      ></app-form-status>
+    </div>
+  </div>
+
+

@@ -106,7 +106,8 @@ export class ScoreFiltersRepositoryService {
    */
    public adaptQuestionScoreFilter(domainFilter: GroupScoreFilter | SubtestScoreFilter | QuestionScoreFilter): QuestionScoreFilter {
     const appFilter = {...domainFilter,
-      questionId: domainFilter['questionId'] ?  domainFilter['questionId'] : -1
+      questionId: domainFilter['questionId'] ?  domainFilter['questionId'] : -1,
+      isForCorrectAnswers: !!domainFilter['isForCorrectAnswers']
     }
     if(appFilter.questionId === -1){
       throw(new Error('Required attribute questionId is missing'))

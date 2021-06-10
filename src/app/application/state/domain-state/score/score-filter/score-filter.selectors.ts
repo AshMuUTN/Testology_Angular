@@ -1,6 +1,17 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromScoreFilter from './score-filter.reducer';
+import { createSelector } from '@ngrx/store';
+import * as fromDomainState from '../../core/reducers/index';
 
-export const selectScoreFilterState = createFeatureSelector<fromScoreFilter.State>(
-  fromScoreFilter.scoreFilterFeatureKey
+const selectScoreFilterState = createSelector(
+  fromDomainState.selectDomainState,
+  (state) => state.scoreFilter
+)
+
+export const selectLoadScoreFilterSuccess =  createSelector(
+  selectScoreFilterState,
+  (state) => state.loadSuccess
+);
+
+export const selectScoreFilters = createSelector(
+  selectScoreFilterState,
+  (state) => state.scoreFilters
 );

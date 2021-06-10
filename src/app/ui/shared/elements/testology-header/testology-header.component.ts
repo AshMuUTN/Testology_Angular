@@ -14,7 +14,7 @@ import { logoutUser } from 'src/app/application/state/domain-state/user/user.act
 })
 export class TestologyHeaderComponent implements OnInit {
 
-  @Input() userLogged =  '';
+  @Input() userLogged =  false;
 
   constructor(private redirectorService : RedirectorService, private store$ : Store<State>) { }
 

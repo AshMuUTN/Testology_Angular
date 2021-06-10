@@ -1,0 +1,77 @@
+<div class="scoreContainer" *ngIf="!showStatus">
+    <div class="scoreTitleContainer">
+      <app-title
+        [titleText]="currentStep.titleText"
+        [subtitleText]="currentStep.titleSubtext"
+        [titleBackText]="currentStep.titleBackText"
+        (goBack)="goBackActionForStep()"
+      ></app-title>
+    </div>
+    <app-slider
+      *ngIf="['pickFilter', 'makeRangeFilters'].includes(currentStepName)"
+      [selectedText]="sliderSelectedText"
+      [deselectedText]="sliderDeselectedText"
+      [formGroup]="form"
+      [name]="'rangeOrCalculation'"
+      [extraClass]="sliderClass"
+      (sliderChange)="processRangeOrCalculationValueChange($event)"
+    ></app-slider>
+    <div class="scoreStepContainer" [ngSwitch]="currentStepName">
+      <app-radio-button-options
+        *ngSwitchCase="'pickFilter' || 'pickNextFilter'"
+        [formGroup]="form"
+        [radioButtonLabels]="currentStep.filterLabels"
+        (attemptSubmit)="submitAttemptedViaEnter()"
+        [name]="'pickFilter' + currentRank"
+      ></app-radio-button-options>
+      <div class="scoreFieldsContainer" *ngSwitchCase="'assignValue'">
+          <app-input
+              class="scoreFieldInput"
+              [parentFormGroup]="form"
+              [options]="currentStep.options"
+              (keyup.enter)="submitAttemptedViaEnter()"
+          ></app-input>
+      </div>
+      <app-radio-button-options
+        *ngSwitchCase="'pickNextFilter'"
+        [formGroup]="form"
+        [radioButtonLabels]="currentStep.filterLabels"
+        (attemptSubmit)="submitAttemptedViaEnter()"
+        [name]="'pickFilter' + currentRank"
+      ></app-radio-button-options>
+      <app-range-options
+        *ngSwitchCase="'makeRangeFilters'"
+        [formGroup]="form"
+        [labels]="currentStep.labels"
+        [textfield]="currentStep.textfield"
+        [name]="'makeRangeFilters'"
+        (removeItem)="removeItem($event)"
+        (addItem)="addItem()"
+        (attemptSubmit)="submitAttemptedViaEnter()"
+      ></app-range-options> 
+    </div>
+    <div class="scoreButtonContainer">
+        <app-button
+          [buttonDisabled]="disableButton()"
+          [options]="buttonOptions"
+          (wasClicked)="confirmAction()"
+        >
+          {{ currentStep.confirmText }}
+        </app-button>
+      </div>
+  </div>
+  <div class="scoreStatusContentWrapper">
+    <div class="scoreStatusContent"  *ngIf="showStatus">
+      <app-form-status
+        [buttonText]="statusButtonText"
+        [title]="statusTitle"
+        [text]="statusText"
+        [secondaryActionText]="statusSecondaryActionText"
+        (acceptStatus)="statusAcceptedAction()"
+        (secondaryAction)="statusAcceptedSecondaryAction()"
+      ></app-form-status>
+    </div>
+  </div>
+
+
+

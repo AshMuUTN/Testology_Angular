@@ -18,6 +18,8 @@ import { FormStatusComponent } from './elements/form-status/form-status.componen
 import { EmptyListMessageComponent } from './elements/empty-list-message/empty-list-message.component';
 import { ArrayGroupInputsComponent } from './elements/array-group-inputs/array-group-inputs.component';
 import { CheckboxComponent } from "./elements/checkbox/checkbox.component";
+import { RadioButtonOptionsComponent } from "./elements/radio-button-options/radio-button-options.component";
+import { SliderComponent } from "./elements/slider/slider.component";
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { CheckboxComponent } from "./elements/checkbox/checkbox.component";
     FormStatusComponent,
     EmptyListMessageComponent,
     ArrayGroupInputsComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    RadioButtonOptionsComponent,
+    SliderComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +60,9 @@ import { CheckboxComponent } from "./elements/checkbox/checkbox.component";
     FormStatusComponent,
     EmptyListMessageComponent,
     ArrayGroupInputsComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    RadioButtonOptionsComponent,
+    SliderComponent
   ],
   entryComponents: [],
 })

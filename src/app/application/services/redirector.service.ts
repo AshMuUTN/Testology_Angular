@@ -52,23 +52,29 @@ export class RedirectorService {
   }
 
   goToQuestions(){
-    this.router.navigateByUrl('tests/questions');
+    this.router.navigateByUrl('tests/preguntas');
   }
 
   goToQuestionForm(){
-    this.router.navigateByUrl('tests/question-form')
+    this.router.navigateByUrl('tests/pregunta-form')
   }
 
   goToImages(){
-    this.router.navigateByUrl('images');
+    this.router.navigateByUrl('imagenes');
   }
 
   goToImageForm(){
-    this.router.navigateByUrl('images/form')
+    this.router.navigateByUrl('imagenes/form');
   }
 
- 
+  goToAssignQuestionValues(){
+    this.router.navigateByUrl('configurar');
+  }
 
+  goToCalculateQuestionValues(){
+    this.router.navigateByUrl('configurar/calculo');
+  }
+ 
   // helpers 
 
   private setNotificationScreen(){

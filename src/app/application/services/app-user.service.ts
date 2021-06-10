@@ -7,10 +7,13 @@ import { UserData } from "@entities/user/user-data";
 import { UserPasswordChangeCredentials } from "@entities/user/user-password-change-credentials";
 import { UserRefreshCredentials } from "@entities/user/user-refresh-credentials";
 import { AuthService } from "@infrastructure/core/auth.service";
+import { Store } from "@ngrx/store";
 import { MessagePageParams } from "@ui/view-models/interfaces/message-page-params.interface";
 import { Observable, Subject } from "rxjs";
 import { map, tap } from "rxjs/operators";
 import { UserRepositoryService } from "src/app/domain/repository/user-repository.service";
+import { State } from "../state/core/reducers";
+import { logoutUserSuccess } from "../state/domain-state/user/user.actions";
 import { RedirectorService } from "./redirector.service";
 
 @Injectable({
@@ -21,7 +24,8 @@ export class AppUserService {
     private userRepository: UserRepositoryService,
     private authService: AuthService,
     private router: Router,
-    private redirectorService: RedirectorService
+    private redirectorService: RedirectorService,
+    private store$: Store<State>
   ) {}
 
   /**
@@ -111,6 +115,7 @@ export class AppUserService {
       tap(() => {
         this.authService.removeLocalAuthInfo(); // remove local auth when token successfuly revoked
         this.goToMessageAboutLogout(isManualLogout);
+        this.setLogoutSuccessState(isManualLogout);
       }),
       map((response) => response)
     );
@@ -120,6 +125,17 @@ export class AppUserService {
     const message: MessagePageParams = manual ? this.getManualLogoutMessageParams()
                     : this.getExpiredSessionMessageParams();
     this.redirectorService.goToMessage(message);
+  }
+
+  /**
+   * When not manual logout, we call success action here (instead of in effects)
+   * to avoid refactoring complex http-interceptor
+   * @param isManualLogout 
+   */
+  setLogoutSuccessState(isManualLogout){
+    if(isManualLogout){
+      this.store$.dispatch(logoutUserSuccess({ success: true }));
+    }
   }
 
   getExpiredSessionMessageParams() : MessagePageParams {

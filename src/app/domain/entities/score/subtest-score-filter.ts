@@ -3,4 +3,5 @@ export interface SubtestScoreFilter {
     rank: number;
     subtestId: number;
     scoreFilterId: number;
+    value: number;
 }

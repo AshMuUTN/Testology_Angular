@@ -1,0 +1,18 @@
+<app-range-input-rows
+  [parentFormGroup]="formGroup"
+  [labels]="labels"
+  [name]="name"
+  [textfield]="textfield"
+  [type]="'number'"
+  (remove)="emitRemoveItem($event)"
+  (keyup)="checkForShiftEnter($event)"
+></app-range-input-rows>
+<div
+  class="rangeOptionsAddButton"
+  (click)="emitAddItem()"
+  data-toggle="tooltip"
+  title="agregar opción"
+>
+  <p>+</p>
+  <hr />
+</div>

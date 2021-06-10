@@ -11,6 +11,7 @@ import { setDeleteFlagFalse, setDeleteFlagTrue } from 'src/app/application/state
 import { State } from 'src/app/application/state/core/reducers';
 import { cleanLoadQuestionsSuccess, cleanSingleQuestion, loadQuestions, saveSingleQuestionToStore } from 'src/app/application/state/domain-state/question/question.actions';
 import * as questionSelectors from 'src/app/application/state/domain-state/question/question.selectors';
+import { loadQuestionScoreFilters } from 'src/app/application/state/domain-state/score/question-score-filter/question-score-filter.actions';
 import * as subtestSelectors from 'src/app/application/state/domain-state/subtest/subtest.selectors';
 
 @Component({
@@ -94,8 +95,14 @@ export class QuestionListComponent implements OnInit {
 
   showQuestion(question: Question){
     this.store$.dispatch(setDeleteFlagFalse());
-    this.store$.dispatch(saveSingleQuestionToStore({ question }))
-    // TODO what would be the show question screen? a notification style screen?
+    this.store$.dispatch(saveSingleQuestionToStore({ question }));
+    const questionId = question.id;
+    this.store$.dispatch(loadQuestionScoreFilters({ questionId }));
+    if(question.options.length){
+      this.redirectorService.goToAssignQuestionValues();
+    } else {
+      this.redirectorService.goToCalculateQuestionValues();
+    }
   }
 
   editQuestion(question: Question){

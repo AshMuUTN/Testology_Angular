@@ -3,4 +3,5 @@ export interface GroupScoreFilter {
     rank: number;
     groupId: number;
     scoreFilterId: number;
+    value: number;
 }

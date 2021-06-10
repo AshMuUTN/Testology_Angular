@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, switchMap } from 'rxjs/operators';
+import { catchError, map, concatMap, switchMap, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import * as QuestionScoreFilterActions from './question-score-filter.actions';
@@ -52,18 +52,21 @@ export class QuestionScoreFilterEffects {
   postQuestionScoreFilter$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(QuestionScoreFilterActions.postQuestionScoreFilter),
-      switchMap((props) =>
+      mergeMap((props) =>
         this.appService.postAppliedScoreFilter(props.questionScoreFilter).pipe(
           map((res) =>
             QuestionScoreFilterActions.postQuestionScoreFilterSuccess({ success: true, questionScoreFilter: res })
           ),
-          catchError(() =>
-            of(
+          catchError((err) => {
+            console.log(err)
+            return of(
               QuestionScoreFilterActions.postQuestionScoreFilterSuccess({
                 success: false,
                 questionScoreFilter: null,
               })
             )
+          }
+            
           )
         )
       )
@@ -73,7 +76,7 @@ export class QuestionScoreFilterEffects {
   postQuestionScoreFilterSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(QuestionScoreFilterActions.postQuestionScoreFilterSuccess),
-      switchMap((props) =>
+      mergeMap((props) =>
         of(QuestionScoreFilterActions.saveSingleQuestionScoreFilterToStore({ questionScoreFilter: props.questionScoreFilter }))
       )
     );

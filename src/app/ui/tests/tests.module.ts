@@ -16,8 +16,6 @@ import { QuestionListComponent } from "./containers/question-list/question-list.
 import { QuestionBuilderComponent } from "./containers/question-builder/question-builder.component";
 import { QuestionListItemComponent } from "./presentational/question-list-item/question-list-item.component";
 import { QuestionOptionsComponent } from "./presentational/question-options/question-options.component";
-import { SliderComponent } from "./presentational/slider/slider.component";
-import { RadioButtonOptionsComponent } from "./presentational/radio-button-options/radio-button-options.component";
 
 @NgModule({
   declarations: [
@@ -33,8 +31,6 @@ import { RadioButtonOptionsComponent } from "./presentational/radio-button-optio
     QuestionBuilderComponent,
     QuestionListItemComponent,
     QuestionOptionsComponent,
-    SliderComponent,
-    RadioButtonOptionsComponent,
   ],
   imports: [
     CommonModule,

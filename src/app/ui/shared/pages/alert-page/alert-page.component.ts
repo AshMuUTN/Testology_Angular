@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { AuthService } from "@infrastructure/core/auth.service";
 import { Store } from "@ngrx/store";
 import { ButtonOptions } from "@ui/view-models/interfaces/button-options.interface";
 import { RedirectorService } from "src/app/application/services/redirector.service";
@@ -16,11 +17,13 @@ export class AlertPageComponent implements OnInit, OnDestroy {
   title: string = "Oh no!"
   redirectUrl: string = "/tests"
   buttonOptions: ButtonOptions = { type : 'primary'}
+  paramsProvided: boolean;
   
-  constructor(private redirectorService : RedirectorService, private store$: Store, private router: Router) {
+  constructor(private redirectorService : RedirectorService, private store$: Store, private router: Router, private authService: AuthService) {
     this.store$.dispatch(notificationScreenActions.loadNotificationScreens());
     const nav = this.router.getCurrentNavigation();
     if(nav ? nav.extras.state : false){
+      this.paramsProvided = true;
       const routeParams = this.router.getCurrentNavigation().extras.state
       this.text = routeParams.text;
       this.buttonText = routeParams.buttonText;
@@ -29,7 +32,14 @@ export class AlertPageComponent implements OnInit, OnDestroy {
     } 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(!this.paramsProvided){
+      const auth = this.authService.getAuthInfoLocally();
+      if(!auth){
+        this.redirectUrl = 'sesion/login';
+      }
+    }
+  }
 
   ngOnDestroy() {
     this.store$.dispatch(notificationScreenActions.removeNotificationScreens());

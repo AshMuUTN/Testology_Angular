@@ -14,7 +14,9 @@ const routes: Routes = [
     loadChildren: () =>
       import("./tests/tests.module").then((m) => m.TestsModule),
   },
-  { path: 'images', loadChildren: () => import('./images/images.module').then(m => m.ImagesModule) },
+  { path: 'imagenes', loadChildren: () => import('./images/images.module').then(m => m.ImagesModule) },
+  
+  { path: 'configurar', loadChildren: () => import('./score/score.module').then(m => m.ScoreModule) },
   
 ];
 

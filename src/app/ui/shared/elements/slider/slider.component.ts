@@ -13,6 +13,7 @@ export class SliderComponent implements OnInit {
   @Input() deselectedText: string;
   @Input() formGroup: FormGroup;
   @Input() name: string;
+  @Input() extraClass = "";
   @Output() sliderChange = new EventEmitter<boolean>();
 
   constructor() { }

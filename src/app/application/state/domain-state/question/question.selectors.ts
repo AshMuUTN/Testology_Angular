@@ -21,6 +21,11 @@ export const selectQuestions = createSelector(
   (state) => state.questions
 );
 
+export const selectProtocolQuestions = createSelector(
+  selectQuestionState,
+  (state) => state.protocolQuestions
+);
+
 export const selectCurrentQuestion = createSelector(
   selectQuestionState,
   (state) => state.question

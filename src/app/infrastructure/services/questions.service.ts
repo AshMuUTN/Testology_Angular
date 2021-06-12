@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MessageResponse } from '@entities/message-response';
+import { ProtocolQuestionQueryParams } from '@entities/protocol/answered-question-query-params';
+import { ProtocolQuestion } from '@entities/protocol/protocol-question';
 import { Question } from '@entities/question/question';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -22,6 +24,11 @@ export class QuestionsService {
   public getQuestions(subtestId: number): Observable<Question[]>{
     const url = `${environment.backendServer}/api/questions?subtestId=${subtestId}`;
     return this.http.get<Question[]>(url, this.httpOptions);
+  }
+
+  public getAnsweredQuestions(params: ProtocolQuestionQueryParams): Observable<ProtocolQuestion[]>{
+    const url = `${environment.backendServer}/api/questions/answered?subtestId=${params.subtestId}&protocolId=${params.subtestId}`;
+    return this.http.get<ProtocolQuestion[]>(url, this.httpOptions);
   }
 
   public postQuestionWithoutOptions(params: Question): Observable<Question> {

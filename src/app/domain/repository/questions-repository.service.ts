@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MessageResponse } from '@entities/message-response';
+import { ProtocolQuestionQueryParams } from '@entities/protocol/answered-question-query-params';
+import { ProtocolQuestion } from '@entities/protocol/protocol-question';
 import { Question } from '@entities/question/question';
 import { QuestionsService } from '@infrastructure/services/questions.service';
 import { Observable } from 'rxjs';
@@ -20,6 +22,17 @@ export class QuestionsRepositoryService {
   public getQuestions(subtestId: number): Observable<Question[]>{
     return this.questionsService
       .getQuestions(subtestId)
+      .pipe(map((response) => response));
+  }
+
+  /**
+   * @description calls questions service method getAnsweredQuestions
+   * @returns observable of type array of ProtocolQuestion, the value returned by the backend
+   */
+
+   public getAnsweredQuestions(params: ProtocolQuestionQueryParams): Observable<ProtocolQuestion[]>{
+    return this.questionsService
+      .getAnsweredQuestions(params)
       .pipe(map((response) => response));
   }
 

@@ -33,6 +33,27 @@ export class QuestionEffects {
     );
   });
 
+  loadProtocolQuestions$ = createEffect(() => {
+    return this.actions$.pipe( 
+
+      ofType(QuestionActions.loadProtocolQuestions),
+      concatMap((props) =>
+        this.appService.getAnsweredQuestions(props.queryParams).pipe(
+          map(protocolQuestions => QuestionActions.loadProtocolQuestionsSuccess({ success: true, protocolQuestions })),
+          catchError(() => of(QuestionActions.loadProtocolQuestionsSuccess({ success: false, protocolQuestions: [] }))))
+      )
+    );
+  });
+
+  loadProtocolQuestionsSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(QuestionActions.loadProtocolQuestionsSuccess),
+      switchMap((props) =>
+        of(QuestionActions.saveProtocolQuestionsToStore({ protocolQuestions: props.protocolQuestions }))
+      )
+    );
+  });
+
   postQuestion$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(QuestionActions.postQuestion),

@@ -1,3 +1,4 @@
+import { ProtocolQuestion } from '@entities/protocol/protocol-question';
 import { Question } from '@entities/question/question';
 import { Action, createReducer, on } from '@ngrx/store';
 import * as QuestionActions from './question.actions';
@@ -9,6 +10,7 @@ export interface State {
   postSuccess: boolean;
   deleteSuccess: boolean;
   questions: Question[];
+  protocolQuestions: ProtocolQuestion[];
   question: Question;
 
 }
@@ -18,6 +20,7 @@ export const initialState: State = {
   postSuccess: undefined,
   deleteSuccess: undefined,
   questions: [],
+  protocolQuestions: [],
   question: null
 };
 
@@ -37,6 +40,19 @@ export const reducer = createReducer(
   }),
   on(QuestionActions.cleanQuestions, (state) => {
     return { ...state, questions: [] };
+  }),
+  on(QuestionActions.loadProtocolQuestions, state => state),
+  on(QuestionActions.loadProtocolQuestionsSuccess, (state, action) => {
+    return { ...state, loadSuccess: action.success };
+  }),
+  on(QuestionActions.saveProtocolQuestionsToStore, (state, action) => {
+    return { ...state, protocolQuestions: action.protocolQuestions };
+  }),
+  on(QuestionActions.cleanProtocolQuestions, (state) => {
+    return { ...state, protocolQuestions: [] };
+  }),
+  on(QuestionActions.cleanLoadProtocolQuestionsSuccess, (state) => {
+    return { ...state, loadSuccess: undefined };
   }),
   on(QuestionActions.postQuestion, (state) => state),
   on(QuestionActions.postQuestionSuccess, (state, action) => {

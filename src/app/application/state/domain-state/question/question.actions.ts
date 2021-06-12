@@ -1,3 +1,5 @@
+import { ProtocolQuestionQueryParams } from '@entities/protocol/answered-question-query-params';
+import { ProtocolQuestion } from '@entities/protocol/protocol-question';
 import { AppQuestion } from '@entities/question/app-question';
 import { Question } from '@entities/question/question';
 import { createAction, props } from '@ngrx/store';
@@ -22,6 +24,29 @@ export const saveQuestionsToStore = createAction(
 
 export const cleanQuestions = createAction(
   '[Question] Clean Questions'
+);
+
+export const loadProtocolQuestions = createAction(
+  '[Question] Load Protocol Questions',
+  props<{ queryParams : ProtocolQuestionQueryParams }>()
+);
+
+export const loadProtocolQuestionsSuccess = createAction(
+  '[Question] Load Protocol Questions Success',
+  props<{ success: boolean, protocolQuestions: ProtocolQuestion[] }>()
+);
+
+export const cleanLoadProtocolQuestionsSuccess = createAction(
+  '[Question] Clean Load Protocol Questions Success'
+);
+
+export const saveProtocolQuestionsToStore = createAction(
+  '[Question] Save Protocol Questions To Store',
+    props<{ protocolQuestions: ProtocolQuestion[]}>()
+);
+
+export const cleanProtocolQuestions = createAction(
+  '[Question] Clean Protocol Questions'
 );
 
 export const postQuestion = createAction(

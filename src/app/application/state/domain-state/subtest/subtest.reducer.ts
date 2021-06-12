@@ -1,5 +1,5 @@
 import { Subtest } from '@entities/subtest/subtest';
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import * as SubtestActions from './subtest.actions';
 
 export const subtestFeatureKey = 'subtest';

@@ -10,6 +10,8 @@ import * as fromScoreFilter from '../../score/score-filter/score-filter.reducer'
 import * as fromSubtestScoreFilter from '../../score/subtest-score-filter/subtest-score-filter.reducer';
 import * as fromQuestionScoreFilter from '../../score/question-score-filter/question-score-filter.reducer';
 import * as fromGroupScoreFilter from '../../score/group-score-filter/group-score-filter.reducer'; 
+import * as fromProtocol from '../../protocol/protocol.reducer'; 
+import * as fromAnswer from '../../answer/answer.reducer'; 
 
 export const domainStateFeatureKey = 'domainState';
 
@@ -24,6 +26,8 @@ export interface State {
     [fromQuestionScoreFilter.questionScoreFilterFeatureKey] : fromQuestionScoreFilter.State,
     [fromGroupScoreFilter.groupScoreFilterFeatureKey] : fromGroupScoreFilter.State,
     [fromScoreFilter.scoreFilterFeatureKey] : fromScoreFilter.State,
+    [fromProtocol.protocolFeatureKey] : fromProtocol.State,
+    [fromAnswer.answerFeatureKey] : fromAnswer.State,
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -38,6 +42,8 @@ export const reducers: ActionReducerMap<State> = {
     [fromQuestionScoreFilter.questionScoreFilterFeatureKey] : fromQuestionScoreFilter.reducer,
     [fromGroupScoreFilter.groupScoreFilterFeatureKey] : fromGroupScoreFilter.reducer,
     [fromScoreFilter.scoreFilterFeatureKey] : fromScoreFilter.reducer,
+    [fromProtocol.protocolFeatureKey] : fromProtocol.reducer,
+    [fromAnswer.answerFeatureKey] : fromAnswer.reducer,
 }
 
 export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];

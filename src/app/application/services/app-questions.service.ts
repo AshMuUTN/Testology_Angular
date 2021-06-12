@@ -1,14 +1,15 @@
 import { Injectable } from "@angular/core";
 import { MessageResponse } from "@entities/message-response";
+import { ProtocolQuestionQueryParams } from "@entities/protocol/answered-question-query-params";
+import { ProtocolQuestion } from "@entities/protocol/protocol-question";
 import { AppQuestion } from "@entities/question/app-question";
 import { Question } from "@entities/question/question";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { filter, map, switchMap } from "rxjs/operators";
+import { filter, map } from "rxjs/operators";
 import { QuestionsRepositoryService } from "src/app/domain/repository/questions-repository.service";
 import { State } from "../state/core/reducers";
 import * as subtestSelectors from "../state/domain-state/subtest/subtest.selectors";
-import { RedirectorService } from "./redirector.service";
 
 @Injectable({
   providedIn: "root",
@@ -19,8 +20,7 @@ export class AppQuestionsService {
 
   constructor(
     private questionsRepositoryService: QuestionsRepositoryService,
-    private store$: Store<State>,
-    private redirectorService: RedirectorService
+    private store$: Store<State>
   ) {
     this.store$.select(subtestSelectors.selectCurrentSubtest)
       .pipe(
@@ -38,6 +38,16 @@ export class AppQuestionsService {
     return this.questionsRepositoryService
             .getQuestions(this.subtestId)
             .pipe(map((response) => response));
+  }
+
+  /**
+   * @description calls question service method getAnsweredQuestions
+   * @returns observable of type array of ProtocolQuestion, the value returned by the backend
+   */
+  public getAnsweredQuestions(params: ProtocolQuestionQueryParams): Observable<ProtocolQuestion[]>{
+    return this.questionsRepositoryService
+      .getAnsweredQuestions(params)
+      .pipe(map((response) => response));
   }
 
   postQuestion(

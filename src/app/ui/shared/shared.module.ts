@@ -6,20 +6,20 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 // Components
 import { AlertPageComponent } from "./pages/alert-page/alert-page.component";
 import { ToastComponent } from "./pages/toast/toast.component";
-import { TestologyHeaderComponent } from './elements/testology-header/testology-header.component';
-import { TitleComponent } from './elements/title/title.component';
-import { InputComponent } from './elements/input/input.component';
-import { ButtonComponent } from './elements/button/button.component';
-import { SearchBarComponent } from './elements/search-bar/search-bar.component';
+import { TestologyHeaderComponent } from './singleton-elements/testology-header/testology-header.component';
+import { TitleComponent } from './reusable-elements/title/title.component';
+import { InputComponent } from './reusable-elements/input/input.component';
+import { ButtonComponent } from './reusable-elements/button/button.component';
+import { SearchBarComponent } from './reusable-elements/search-bar/search-bar.component';
 import { FilterListPipe } from './pipes/filter-list.pipe';
-import { RadioButtonOptionComponent } from './elements/radio-button-option/radio-button-option.component';
-import { TextAreaComponent } from './elements/text-area/text-area.component';
-import { FormStatusComponent } from './elements/form-status/form-status.component';
-import { EmptyListMessageComponent } from './elements/empty-list-message/empty-list-message.component';
-import { ArrayGroupInputsComponent } from './elements/array-group-inputs/array-group-inputs.component';
-import { CheckboxComponent } from "./elements/checkbox/checkbox.component";
-import { RadioButtonOptionsComponent } from "./elements/radio-button-options/radio-button-options.component";
-import { SliderComponent } from "./elements/slider/slider.component";
+import { RadioButtonOptionComponent } from './reusable-elements/radio-button-option/radio-button-option.component';
+import { TextAreaComponent } from './reusable-elements/text-area/text-area.component';
+import { FormStatusComponent } from './reusable-elements/form-status/form-status.component';
+import { EmptyListMessageComponent } from './reusable-elements/empty-list-message/empty-list-message.component';
+import { ArrayGroupInputsComponent } from './reusable-elements/array-group-inputs/array-group-inputs.component';
+import { CheckboxComponent } from "./reusable-elements/checkbox/checkbox.component";
+import { RadioButtonOptionsComponent } from "./reusable-elements/radio-button-options/radio-button-options.component";
+import { SliderComponent } from "./reusable-elements/slider/slider.component";
 
 @NgModule({
   declarations: [

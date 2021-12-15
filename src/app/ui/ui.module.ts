@@ -25,12 +25,12 @@ registerLocaleData(localeES, "es");
   imports: [
     NgbModule,
     BrowserModule,
-    UiRoutingModule,
     HttpClientModule,
     InfrastructureModule,
     SharedModule,
     ApplicationModule,
     DomainModule,
+    UiRoutingModule,
   ],
   bootstrap: [AppComponent],
 })

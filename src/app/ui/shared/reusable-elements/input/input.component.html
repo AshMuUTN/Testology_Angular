@@ -5,6 +5,7 @@
             placeholder=" "
             name="{{ options.name }}"
             [type]="options.type || 'text'"
+            step='any'
             maxlength="{{ maxlength || null }}"
         />
         <span>{{ options.label }}</span>

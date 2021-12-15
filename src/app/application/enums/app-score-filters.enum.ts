@@ -8,5 +8,6 @@ export enum AppScoreFilters {
     DivideValue,
     DivideValueOf,
     Range,
-    Self
+    Self,
+    Max
 }

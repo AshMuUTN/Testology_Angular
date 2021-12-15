@@ -3,7 +3,7 @@ import { createAction, props } from '@ngrx/store';
 
 export const loadGroups = createAction(
   '[Group] Load Groups',
-  props<{ subtestId: number }>()
+  props<{ subtestId: number, groupType?: string; }>()
 );
 
 export const loadGroupsSuccess = createAction(
@@ -26,7 +26,7 @@ export const cleanGroups = createAction(
 
 export const postGroup = createAction(
   '[Group] Post Group',
-  props<{ group: Group }>()
+  props<{ group: Group, groupType?: string }>()
 );
 
 export const postGroupSuccess = createAction(
@@ -49,7 +49,7 @@ export const cleanSingleGroup = createAction(
 
 export const deleteGroup = createAction(
   '[Group] Delete Group',
-  props<{ groupId: number}>()
+  props<{ groupId: number, groupType?: string }>()
 );
 
 export const deleteGroupSuccess = createAction(

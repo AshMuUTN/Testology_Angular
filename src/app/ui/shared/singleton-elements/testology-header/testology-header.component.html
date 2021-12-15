@@ -8,16 +8,28 @@
         <li class="nav-item">
           <a class="nav-link" (click)="goToRegistration()">Registrarse</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="goToAbout()">Acerca de Testology</a>
+        </li>
       </ul>
       <ul *ngIf="userLogged" class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" (click)="logout()" >Salir</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" (click)="goToProtocols()">Protocolos</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" (click)="goToTests()">Tests</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="goToImages()">Images</a>
+          <a class="nav-link" (click)="goToReports()">Reportes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="goToImages()">Imágenes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="goToAbout()">Acerca de Testology</a>
         </li>
       </ul>
     </div>

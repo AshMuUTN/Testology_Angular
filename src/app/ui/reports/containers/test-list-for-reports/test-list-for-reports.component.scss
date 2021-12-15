@@ -1,0 +1,26 @@
+@import "/lib/extra-bootstrap/dist/scss/global.scss";
+
+.testListContainer {
+    @extend .container;
+    background-color: $white;
+    padding: 20px 10px;
+    &__hasItems {
+        padding: 20px 10px 100px 10px;
+    }
+    .testListTitleContainer {
+        padding: 10px 30px;
+    }
+    .testListFormFlexContainer {
+        @extend .d-flex; 
+        @extend .flex-row-reverse;
+        @extend .flex-wrap-reverse;
+        @extend .justify-content-start;
+        .testListForm {
+            @media screen and (min-width: 640px) {
+                max-width: 280px;
+                margin-right: 30px;
+            }
+        }   
+    }
+    
+}

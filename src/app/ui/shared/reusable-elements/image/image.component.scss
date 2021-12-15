@@ -1,0 +1,14 @@
+@import "/lib/extra-bootstrap/dist/scss/global.scss";
+
+.imageContainer {
+    @extend .shadow;
+    margin: 10px;
+
+    .imageImage {
+        height: 320px;
+        @media screen and (max-width: 425px) {
+            height: auto;
+            width: 280px;
+        }
+    }
+}

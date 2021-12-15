@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Protocol } from '@entities/protocol/protocol';
 import { Subtest } from '@entities/subtest/subtest';
 import { Test } from '@entities/test/test';
 import { ButtonOptions } from '@ui/view-models/interfaces/button-options.interface';
@@ -11,7 +12,7 @@ import { ButtonOptions } from '@ui/view-models/interfaces/button-options.interfa
 })
 export class TestListItemComponent implements OnInit {
 
-  @Input() testItem: Test|Subtest;
+  @Input() testItem: Test|Subtest|Protocol;
   @Input() cloneFlag: boolean;
   @Input() deletingEnabled: boolean;
   @Output() showTestEvent = new EventEmitter<void>();

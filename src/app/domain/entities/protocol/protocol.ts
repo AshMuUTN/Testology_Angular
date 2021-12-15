@@ -3,5 +3,5 @@ export interface Protocol {
     name: string;
     description: string;
     testId: number;
-    createdAt: number;
+    createdAt?: number;
 }

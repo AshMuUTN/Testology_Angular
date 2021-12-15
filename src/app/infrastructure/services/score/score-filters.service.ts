@@ -28,7 +28,8 @@ export class ScoreFiltersService {
     id: number,
     type: 'group' | 'subtest' | 'question'
   ): Observable<Array<GroupScoreFilter | SubtestScoreFilter | QuestionScoreFilter>> {
-    const urlScoreFilters = `${environment.backendServer}/api/${type}ScoreFilters?${type}Id=${id}`;
+    const queryParamName = type === 'group' ? 'subtest' : type;
+    const urlScoreFilters = `${environment.backendServer}/api/${type}ScoreFilters?${queryParamName}Id=${id}`;
     return this.http.get<
       Array<GroupScoreFilter | SubtestScoreFilter | QuestionScoreFilter>
     >(urlScoreFilters, this.httpOptions);

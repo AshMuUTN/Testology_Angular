@@ -1,0 +1,33 @@
+<div
+  class="testListContainer"
+  [ngClass]="faq.length ? 'testListContainer__hasItems' : ''"
+>
+  <div class="testListTitleContainer">
+    <app-title
+      [titleText]="titleText"
+      [subtitleText]="subtitleText"
+      [titleForwardText]="titleForwardText"
+      [titleForwardUrl]="titleForwardUrl"
+      [titleBackText]="titleBackText"
+      [titleBackUrl]="titleBackUrl"
+    ></app-title>
+  </div>
+  <div class="testListFormFlexContainer">
+    <div class="testListForm">
+      <app-search-bar
+        [name]="searchField"
+        [parentFormGroup]="form"
+      ></app-search-bar>
+    </div>
+  </div>
+
+  <app-test-list-item
+    *ngFor="let question of faq | filterList: filter"
+    [testItem]="question"
+    [deletingEnabled]="false"
+    (editOrCloneAction)="dummyAction(question)"
+    (showTestEvent)="dummyAction(question)"
+    (deleteAction)="dummyAction(question)"
+  ></app-test-list-item>
+</div>
+

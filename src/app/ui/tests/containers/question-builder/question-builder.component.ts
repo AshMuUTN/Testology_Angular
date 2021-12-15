@@ -173,7 +173,7 @@ export class QuestionBuilderComponent implements OnInit {
 
   private optionArrayWithOrWithoutNumberValidator(){
     return this.appQuestion.optionsMustBeNumbers ? 
-      new FormArray(this.appQuestion.question.options.map(option => new FormControl(option.number, Validators.pattern("[0-9]+")))) 
+      new FormArray(this.appQuestion.question.options.map(option => new FormControl(option.number, Validators.pattern("-?[0-9]\\d*(\\.\\d+)?")))) 
       : new FormArray(this.appQuestion.question.options.map(option => new FormControl(option.text)));
     
   }
@@ -264,6 +264,10 @@ export class QuestionBuilderComponent implements OnInit {
       ).subscribe();
   }
 
+  get showQuestionSubtext(){
+    return this.appQuestion.hasOptions || this.deleteFlag;
+  }
+
   /**
    * trigger appropriate confirmation action, based on current step.
    * Steps must be in reverse order to avoid passing through multiple steps at once
@@ -309,7 +313,7 @@ export class QuestionBuilderComponent implements OnInit {
   private setNumbersOnlyValidators () {
     const controls = this.optionsFormArray.controls;
     controls.forEach(control => {
-      control.setValidators(Validators.pattern("[0-9]+"));
+      control.setValidators(Validators.pattern("-?[0-9]\\d*(\\.\\d+)?"));
       control.markAsDirty();
       control.markAsTouched();
       control.updateValueAndValidity();
@@ -380,7 +384,7 @@ export class QuestionBuilderComponent implements OnInit {
    * We must delete all options if user has changed setting of hasOptions from true to false
    */
   private deleteAllOptionsIfApplies(){
-    if(this.appQuestion.hasOptions && !this.getFormFieldValue("hasOptions")){
+    if(!this.appQuestion.hasOptions && this.appQuestion.question.options.length){
       this.appQuestion.question.options = this.appQuestion.question.options
         .map(op => {
           return {...op, deleted : true }
@@ -390,7 +394,7 @@ export class QuestionBuilderComponent implements OnInit {
 
   private optionArray(): Option[]{
     if(!this.appQuestion.hasOptions){
-      return null
+      return this.appQuestion.question.options;
     }
     return this.appQuestion.optionsMustBeNumbers ? this.createOptions('number') : this.createOptions('text');
   }

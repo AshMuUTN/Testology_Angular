@@ -15,7 +15,7 @@ export class AlertPageComponent implements OnInit, OnDestroy {
   text: string = "Hubo un error... No encontramos la página que buscás"
   buttonText: string = "Ok"
   title: string = "Oh no!"
-  redirectUrl: string = "/tests"
+  redirectUrl: string = "/protocolos/tests"
   buttonOptions: ButtonOptions = { type : 'primary'}
   paramsProvided: boolean;
   

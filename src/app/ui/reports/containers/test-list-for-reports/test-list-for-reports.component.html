@@ -1,0 +1,34 @@
+<div class="testListContainer" [ngClass]="tests.length ? 'testListContainer__hasItems' : ''">
+    <div class="testListTitleContainer">
+      <app-title
+        [titleText]="titleText"
+        [subtitleText]="subtitleText"
+        [titleForwardText]="titleForwardText"
+        (goForward)="goToTests()"
+      ></app-title>
+    </div>
+    <div class="testListFormFlexContainer">
+      <div class="testListForm">
+        <app-search-bar
+          [name]="searchField"
+          [parentFormGroup]="form"
+        ></app-search-bar>
+      </div>
+    </div>
+  
+    <app-protocol-test-list-item
+      *ngFor="let test of tests | filterList: filter"
+      [testItem]="test"
+      (showProtocolsEvent)="showTestReports(test)"
+    ></app-protocol-test-list-item>
+  
+    <app-empty-list-message 
+      *ngIf="!tests.length"
+      [itemName]="itemName"
+      (addAction)="newTest()"
+    >
+    </app-empty-list-message>
+  
+  </div>
+  
+

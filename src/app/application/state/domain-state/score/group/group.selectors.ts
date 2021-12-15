@@ -13,7 +13,9 @@ export const selectLoadGroupSuccess =  createSelector(
 
 export const selectPostGroupSuccess = createSelector(
   selectGroupState,
-  (state) => state.postSuccess
+  (state) => {
+    return { success : state.postSuccess, count: state.postSuccessCount }
+  }
 );
 
 export const selectGroups = createSelector(

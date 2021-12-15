@@ -7,14 +7,14 @@
       ></app-title>
     </div>
     <div class="testBuilderStepContainer" [ngSwitch]="currentStep">
-      <app-title-step
+      <app-input-step
         [formGroup]="form"
         [label]="titleLabel"
         [name]="'title'"
         [textfield]="titleTextfield"
         (attemptSubmit)="submitAttemptedViaEnter()"
         *ngSwitchCase="'title'"
-      ></app-title-step>
+      ></app-input-step>
       <app-description-step
         [formGroup]="form"
         [label]="descriptionLabel"
@@ -37,6 +37,14 @@
         [fieldName]="currentStep"
         *ngSwitchCase="'calculable'"
       ></app-radio-button-step>
+      <app-input-step
+        [formGroup]="form"
+        [label]="maxLabel"
+        [name]="'max'"
+        [textfield]="maxTextfield"
+        (attemptSubmit)="submitAttemptedViaEnter()"
+        *ngSwitchCase="'max'"
+      ></app-input-step>
     </div>
     <div class="testBuilderButtonContainer">
       <app-button
@@ -52,9 +60,11 @@
     <div class="testBuilderStatusContent"  *ngIf="formSent">
       <app-form-status
         [buttonText]="statusButtonText"
+        [secondaryActionText]="statusSecondaryActionText"
         [title]="statusTitle"
         [text]="statusText"
         (acceptStatus)="statusAcceptedAction()"
+        (secondaryAction)="statusAcceptedSecondaryAction()"
       ></app-form-status>
     </div>
   </div>

@@ -27,7 +27,7 @@ export class QuestionsService {
   }
 
   public getAnsweredQuestions(params: ProtocolQuestionQueryParams): Observable<ProtocolQuestion[]>{
-    const url = `${environment.backendServer}/api/questions/answered?subtestId=${params.subtestId}&protocolId=${params.subtestId}`;
+    const url = `${environment.backendServer}/api/questions/answered?subtestId=${params.subtestId}&protocolId=${params.protocolId}`;
     return this.http.get<ProtocolQuestion[]>(url, this.httpOptions);
   }
 

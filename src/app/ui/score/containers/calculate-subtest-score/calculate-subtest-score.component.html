@@ -1,1 +1,52 @@
-<p>calculate-subtest-score works!</p>
+<div class="scoreContainer" *ngIf="!showStatus">
+    <div class="scoreTitleContainer">
+      <app-title
+        [titleText]="currentStep.titleText"
+        [subtitleText]="currentStep.titleSubtext"
+        [titleBackText]="currentStep.titleBackText"
+        (goBack)="goBackActionForStep()"
+      ></app-title>
+    </div>
+    <div class="scoreStepContainer" [ngSwitch]="currentStepName">
+      <app-radio-button-options
+        *ngSwitchDefault
+        [formGroup]="form"
+        [radioButtonLabels]="currentStep.filterLabels"
+        (attemptSubmit)="submitAttemptedViaEnter()"
+        [name]="'pickFilter' + currentRank"
+      ></app-radio-button-options>
+      <div class="scoreFieldsContainer" *ngSwitchCase="'assignValue'">
+          <app-input
+              class="scoreFieldInput"
+              [parentFormGroup]="form"
+              [options]="currentStep.options"
+              (keyup.enter)="submitAttemptedViaEnter()"
+          ></app-input>
+      </div>
+    </div>
+    <div class="scoreButtonContainer">
+        <app-button
+          [buttonDisabled]="disableButton()"
+          [options]="buttonOptions"
+          (wasClicked)="confirmAction()"
+        >
+          {{ currentStep.confirmText }}
+        </app-button>
+      </div>
+  </div>
+  <div class="scoreStatusContentWrapper">
+    <div class="scoreStatusContent"  *ngIf="showStatus">
+      <app-form-status
+        [buttonText]="statusButtonText"
+        [title]="statusTitle"
+        [text]="statusText"
+        [secondaryActionText]="statusSecondaryActionText"
+        (acceptStatus)="statusAcceptedAction()"
+        (secondaryAction)="statusAcceptedSecondaryAction()"
+      ></app-form-status>
+    </div>
+  </div>
+
+
+
+

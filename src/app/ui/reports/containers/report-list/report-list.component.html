@@ -1,0 +1,32 @@
+<div class="testListContainer" [ngClass]="reportsForShow.length ? 'testListContainer__hasItems' : ''">
+    <div class="testListTitleContainer">
+      <app-title
+        [titleText]="titleText"
+        [titleBackText]="titleBackText"
+        [titleBackUrl]="titleBackUrl"
+      ></app-title>
+    </div>
+    <div class="testListFormFlexContainer">
+      <div class="testListform">
+        <app-search-bar
+          [name]="searchField"
+          [parentFormGroup]="form"
+        ></app-search-bar>
+      </div>
+    </div>
+  
+    <app-protocol-test-list-item
+      *ngFor="let report of reportsForShow"
+      [testItem]="report"
+      (showProtocolsEvent)="exportReport(report)"
+    ></app-protocol-test-list-item>
+  
+    <app-empty-list-message 
+      *ngIf="!reportsForShow.length"
+      [itemName]="itemName"
+      (addAction)="newQuestion()"
+    >
+    </app-empty-list-message>
+  
+  </div>
+  

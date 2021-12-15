@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, switchMap } from 'rxjs/operators';
+import { catchError, map, concatMap, switchMap, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as GroupActions from './group.actions';
 import { AppGroupsService } from 'src/app/application/services/score/app-groups.service';
@@ -19,7 +19,7 @@ export class GroupEffects {
     return this.actions$.pipe(
       ofType(GroupActions.loadGroups),
       concatMap((props) =>
-        this.appService.getSubtestGroups(props.subtestId).pipe(
+        this.appService.getSubtestGroups(props.subtestId, props.groupType).pipe(
           map((groups) =>
             GroupActions.loadGroupsSuccess({
               success: true,
@@ -51,8 +51,8 @@ export class GroupEffects {
   postGroup$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(GroupActions.postGroup),
-      switchMap((props) =>
-        this.appService.postGroup(props.group).pipe(
+      mergeMap((props) =>
+        this.appService.postGroup(props.group, props.groupType).pipe(
           map((res) =>
             GroupActions.postGroupSuccess({ success: true, group: res })
           ),
@@ -72,7 +72,7 @@ export class GroupEffects {
   postGroupSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(GroupActions.postGroupSuccess),
-      switchMap((props) =>
+      mergeMap((props) =>
         of(GroupActions.saveSingleGroupToStore({ group: props.group }))
       )
     );
@@ -81,8 +81,8 @@ export class GroupEffects {
   deleteGroup$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(GroupActions.deleteGroup),
-      switchMap((props) =>
-        this.appService.deleteGroup(props.groupId).pipe(
+      mergeMap((props) =>
+        this.appService.deleteGroup(props.groupId, props.groupType).pipe(
           map(() =>
             GroupActions.deleteGroupSuccess({ success: true, groupId: props.groupId })
           ),
@@ -102,7 +102,7 @@ export class GroupEffects {
   deleteGroupSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(GroupActions.deleteGroupSuccess),
-      switchMap((props) =>
+      mergeMap((props) =>
         of(GroupActions.removeGroupFromState({ groupId: props.groupId }))
       )
     );

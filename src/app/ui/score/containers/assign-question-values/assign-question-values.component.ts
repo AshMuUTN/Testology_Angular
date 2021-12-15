@@ -26,6 +26,8 @@ import {
 } from "src/app/application/state/domain-state/score/question-score-filter/question-score-filter.actions";
 import { cleanSingleQuestion } from "src/app/application/state/domain-state/question/question.actions";
 import { ButtonOptions } from "@ui/view-models/interfaces/button-options.interface";
+import { loadGroupScoreFilters } from "src/app/application/state/domain-state/score/group-score-filter/group-score-filter.actions";
+import { loadGroups } from "src/app/application/state/domain-state/score/group/group.actions";
 
 @Component({
   templateUrl: "./assign-question-values.component.html",
@@ -37,6 +39,7 @@ export class AssignQuestionValuesComponent implements OnInit, OnDestroy {
   confirmText = "Guardar";
 
   question: Question;
+  oldScoreFilters: QuestionScoreFilter[] = [];
 
   form: FormGroup;
   inputFields: InputOptions[];
@@ -48,6 +51,7 @@ export class AssignQuestionValuesComponent implements OnInit, OnDestroy {
   statusText: string;
   statusButtonText: string;
   statusTitle: string;
+  statusSecondaryActionText: string;
   success: boolean;
 
   onDestroy$: Subject<void>;
@@ -80,33 +84,35 @@ export class AssignQuestionValuesComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.onDestroy$),
         map((filters) => {
+          this.oldScoreFilters = filters || [];
           this.form = this.createFormWithExistingFilters(
             filters.filter((f) => f.scoreFilterId === AppScoreFilters.Arbitrary)
           );
+          this.form.markAllAsTouched();
         })
       )
       .subscribe();
   }
 
   createFormWithExistingFilters(filters: QuestionScoreFilter[]) {
-    let correctOptionFilterValue = 0;
-    let incorrectOptionFilterValue = 0;
+    let correctOptionFilterValue = '0';
+    let incorrectOptionFilterValue = '0';
     filters.forEach((f) => {
       if (f.isForCorrectAnswers) {
-        correctOptionFilterValue = f.value;
+        correctOptionFilterValue = f.value.toString();
       } else {
-        incorrectOptionFilterValue = f.value;
+        incorrectOptionFilterValue = f.value.toString();
       }
     });
 
     return this.formBuilder.group({
       correct: new FormControl(
         correctOptionFilterValue,
-        Validators.pattern("[0-9]+")
+        Validators.pattern("-?[0-9]\\d*(\\.\\d+)?")
       ),
       incorrect: new FormControl(
         incorrectOptionFilterValue,
-        Validators.pattern("[0-9]+")
+        Validators.pattern("-?[0-9]\\d*(\\.\\d+)?")
       ),
     });
   }
@@ -176,7 +182,10 @@ export class AssignQuestionValuesComponent implements OnInit, OnDestroy {
     if (!value) {
       return false;
     }
+    const oldFilter = this.oldScoreFilters.find(f => f.isForCorrectAnswers === isForCorrectAnswers)
+    const id = oldFilter ? oldFilter.id : 0;
     const questionScoreFilter: QuestionScoreFilter = {
+      id,
       rank: 1,
       scoreFilterId: AppScoreFilters.Arbitrary,
       questionId: this.question.id,
@@ -229,19 +238,29 @@ export class AssignQuestionValuesComponent implements OnInit, OnDestroy {
       this.statusText = `Valores asignados con éxito!`;
       this.statusButtonText = `Volver`;
       this.statusTitle = "Listo!";
+      this.statusSecondaryActionText = "Configurar Agrupaciones";
     } else {
       this.statusText = `Hubo un error. No se pudo asignar el valor. Por favor vuelve a intentar. Si el problema persiste, intentá más tarde.`;
       this.statusButtonText = "Volver";
       this.statusTitle = "Oh no!";
+      this.statusSecondaryActionText = "";
     }
   }
 
   public statusAcceptedAction() {
     this.store$.dispatch(cleanPostQuestionScoreFilterSuccess());
+    this.store$.dispatch(cleanQuestionScoreFilters());
     this.store$.dispatch(notificationScreenActions.removeNotificationScreens());
     if (this.success) {
       this.goBack();
     }
     this.formSent = false;
+  }
+
+  public statusAcceptedSecondaryAction() {
+    this.store$.dispatch(loadGroupScoreFilters( { subtestId : this.question.subtestId } ));
+    this.store$.dispatch(cleanQuestionScoreFilters());
+    this.store$.dispatch(loadGroups( { subtestId : this.question.subtestId } ));
+    this.redirectorService.goToPickQuestionGroup();
   }
 }

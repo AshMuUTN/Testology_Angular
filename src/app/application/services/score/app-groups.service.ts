@@ -18,9 +18,9 @@ export class AppGroupsService {
    * @description calls group repository method postGroup
    * @returns observable of type Group, the value returned by the backend
    */
-   postGroup(params: Group): Observable<Group> {
+   postGroup(params: Group, type?:string): Observable<Group> {
     return this.groupsRepositoryService
-      .postGroup(params)
+      .postGroup(params, type)
       .pipe(map((response) => response));
   }
 
@@ -28,9 +28,9 @@ export class AppGroupsService {
    * @description calls group repository method getTestGroups with subtestId from current subtest
    * @returns observable of type Test, the value returned by the backend
    */
-  getSubtestGroups(subtestId: number): Observable<Group[]> {
+  getSubtestGroups(subtestId: number, type?:string): Observable<Group[]> {
      return this.groupsRepositoryService
-            .getSubtestGroups(subtestId)
+            .getSubtestGroups(subtestId, type)
             .pipe(map((response) => response));        
   }
 
@@ -39,9 +39,9 @@ export class AppGroupsService {
    * @param groupId the id of the group we want to delete
    * @returns observable of type MessageResponse, the value returned by the backend
    */
-  public deleteGroup(groupId : number) : Observable<MessageResponse> {
+  public deleteGroup(groupId : number, type?:string) : Observable<MessageResponse> {
     return this.groupsRepositoryService
-      .deleteGroup(groupId)
+      .deleteGroup(groupId, type)
       .pipe(map((response) => response));
   }
 }

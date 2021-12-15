@@ -21,7 +21,7 @@ export class TitleComponent implements OnInit {
 
   constructor(private redirectorService: RedirectorService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   forwardLinkClicked(){
     if(this.titleForwardUrl){

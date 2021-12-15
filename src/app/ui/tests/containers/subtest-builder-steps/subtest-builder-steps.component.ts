@@ -5,6 +5,7 @@ import * as testSelectors from "src/app/application/state/domain-state/test/test
 import * as subtestSelectors from "src/app/application/state/domain-state/subtest/subtest.selectors";
 import * as notificationScreenActions from "src/app/application/state/ui-state/notification-screen/notification-screen.actions";
 import * as deleteFlagSelectors from "src/app/application/state/app-state/delete-flag/delete-flag.selectors";
+import * as subtestScoreFilterSelectors from "src/app/application/state/domain-state/score/subtest-score-filter/subtest-score-filter.selectors";
 import { Store } from '@ngrx/store';
 import { ButtonOptions } from '@ui/view-models/interfaces/button-options.interface';
 import { StepOptions } from '@ui/view-models/interfaces/step-options';
@@ -16,6 +17,9 @@ import { stepOptions } from './step-options';
 import { Test } from '@entities/test/test';
 import { cleanDeleteSubtestSuccess, cleanPostSubtestSuccess, deleteSubtest, loadSubtests, postSubtest } from 'src/app/application/state/domain-state/subtest/subtest.actions';
 import { setDeleteFlagFalse } from 'src/app/application/state/app-state/delete-flag/delete-flag.actions';
+import { cleanPostSubtestScoreFilterSuccess, loadSubtestScoreFilters, postSubtestScoreFilter } from 'src/app/application/state/domain-state/score/subtest-score-filter/subtest-score-filter.actions';
+import { SubtestScoreFilter } from '@entities/score/subtest-score-filter';
+import { AppScoreFilters } from 'src/app/application/enums/app-score-filters.enum';
 
 @Component({
   templateUrl: './subtest-builder-steps.component.html',
@@ -32,6 +36,9 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
   currentStep: string;
 
   subtest: Subtest;
+  filtersLoadedFlag = false;
+  filtersPostedFlag = false;
+  waitingForSubtestIdToPostFilters = false;
   form: FormGroup;
 
   titleLabel = "Título del subtest (requerido)";
@@ -43,12 +50,15 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
   scoreLabel = "Respuestas reciben un puntaje";
   noCalculationsLabel = "Asignar valor a respuestas";
   calculationsLabel = "Calcular valor a partir de respuesta numérica";
+  maxLabel = "Puntaje máximo del subtest (requerido)";
+  maxTextfield = "Puntaje máximo es un campo requerido. Debe ser un número.";
 
   buttonOptions: ButtonOptions = { type: "primary" };
 
   formSent: boolean = false;
   statusText: string;
   statusButtonText: string;
+  statusSecondaryActionText: string;
   statusTitle: string;
   success: boolean;
 
@@ -82,6 +92,7 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
     this.stepOptions = stepOptions;
     this.listenForSubtestAndInitiateForm();
     this.listenForPostSuccess();
+    this.listenForPostFiltersSuccess();
     this.listenForDeleteFlag();
   }
 
@@ -109,6 +120,9 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
         if(subtest){
           this.subtest = {...subtest};
           this.editFlag = true; // are editing if subtest already exists
+          if( this.waitingForSubtestIdToPostFilters ){
+            this.postSubtestScoreFiltersIfNeeded();
+          }
         } else {
           this.editFlag = false;
         }
@@ -129,7 +143,8 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
         Validators.maxLength(3000)
       ),
       scorable: new FormControl(false),
-      calculable: new FormControl(false)
+      calculable: new FormControl(false),
+      max: new FormControl(0)
     });
   }
 
@@ -183,8 +198,11 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
    * Steps must be in reverse order to avoid passing through multiple steps at once
    */
   confirmActionForStep() {
-    if (this.currentStep === "calculable") {
+    if(this.currentStep === "max"){
       this.finish();
+    }
+    if (this.currentStep === "calculable") {
+      this.goToMaxIfCalculable();
     }
     if (this.currentStep === "scorable"){
       this.goToCalculableIfScorableAndNotPreset()
@@ -217,25 +235,34 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
     if (this.currentStep === "description") {
       this.goToTitle();
     }
-    if (this.currentStep === "scoreable"){
-      this.goToDescription()
+    if (this.currentStep === "scorable"){
+      this.goToDescription();
     } 
     if (this.currentStep === "calculable") {
       this.goToScorableIfNotPreset();
+    }
+    if(this.currentStep === "max"){
+      this.goToCalculable();
     }
   }
 
 
   goToScorableIfNotPreset(){
-    // TODO determine if always appropriate to ask (may want to skip question if preset options exist)
     this.goToScorable()
   }
 
   goToCalculableIfScorableAndNotPreset(){
     // cannot be calculable if not scorable
     if(this.getFormFieldValue('scorable')){
-      // TODO determine if always appropriate to ask (may want to skip question if preset options exist)
       this.goToCalculable();
+    } else {
+      this.finish();
+    }
+  }
+
+  goToMaxIfCalculable(){
+    if(this.getFormFieldValue('calculable')){
+      this.goToMax()
     } else {
       this.finish();
     }
@@ -270,6 +297,28 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
     this.currentOptions = this.stepOptions[this.currentStep];
   }
 
+  goToMax() {
+    if(!this.filtersLoadedFlag){
+      this.loadAndListenForSubtestScoreFiltersIfNeeded();
+      this.filtersLoadedFlag = true;
+    }
+    this.currentStep = "max";
+    this.currentOptions = this.stepOptions[this.currentStep];
+  }
+  
+  loadAndListenForSubtestScoreFiltersIfNeeded() {
+    this.store$.dispatch(loadSubtestScoreFilters({ subtestId : this.subtest.id }))
+    this.store$.select(subtestScoreFilterSelectors.selectSubtestScoreFilters).pipe(
+      takeUntil(this.onDestroy$),
+      map((subtestScoreFilters) => {
+        const maxScoreFilter = subtestScoreFilters.find(f => f.scoreFilterId === AppScoreFilters.Max);
+        if(!!maxScoreFilter){
+          this.form.setControl('max', new FormControl(maxScoreFilter.value));
+        }
+      })
+    ).subscribe();
+  }
+
   finish() {
     if (this.form.status !== "VALID") {
       return;
@@ -281,6 +330,7 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
       this.subtest.isScorable = this.getFormFieldValue("scorable");
       this.subtest.isCalculable = this.getFormFieldValue("calculable");
       this.store$.dispatch(postSubtest({ subtest: this.subtest }));
+      this.postSubtestScoreFiltersIfNeeded();
     } else {
       this.store$.dispatch(deleteSubtest({ subtestId : this.subtest.id }));
     }
@@ -291,6 +341,24 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
    */
   getFormFieldValue(field: string) {
     return this.form.controls[field].value;
+  }
+
+  postSubtestScoreFiltersIfNeeded(){
+    if(!this.subtest.isCalculable || this.filtersPostedFlag){
+      return;
+    }
+    if(!this.subtest.id){
+      this.waitingForSubtestIdToPostFilters = true;
+    }
+    const subtestScoreFilter : SubtestScoreFilter = {
+      id : 0,
+      subtestId : this.subtest.id,
+      rank: 999,
+      scoreFilterId: AppScoreFilters.Max,
+      value: this.getFormFieldValue('max')
+    }
+    this.store$.dispatch(postSubtestScoreFilter( { subtestScoreFilter }));
+    this.filtersPostedFlag = true;
   }
 
   private listenForPostSuccess() {
@@ -308,6 +376,24 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
               notificationScreenActions.loadNotificationScreens()
             );
           }
+        })
+      )
+      .subscribe();
+  }
+
+  private listenForPostFiltersSuccess() {
+    this.store$
+      .select(subtestScoreFilterSelectors.selectPostSubtestScoreFilterSuccess)
+      .pipe(
+        takeUntil(this.onDestroy$),
+        filter((val) => val === false),
+        map((success) => {
+          // show message about failure
+          this.success = success;
+          this.setSuccessOrErrorStatus(success);
+          this.store$.dispatch(
+            notificationScreenActions.loadNotificationScreens()
+          );
         })
       )
       .subscribe();
@@ -358,6 +444,7 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
       this.statusText = `Subtest ${verbsWeWillUse.participle} con éxito!`;
       this.statusButtonText = !this.deleteFlag ? `${verbsWeWillUse.capInfinitive} Contenido` : "Volver a subtests";
       this.statusTitle = "Listo!";
+      this.statusSecondaryActionText = "Configuración Avanzada";
     } else {
       this.statusText =
         `Hubo un error. No se pudo ${verbsWeWillUse.infinitive} el subtest. Por favor vuelve a intentar. Si el problema persiste, intentá más tarde.`;
@@ -368,6 +455,7 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
 
   public statusAcceptedAction() {
     this.store$.dispatch(cleanPostSubtestSuccess());
+    this.store$.dispatch(cleanPostSubtestScoreFilterSuccess());
     this.store$.dispatch(cleanDeleteSubtestSuccess());
     this.store$.dispatch(notificationScreenActions.removeNotificationScreens());
     if (this.success) {
@@ -380,7 +468,20 @@ export class SubtestBuilderStepsComponent implements OnInit, OnDestroy {
       }
     } else {
       this.formSent = false;
+      this.filtersPostedFlag = false;
     }
+  }
+
+  public statusAcceptedSecondaryAction() {
+    this.store$.dispatch(cleanPostSubtestSuccess());
+    this.store$.dispatch(cleanDeleteSubtestSuccess());
+    this.store$.dispatch(notificationScreenActions.removeNotificationScreens());
+    this.store$.dispatch(setDeleteFlagFalse());
+    if(!this.deleteFlag){
+      this.store$.dispatch(loadSubtests());
+      this.store$.dispatch(loadSubtestScoreFilters({ subtestId : this.subtest.id }))
+      this.redirectorService.goToCalculateSubtestValues();
+    } 
   }
 
 }

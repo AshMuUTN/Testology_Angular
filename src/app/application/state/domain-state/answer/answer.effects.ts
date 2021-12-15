@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, switchMap } from 'rxjs/operators';
+import { catchError, map, concatMap, switchMap, mergeMap } from 'rxjs/operators';
 import { EMPTY, of } from 'rxjs';
 
 import * as AnswerActions from './answer.actions';
@@ -19,7 +19,7 @@ export class AnswerEffects {
   postAnswer$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AnswerActions.postAnswer),
-      switchMap((props) =>
+      mergeMap((props) =>
         this.appService.postAnswer(props.answer).pipe(
           map((res) =>
             AnswerActions.postAnswerSuccess({ success: true, answer: res })
@@ -40,7 +40,7 @@ export class AnswerEffects {
   postAnswerSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AnswerActions.postAnswerSuccess),
-      switchMap((props) =>
+      mergeMap((props) =>
         of(AnswerActions.saveSingleAnswerToStore({ answer: props.answer }))
       )
     );

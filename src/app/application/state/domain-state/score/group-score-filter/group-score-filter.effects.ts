@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, switchMap } from 'rxjs/operators';
+import { catchError, map, concatMap, switchMap, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import * as GroupScoreFilterActions from './group-score-filter.actions';
@@ -19,7 +19,7 @@ export class GroupScoreFilterEffects {
     return this.actions$.pipe(
       ofType(GroupScoreFilterActions.loadGroupScoreFilters),
       concatMap((props) =>
-        this.appService.getAppliedScoreFilters(props.groupId).pipe(
+        this.appService.getAppliedScoreFilters(props.subtestId).pipe(
           map((groupScoreFilters) =>
             GroupScoreFilterActions.loadGroupScoreFiltersSuccess({
               success: true,
@@ -51,7 +51,7 @@ export class GroupScoreFilterEffects {
   postGroupScoreFilter$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(GroupScoreFilterActions.postGroupScoreFilter),
-      switchMap((props) =>
+      mergeMap((props) =>
         this.appService.postAppliedScoreFilter(props.groupScoreFilter).pipe(
           map((res) =>
             GroupScoreFilterActions.postGroupScoreFilterSuccess({ success: true, groupScoreFilter: res })
@@ -72,7 +72,7 @@ export class GroupScoreFilterEffects {
   postGroupScoreFilterSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(GroupScoreFilterActions.postGroupScoreFilterSuccess),
-      switchMap((props) =>
+      mergeMap((props) =>
         of(GroupScoreFilterActions.saveSingleGroupScoreFilterToStore({ groupScoreFilter: props.groupScoreFilter }))
       )
     );

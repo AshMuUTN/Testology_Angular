@@ -32,13 +32,6 @@
               (keyup.enter)="submitAttemptedViaEnter()"
           ></app-input>
       </div>
-      <app-radio-button-options
-        *ngSwitchCase="'pickNextFilter'"
-        [formGroup]="form"
-        [radioButtonLabels]="currentStep.filterLabels"
-        (attemptSubmit)="submitAttemptedViaEnter()"
-        [name]="'pickFilter' + currentRank"
-      ></app-radio-button-options>
       <app-range-options
         *ngSwitchCase="'makeRangeFilters'"
         [formGroup]="form"

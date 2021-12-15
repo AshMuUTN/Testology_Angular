@@ -15,6 +15,7 @@ import { SubtestScoreFilterEffects } from './score/subtest-score-filter/subtest-
 import { GroupScoreFilterEffects } from './score/group-score-filter/group-score-filter.effects';
 import { AnswerEffects } from './answer/answer.effects';
 import { ProtocolEffects } from './protocol/protocol.effects';
+import { ReportEffects } from './report/report.effects';
 
 @NgModule({
     declarations: [],
@@ -23,7 +24,7 @@ import { ProtocolEffects } from './protocol/protocol.effects';
         StoreModule.forFeature(fromDomainState.domainStateFeatureKey, fromDomainState.reducers, {
             metaReducers: fromDomainState.metaReducers
         }),
-        EffectsModule.forFeature([UserEffects, TestEffects, SubtestEffects, QuestionEffects, ImageEffects, ScoreFilterEffects, GroupEffects, QuestionScoreFilterEffects, SubtestScoreFilterEffects, GroupScoreFilterEffects, AnswerEffects, ProtocolEffects])
+        EffectsModule.forFeature([UserEffects, TestEffects, SubtestEffects, QuestionEffects, ImageEffects, ScoreFilterEffects, GroupEffects, QuestionScoreFilterEffects, SubtestScoreFilterEffects, GroupScoreFilterEffects, AnswerEffects, ProtocolEffects, ReportEffects])
     ]
 })
 export class DomainStateModule {}

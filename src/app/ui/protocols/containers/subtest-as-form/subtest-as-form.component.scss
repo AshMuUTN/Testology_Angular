@@ -1,0 +1,36 @@
+@import "/lib/extra-bootstrap/dist/scss/global.scss";
+
+.subtestAsFormContainer {
+    padding: 20px 10px 100px 10px;
+    @extend .container;
+    background-color: $white;
+    .subtestAsFormTitleContainer {
+        padding: 10px 80px 10px 30px;
+    }
+    .subtestAsFormStepContainer, .subtestAsFormButtonContainer  {
+        padding: 20px 10px;
+        @extend .d-flex; 
+        @extend .justify-content-center;
+        .subtestAsFormOptionsWrapper, .subtestAsFormCheckboxContainer {
+            @extend .d-flex; 
+            @extend .flex-column;
+            @extend .justify-content-center;
+        }
+        .subtestAsFormCheckboxContainer {
+            padding: 0 20px;
+        }          
+    }
+}
+.subtestAsFormStatusContentWrapper{
+    @extend .container;
+    @extend .d-flex;
+    @extend .justify-content-center;
+    .subtestAsFormStatusContent {
+        @extend .flex-column;
+        @extend .shadow;
+        @extend .rounded;
+        padding: 50px 10px;
+        margin: 30px 20px;
+        background-color: $white;
+    }
+}

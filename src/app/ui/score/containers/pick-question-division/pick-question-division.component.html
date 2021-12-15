@@ -1,0 +1,50 @@
+<div class="scoreContainer" *ngIf="!formSent && currentStep">
+    <div class="scoreTitleContainer">
+      <app-title
+        [titleText]="currentStep.titleText"
+        [subtitleText]="currentStep.titleSubtext"
+        [titleBackText]="currentStep.titleBackText"
+        (goBack)="goBackActionForStep()"
+      ></app-title>
+    </div>
+    <div class="scoreStepContainer" [ngSwitch]="currentStepName">
+      <app-radio-button-options
+        *ngSwitchCase="'pickDivision'"
+        [formGroup]="form"
+        [radioButtonLabels]="currentStep.filterLabels"
+        (attemptSubmit)="submitAttemptedViaEnter()"
+        [name]="currentStepName"
+      ></app-radio-button-options>
+      <app-group-options
+        class="scoreOptionsWrapper"  
+        *ngSwitchCase="'addSubtestDivision'"
+        [formGroup]="form"
+        [label]="currentStep.options.label"
+        [textfield]="currentStep.options.textfield"
+        [name]="currentStep.options.name"
+        (addItem)="addItem()"
+        (removeItem)="removeItem($event)"
+        (attemptSubmit)="submitAttemptedViaEnter()"
+      ></app-group-options>
+    </div>
+    <div class="scoreButtonContainer">
+        <app-button
+          [buttonDisabled]="disableButton()"
+          [options]="buttonOptions"
+          (wasClicked)="confirmAction()"
+        >
+          {{ currentStep.confirmText }}
+        </app-button>
+      </div>
+  </div>
+  <div class="scoreStatusContentWrapper">
+    <div class="scoreStatusContent"  *ngIf="formSent">
+      <app-form-status
+        [buttonText]="statusButtonText"
+        [title]="statusTitle"
+        [text]="statusText"
+        (acceptStatus)="statusAcceptedAction()"
+      ></app-form-status>
+    </div>
+  </div>
+

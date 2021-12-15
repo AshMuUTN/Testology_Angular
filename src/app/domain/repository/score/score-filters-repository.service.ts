@@ -76,9 +76,10 @@ export class ScoreFiltersRepositoryService {
    */
   public adaptGroupScoreFilter(domainFilter: GroupScoreFilter | SubtestScoreFilter | QuestionScoreFilter): GroupScoreFilter {
     const appFilter = {...domainFilter,
-      groupId: domainFilter['groupId'] ?  domainFilter['groupId'] : -1
+      groupId: domainFilter['groupId'] ?  domainFilter['groupId'] : -1,
+      optionId: domainFilter['optionId'] ?  domainFilter['optionId'] : -1
     }
-    if(appFilter.groupId === -1){
+    if(appFilter.groupId === -1 || appFilter.optionId === -1){
       throw(new Error('Required attribute groupId is missing'))
     }
     return appFilter;

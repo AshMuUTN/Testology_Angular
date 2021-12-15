@@ -3,7 +3,7 @@ import { createAction, props } from '@ngrx/store';
 
 export const loadGroupScoreFilters = createAction(
   '[GroupScoreFilter] Load GroupScoreFilters',
-  props<{ groupId: number}>()
+  props<{ subtestId: number}>()
 );
 
 export const loadGroupScoreFiltersSuccess = createAction(

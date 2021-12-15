@@ -32,4 +32,19 @@ export class GroupsService {
     const url = `${environment.backendServer}/api/groups?groupId=${groupId}`
     return this.http.delete<MessageResponse>(url, this.httpOptions);
   }
+
+  public postDivision(params: Group): Observable<Group> {
+    const urlPostGroup = `${environment.backendServer}/api/divisions`;
+    return this.http.post<Group>(urlPostGroup, params, this.httpOptions);
+  }
+
+  public getSubtestDivisions(subtestId : number): Observable<Group[]> {
+    const urlGroups = `${environment.backendServer}/api/divisions?subtestId=${subtestId}`;
+    return this.http.get<Group[]>(urlGroups, this.httpOptions);
+  }
+
+  public deleteDivision(groupId: number): Observable<MessageResponse> {
+    const url = `${environment.backendServer}/api/divisions?divisionId=${groupId}`
+    return this.http.delete<MessageResponse>(url, this.httpOptions);
+  }
 }

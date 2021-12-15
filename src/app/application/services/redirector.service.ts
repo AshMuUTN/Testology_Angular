@@ -74,9 +74,53 @@ export class RedirectorService {
   goToCalculateQuestionValues(){
     this.router.navigateByUrl('configurar/calculo');
   }
+
+  goToCalculateSubtestValues(){
+    this.router.navigateByUrl('configurar/calculo-subtest');
+  }
+
+  goToPickQuestionGroup(){
+    this.router.navigateByUrl('configurar/agrupaciones');
+  }
+
+  goToPickQuestionDivision(){
+    this.router.navigateByUrl('configurar/divisiones');
+  }
+
+  goToProtocols(){
+    this.router.navigateByUrl('protocolos');
+  }
+
+  goToTestsForProtocols(){
+    this.router.navigateByUrl('protocolos/tests');
+  }
+
+  goToSubtestsForProtocols(){
+    this.router.navigateByUrl('protocolos/subtests');
+  }
+
+  goToProtocolForm(){
+    this.router.navigateByUrl('protocolos/comenzar');
+  }
+
+  goToSubtestAsForm(){
+    this.router.navigateByUrl('protocolos/contestar');
+  }
+
+  goToFAQ(){
+    this.router.navigateByUrl('info');
+  }
+  goToTermsAndConditions(){
+    this.router.navigateByUrl('info/legal');
+  }
+  goToTestsForReports(){
+    this.router.navigateByUrl('reportes');
+  }
+  goToReports(){
+    this.router.navigateByUrl('reportes/lista');
+  }
  
   // helpers 
-
   private setNotificationScreen(){
     this.store$.dispatch(notificationScreenActions.loadNotificationScreens());
   }

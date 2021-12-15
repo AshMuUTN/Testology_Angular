@@ -1,0 +1,54 @@
+<hr />
+<div class="row testItem">
+  <div class="col-lg-auto testItemName">
+    <a (click)="showProtocols()">{{ testItem.name }}</a>
+    <div class="d-lg-none testItemsLinkContainer">
+      <a
+        data-toggle="tooltip"
+        title="'Ver Protocolos'"
+        class="editLink editLinkSmall"
+        (click)="showProtocols()"
+        ><i
+          class="bi bi-list"
+        ></i
+      ></a>
+    </div>
+    <div
+      class="col d-lg-none testItemDescription"
+      data-toggle="tooltip"
+      title="{{ testItem.description }}"
+    >
+      <div class="testItemDescriptionText">
+        {{ testItem.description }}
+      </div>
+      <span class="visually-hidden">{{ testItem.description }}</span>
+    </div>
+    <div class="col-auto d-lg-none testItemDate">
+      {{ testItem.createdAt | date: "mediumDate":"es-AR" }}
+    </div>
+  </div>
+  <div
+    class="col d-none d-lg-block testItemDescription"
+    data-toggle="tooltip"
+    title="{{ testItem.description }}"
+  >
+    <div class="testItemDescriptionText">
+      {{ testItem.description }}
+    </div>
+    <span class="visually-hidden">{{ testItem.description }}</span>
+  </div>
+  <div class="col-auto d-none d-lg-block testItemDate">
+    {{ testItem.createdAt | date: "mediumDate":"es-AR" }}
+  </div>
+  <div class="col-auto d-none d-lg-block testItemEditButton">
+    <a
+      data-toggle="tooltip"
+      title="'Ver Protocolos'"
+      class="d-none d-lg-block editLink"
+      (click)="showProtocols()"
+      ><i
+        class="bi bi-list"
+      ></i
+    ></a>
+  </div>
+</div>

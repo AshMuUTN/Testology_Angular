@@ -62,7 +62,8 @@ export class AppSubtestsService {
   createSubtestConfig(subtest: Subtest) : SubtestConfig {
     return {
       isOpenQuestionsAllowed: subtest.isCalculable === subtest.isScorable, // if both true or both false, we can allow open questions
-      optionsMustBeNumbers: subtest.isCalculable // we need numbers if we want to make direct calculations from answers
+      optionsMustBeNumbers: subtest.isCalculable, // we need numbers if we want to make direct calculations from answers
+      isScorable: subtest.isScorable
     }
   }
 }

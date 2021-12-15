@@ -16,14 +16,14 @@
     ></app-slider>
     <div class="testBuilderStepContainer" [ngSwitch]="currentStep">
       <div *ngSwitchCase="'question'">
-        <app-title-step
+        <app-input-step
           [formGroup]="form"
           [label]="questionLabel"
           [name]="'question'"
           [textfield]="questionTextfield"
-          [subtext]="questionSubtext"
+          [subtext]=" showQuestionSubtext ? questionSubtext : '' "
           (attemptSubmit)="submitAttemptedViaEnter()"
-        ></app-title-step>
+        ></app-input-step>
         <app-question-options
           class="testBuilderOptionsWrapper"  
           *ngIf="appQuestion.hasOptions && !deleteFlag"

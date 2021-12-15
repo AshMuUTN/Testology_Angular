@@ -10,15 +10,7 @@
     .scoreStepContainer, .scoreButtonContainer  {
         padding: 20px 10px;
         @extend .d-flex; 
-        @extend .justify-content-center;
-        .scoreOptionsWrapper, .scoreCheckboxContainer {
-            @extend .d-flex; 
-            @extend .flex-column;
-            @extend .justify-content-center;
-        }
-        .scoreCheckboxContainer {
-            padding: 0 20px;
-        }          
+        @extend .justify-content-center;        
     }
 }
 .scoreStatusContentWrapper{

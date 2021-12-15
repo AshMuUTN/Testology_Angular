@@ -58,7 +58,7 @@ export const reducer = createReducer(
     return { ...state, deleteSuccess: undefined };
   }),
   on(ProtocolActions.removeProtocolFromState, (state, action) => {
-    return { ...state, Protocols : state.protocols.filter(s => s.id !== action.protocolId) };
+    return { ...state, protocols : state.protocols.filter(s => s.id !== action.protocolId) };
   }),
 
 );

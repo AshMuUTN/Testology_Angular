@@ -58,7 +58,7 @@ export const reducer = createReducer(
     return { ...state, deleteSuccess: undefined };
   }),
   on(GroupScoreFilterActions.removeGroupScoreFilterFromState, (state, action) => {
-    return { ...state, GroupScoreFilters : state.groupScoreFilters.filter(s => s.id !== action.groupScoreFilterId) };
+    return { ...state, groupScoreFilters : state.groupScoreFilters.filter(s => s.id !== action.groupScoreFilterId) };
   }),
 
 );

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, switchMap } from 'rxjs/operators';
+import { catchError, map, concatMap, switchMap, mergeMap } from 'rxjs/operators';
 import { EMPTY, of } from 'rxjs';
 
 import * as SubtestScoreFilterActions from './subtest-score-filter.actions';
@@ -52,7 +52,7 @@ export class SubtestScoreFilterEffects {
   postSubtestScoreFilter$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SubtestScoreFilterActions.postSubtestScoreFilter),
-      switchMap((props) =>
+      mergeMap((props) =>
         this.appService.postAppliedScoreFilter(props.subtestScoreFilter).pipe(
           map((res) =>
             SubtestScoreFilterActions.postSubtestScoreFilterSuccess({ success: true, subtestScoreFilter: res })
@@ -73,7 +73,7 @@ export class SubtestScoreFilterEffects {
   postSubtestScoreFilterSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SubtestScoreFilterActions.postSubtestScoreFilterSuccess),
-      switchMap((props) =>
+      mergeMap((props) =>
         of(SubtestScoreFilterActions.saveSingleSubtestScoreFilterToStore({ subtestScoreFilter: props.subtestScoreFilter }))
       )
     );

@@ -10,6 +10,8 @@ import { SharedModule } from "@ui/shared/shared.module";
 import { RangeOptionsComponent } from "./presentational/range-options/range-options.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RangeInputRowsComponent } from "./presentational/range-input-rows/range-input-rows.component";
+import { GroupOptionsComponent } from "./presentational/group-options/group-options.component";
+import { PickQuestionDivisionComponent } from './containers/pick-question-division/pick-question-division.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { RangeInputRowsComponent } from "./presentational/range-input-rows/range
     CalculateQuestionValuesComponent,
     CalculateSubtestScoreComponent,
     RangeOptionsComponent,
-    RangeInputRowsComponent
+    RangeInputRowsComponent,
+    GroupOptionsComponent,
+    PickQuestionDivisionComponent
   ],
   imports: [CommonModule, ScoreRoutingModule, ReactiveFormsModule, SharedModule],
 })

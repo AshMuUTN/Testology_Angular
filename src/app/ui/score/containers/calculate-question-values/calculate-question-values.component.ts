@@ -29,6 +29,8 @@ import { MessagePageParams } from "@ui/view-models/interfaces/message-page-param
 import { cleanSingleQuestion } from "src/app/application/state/domain-state/question/question.actions";
 import { QuestionCalculationScoreFilters } from "@ui/view-models/enums/question-calculation-score-filters.enum";
 import { Router } from "@angular/router";
+import { loadGroupScoreFilters } from "src/app/application/state/domain-state/score/group-score-filter/group-score-filter.actions";
+import { loadGroups } from "src/app/application/state/domain-state/score/group/group.actions";
 
 @Component({
   templateUrl: "./calculate-question-values.component.html",
@@ -60,7 +62,7 @@ export class CalculateQuestionValuesComponent implements OnInit {
   success: boolean;
 
   isOldFiltersPresent: boolean;
-  oldFilters: QuestionScoreFilter[];
+  oldFilters: QuestionScoreFilter[] = [];
 
   onDestroy$: Subject<void>;
 
@@ -113,13 +115,13 @@ export class CalculateQuestionValuesComponent implements OnInit {
   private createForm() {
     return this.formBuilder.group({
       pickFilter1: new FormControl(0),
-      assignValue1: new FormControl("0", Validators.pattern("[0-9]+")),
+      assignValue1: new FormControl("0", Validators.pattern("-?[0-9]\\d*(\\.\\d+)?")),
       pickFilter2: new FormControl(0),
-      assignValue2: new FormControl("0", Validators.pattern("[0-9]+")),
+      assignValue2: new FormControl("0", Validators.pattern("-?[0-9]\\d*(\\.\\d+)?")),
       pickFilter3: new FormControl(0),
-      assignValue3: new FormControl("0", Validators.pattern("[0-9]+")),
+      assignValue3: new FormControl("0", Validators.pattern("-?[0-9]\\d*(\\.\\d+)?")),
       pickFilter4: new FormControl(0),
-      assignValue4: new FormControl("0", Validators.pattern("[0-9]+")),
+      assignValue4: new FormControl("0", Validators.pattern("-?[0-9]\\d*(\\.\\d+)?")),
       rangeOrCalculation: new FormControl(""),
       makeRangeFilters: this.formBuilder.array([this.makeRangeFiltersRow()]),
     });
@@ -127,9 +129,9 @@ export class CalculateQuestionValuesComponent implements OnInit {
 
   makeRangeFiltersRow() {
     return this.formBuilder.group({
-      from: new FormControl("", Validators.pattern("[0-9]+")),
-      to: new FormControl("", Validators.pattern("[0-9]+")),
-      value: new FormControl("", Validators.pattern("[0-9]+")),
+      from: new FormControl("", Validators.pattern("-?[0-9]\\d*(\\.\\d+)?")),
+      to: new FormControl("", Validators.pattern("-?[0-9]\\d*(\\.\\d+)?")),
+      value: new FormControl("", Validators.pattern("-?[0-9]\\d*(\\.\\d+)?")),
     });
   }
 
@@ -332,6 +334,10 @@ export class CalculateQuestionValuesComponent implements OnInit {
   public statusAcceptedSecondaryAction() {
     if (this.isOldFiltersPresent) {
       this.deleteFiltersAndStartForm();
+    } else if(this.formSent){
+      this.store$.dispatch(loadGroupScoreFilters( { subtestId : this.question.subtestId } ));
+      this.store$.dispatch(loadGroups( { subtestId : this.question.subtestId, groupType: 'division' } ));
+      this.redirectorService.goToPickQuestionDivision();
     } else {
       this.currentRank++;
       this.goToPickNextFilter();
@@ -453,7 +459,7 @@ export class CalculateQuestionValuesComponent implements OnInit {
       this.statusText = `Valores asignados con éxito!`;
       this.statusButtonText = `Volver`;
       this.statusTitle = "Listo!";
-      this.statusSecondaryActionText = "";
+      this.statusSecondaryActionText = "Configurar Agrupaciones";
     } else {
       this.statusText = `Hubo un error. No se pudo asignar el valor. Por favor vuelve a intentar. Si el problema persiste, intentá más tarde.`;
       this.statusButtonText = "Volver";
@@ -477,11 +483,14 @@ export class CalculateQuestionValuesComponent implements OnInit {
       .select(questionScoreFilterSelectors.selectQuestionScoreFilters)
       .pipe(
         takeUntil(this.onDestroy$),
-        filter((filters) => !!filters.length),
         map((filters) => {
-          this.oldFilters = [...filters].sort((a, b) => a.rank - b.rank);
-          this.isOldFiltersPresent = true;
-          this.askUserToDeleteOrKeepFilters(this.oldFilters);
+          if(filters.length){
+            this.oldFilters = [...filters].sort((a, b) => a.rank - b.rank);
+            this.isOldFiltersPresent = true;
+            this.askUserToDeleteOrKeepFilters(this.oldFilters);
+          } else {
+            this.oldFilters = filters;
+          }
         })
       )
       .subscribe();

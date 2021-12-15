@@ -58,7 +58,7 @@ export const reducer = createReducer(
     return { ...state, deleteSuccess: undefined };
   }),
   on(QuestionScoreFilterActions.removeQuestionScoreFilterFromState, (state, action) => {
-    return { ...state, QuestionScoreFilters : state.questionScoreFilters.filter(s => s.id !== action.questionScoreFilterId) };
+    return { ...state, questionScoreFilters : state.questionScoreFilters.filter(s => s.id !== action.questionScoreFilterId) };
   }),
 
 );

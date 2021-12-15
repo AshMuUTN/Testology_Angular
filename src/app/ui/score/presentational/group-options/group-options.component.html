@@ -1,0 +1,17 @@
+<app-array-group-inputs
+  [parentFormGroup]="formGroup"
+  [label]="label"
+  [name]="name"
+  [textfield]="textfield"
+  (remove)="emitRemoveItem($event)"
+  (keyup)="checkForShiftEnter($event)"
+></app-array-group-inputs>
+<div
+  class="groupOptionAddButton"
+  (click)="emitAddItem()"
+  data-toggle="tooltip"
+  title="agregar agrupación"
+>
+  <p>+</p>
+  <hr />
+</div>

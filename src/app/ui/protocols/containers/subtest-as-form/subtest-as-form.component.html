@@ -1,0 +1,60 @@
+<div class="subtestAsFormContainer" *ngIf="form && !formSent">
+    <div class="subtestAsFormTitleContainer">
+      <app-title
+        [titleText]="titleText"
+        [subtitleText]="subtitleText"
+        [titleBackText]="titleBackText"
+        [titleBackUrl]="titleBackUrl"
+      ></app-title>
+    </div>
+    <div class="subtestAsFormStepContainer" *ngFor="let question of questions">
+      <div *ngIf="!question.options.length">
+        <app-image 
+          *ngIf="question.image"
+          [imageItem]="question.image"
+        ></app-image>
+        <app-input-step
+          [formGroup]="form"
+          [label]="question.text"
+          [name]="question.id"
+          [textfield]="questionTextfield"
+          [subtext]="questionSubtext"
+          (attemptSubmit)="submitAttemptedViaEnter()"
+        ></app-input-step>
+      </div>
+      <div class="subtestAsFormOptionQuestion" *ngIf="question.options.length">
+        <p>{{question.text}}</p>
+        <app-image 
+          *ngIf="question.image"
+          [imageItem]="question.image"
+        ></app-image>
+        <app-radio-button-options
+          [formGroup]="form"
+          [radioButtonLabels]="getArrayOfOptionTexts(question.options)"
+          (attemptSubmit)="submitAttemptedViaEnter()"
+          [name]="question.id.toString()"
+        ></app-radio-button-options>
+      </div>
+      
+    </div>
+    <div class="subtestAsFormButtonContainer">
+      <app-button
+        [buttonDisabled]="disableButton()"
+        [options]="buttonOptions"
+        (wasClicked)="confirmAction()"
+      >
+        {{ confirmText }}
+      </app-button>
+    </div>
+  </div>
+  <div class="subtestAsFormStatusContentWrapper">
+    <div class="subtestAsFormStatusContent"  *ngIf="formSent">
+      <app-form-status
+        [buttonText]="statusButtonText"
+        [title]="statusTitle"
+        [text]="statusText"
+        (acceptStatus)="statusAcceptedAction()"
+      ></app-form-status>
+    </div>
+  </div>
+

@@ -64,6 +64,6 @@ export const reducer = createReducer(
     return { ...state, deleteSuccess: undefined };
   }),
   on(TestActions.removeTestFromState, (state, action) => {
-    return { ...state, Tests : state.tests.filter(t => t.id !== action.testId) };
+    return { ...state, tests : state.tests.filter(t => t.id !== action.testId) };
   }),
 );

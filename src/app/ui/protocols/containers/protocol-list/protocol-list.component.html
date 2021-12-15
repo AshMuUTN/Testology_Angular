@@ -1,0 +1,46 @@
+<div
+  class="testListContainer"
+  [ngClass]="protocols.length ? 'testListContainer__hasItems' : ''"
+>
+  <div class="testListTitleContainer">
+    <app-title
+      [titleText]="titleText"
+      [subtitleText]="subtitleText"
+      [titleForwardText]="titleForwardText"
+      [titleBackText]="titleBackText"
+      [titleBackUrl]="titleBackUrl"
+      (goForward)="newProtocol()"
+    ></app-title>
+  </div>
+  <div class="testListFormFlexContainer">
+    <app-checkbox
+      class="testListFormCheckbox"
+      [parentFormGroup]="form"
+      [name]="deletingEnabledField"
+      [label]="deletingEnabledLabel"
+      (change)="readDeletingEnabledField()"
+    ></app-checkbox>
+    <div class="testListForm">
+      <app-search-bar
+        [name]="searchField"
+        [parentFormGroup]="form"
+      ></app-search-bar>
+    </div>
+  </div>
+
+  <app-test-list-item
+    *ngFor="let protocol of protocols | filterList: filter"
+    [testItem]="protocol"
+    [deletingEnabled]="deletingEnabled"
+    (editOrCloneAction)="editProtocol(protocol)"
+    (showTestEvent)="administerProtocol(protocol)"
+    (deleteAction)="deleteProtocol(protocol)"
+  ></app-test-list-item>
+
+  <app-empty-list-message
+    *ngIf="!protocols.length"
+    [itemName]="itemName"
+    (addAction)="newProtocol()"
+  >
+  </app-empty-list-message>
+</div>

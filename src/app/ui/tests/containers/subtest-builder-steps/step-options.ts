@@ -18,5 +18,10 @@ export const stepOptions = {
       titleText : "Puntaje",
       titleBackText : "Volver",
       confirmText: 'Finalizar'
+    },
+    max: {
+      titleText : "Máximo Puntaje",
+      titleBackText : "Volver",
+      confirmText: 'Finalizar'
     }
   }

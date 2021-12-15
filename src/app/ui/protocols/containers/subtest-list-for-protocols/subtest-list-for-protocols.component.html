@@ -1,0 +1,34 @@
+<div class="testListContainer" [ngClass]="subtests.length ? 'testListContainer__hasItems' : ''">
+    <div class="testListTitleContainer">
+      <app-title
+        [titleText]="titleText"
+        [subtitleText]="subtitleText"
+        [titleBackText]="titleBackText"
+        [titleBackUrl]="titleBackUrl"
+      ></app-title>
+    </div>
+    <div class="testListFormFlexContainer">
+      <div class="testListForm">
+        <app-search-bar
+          [name]="searchField"
+          [parentFormGroup]="form"
+        ></app-search-bar>
+      </div>
+    </div>
+  
+    <app-protocol-test-list-item
+      *ngFor="let subtest of subtests | filterList: filter"
+      [testItem]="subtest"
+      (showProtocolsEvent)="administerSubtest(subtest)"
+    ></app-protocol-test-list-item>
+  
+    <app-empty-list-message 
+      *ngIf="!subtests.length"
+      [itemName]="itemName"
+      (addAction)="newSubtest()"
+    >
+    </app-empty-list-message>
+  
+  </div>
+  
+

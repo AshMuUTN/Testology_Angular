@@ -21,6 +21,8 @@ export class TestListComponent implements OnInit, OnDestroy {
 
   titleText = "Tests";
   titleForwardText = "Nuevo";
+  titleBackText = "Administrar";
+  titleBackUrl = "protocolos/tests"
 
   form: FormGroup;
   searchField = 'search';

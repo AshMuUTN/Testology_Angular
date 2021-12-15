@@ -1,1 +1,70 @@
-<p>pick-question-group works!</p>
+<div class="scoreContainer" *ngIf="!formSent">
+    <div class="scoreTitleContainer">
+      <app-title
+        [titleText]="currentStep.titleText"
+        [subtitleText]="currentStep.titleSubtext"
+        [titleBackText]="currentStep.titleBackText"
+        [titleForwardText]="forwardText"
+        (goBack)="goBackActionForStep()"
+        (goForward)="statusAcceptedSecondaryAction()"
+      ></app-title>
+    </div>
+    <div class="scoreStepContainer" [ngSwitch]="currentStepName">
+      <div *ngSwitchCase="'pickGroup'">
+        <p>{{questionForShow}}</p>
+        <app-image 
+          *ngIf="question.image"
+          [imageItem]="question.image"
+        ></app-image>
+        <app-radio-button-options
+          [formGroup]="form"
+          [radioButtonLabels]="currentStep.filterLabels"
+          (attemptSubmit)="submitAttemptedViaEnter()"
+          [name]="currentStep.name"
+        ></app-radio-button-options>
+      </div>
+      <app-group-options
+        class="scoreOptionsWrapper"  
+        *ngSwitchCase="'addAnswerGroups'"
+        [formGroup]="form"
+        [label]="currentStep.options.label"
+        [textfield]="currentStep.options.textfield"
+        [name]="currentStep.options.name"
+        (addItem)="addItem()"
+        (removeItem)="removeItem($event)"
+        (attemptSubmit)="submitAttemptedViaEnter()"
+      ></app-group-options>
+      <div *ngSwitchCase="'assignValues'">
+        <app-input-step
+          *ngFor="let group of getFormFieldValue('addAnswerGroups'); index as i;"
+          [formGroup]="form"
+          [label]="group"
+          [name]="'assignValues' + i"
+          [textfield]="currentStep.options.textfield"
+          [type]="currentStep.options.type"
+          (attemptSubmit)="submitAttemptedViaEnter()"
+        ></app-input-step>
+      </div>
+    </div>
+    <div class="scoreButtonContainer">
+        <app-button
+          [buttonDisabled]="disableButton()"
+          [options]="buttonOptions"
+          (wasClicked)="confirmAction()"
+        >
+          {{ currentStep.confirmText }}
+        </app-button>
+      </div>
+  </div>
+  <div class="scoreStatusContentWrapper">
+    <div class="scoreStatusContent"  *ngIf="formSent">
+      <app-form-status
+        [buttonText]="statusButtonText"
+        [title]="statusTitle"
+        [text]="statusText"
+        [secondaryActionText]="statusSecondaryActionText"
+        (acceptStatus)="statusAcceptedAction()"
+        (secondaryAction)="statusAcceptedSecondaryAction()"
+      ></app-form-status>
+    </div>
+  </div>

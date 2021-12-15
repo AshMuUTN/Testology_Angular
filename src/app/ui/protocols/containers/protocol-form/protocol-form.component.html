@@ -1,0 +1,49 @@
+<div class="protocolFormContainer" *ngIf="currentStep && !formSent">
+    <div class="protocolFormTitleContainer">
+      <app-title
+        [titleText]="currentOptions.titleText"
+        [titleBackText]="currentOptions.titleBackText"
+        (goBack)="goBackActionForStep()"
+      ></app-title>
+    </div>
+    <div class="protocolFormStepContainer" [ngSwitch]="currentStep">
+      <app-input-step
+        [formGroup]="form"
+        [label]="nameLabel"
+        [name]="'name'"
+        [textfield]="nameTextfield"
+        [subtext]="nameSubtext"
+        (attemptSubmit)="submitAttemptedViaEnter()"
+        *ngSwitchCase="'name'"
+      ></app-input-step>
+      <app-description-step
+        [formGroup]="form"
+        [label]="descriptionLabel"
+        [name]="'description'"
+        [textfield]="descriptionTextfield"
+        (attemptSubmit)="submitAttemptedViaEnter()"
+        *ngSwitchCase="'description'"
+      ></app-description-step>
+    </div>
+    <div class="protocolFormButtonContainer">
+      <app-button
+        [buttonDisabled]="disableButton()"
+        [options]="buttonOptions"
+        (wasClicked)="confirmActionForStep()"
+      >
+        {{ currentOptions.confirmText }}
+      </app-button>
+    </div>
+  </div>
+  <div class="protocolFormStatusContentWrapper">
+    <div class="protocolFormStatusContent"  *ngIf="formSent">
+      <app-form-status
+        [buttonText]="statusButtonText"
+        [title]="statusTitle"
+        [text]="statusText"
+        (acceptStatus)="statusAcceptedAction()"
+      ></app-form-status>
+    </div>
+  </div>
+  
+  

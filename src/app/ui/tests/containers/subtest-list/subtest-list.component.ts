@@ -18,6 +18,7 @@ import * as testsSelectors from "src/app/application/state/domain-state/test/tes
 import { cleanLoadTestsSuccess } from "src/app/application/state/domain-state/test/test.actions";
 import { Test } from "@entities/test/test";
 import { setDeleteFlagFalse, setDeleteFlagTrue } from "src/app/application/state/app-state/delete-flag/delete-flag.actions";
+import { loadSubtestScoreFilters } from "src/app/application/state/domain-state/score/subtest-score-filter/subtest-score-filter.actions";
 
 @Component({
   templateUrl: "./subtest-list.component.html",

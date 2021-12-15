@@ -1,0 +1,60 @@
+@import '/lib/extra-bootstrap/dist/scss/variables';
+
+.testItem {
+    margin: 2px 0;
+    padding-bottom: 10px;
+
+    .testItemName {
+        font-size: larger;
+        font-weight: 400;
+        a:hover {
+            cursor: pointer;
+        }
+    }
+    .testItemDescriptionText {
+        color: $g-400;
+    }
+
+    .testItemDate {
+        color: $g-400;
+    }
+
+    .testItemsLinkContainer {
+        min-width: 45px;
+        float: right;
+        .editLinkSmall {
+            color: $greenPrimary;
+            &:hover {
+                cursor: pointer;
+                color: $greenSecondary;
+            }
+        }
+        .deleteLinkSmall {
+            color: $fuscia;
+            margin-left: 10px;
+            &:hover {
+                cursor: pointer;
+                color: $light-fuscia;
+            }
+        }
+    }
+    
+    .editLink {
+        float: right;
+        color: $greenPrimary;
+        &:hover {
+            cursor: pointer;
+            color: $greenSecondary;
+        }
+    }
+    .deleteLink {
+        float: right;
+        color: $fuscia;
+        margin-left: 10px;
+        &:hover {
+            cursor: pointer;
+            color: $light-fuscia;
+        }
+    }
+}
+

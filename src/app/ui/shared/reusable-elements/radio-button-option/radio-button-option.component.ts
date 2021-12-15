@@ -17,8 +17,8 @@ export class RadioButtonOptionComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
+
   get isSelected(){
     return this.value === this.selected;
   }

@@ -5,7 +5,8 @@ export interface Question {
     id: number;
     text: string;
     subtestId: number;
-    options?: Option[]; // not all questions have options
+    options?: Option[]; // not all questions have options, image or division
     image?: Image;
     imageId?: number;
+    divisionId?: number;
 }

@@ -18,10 +18,10 @@ export class AppGroupFiltersService {
    * @returns observable of type GroupScoreFilter the sanitized value returned by the backend
    */
   getAppliedScoreFilters(
-    groupId: number
+    subtestId: number
   ): Observable<Array<GroupScoreFilter>> {
     return this.scoreFiltersRepositoryService
-      .getAppliedScoreFilters(groupId, 'group')
+      .getAppliedScoreFilters(subtestId, 'group')
       .pipe(
         map((response) =>
           response.map((filter) =>

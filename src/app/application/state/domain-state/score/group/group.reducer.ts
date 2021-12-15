@@ -7,6 +7,7 @@ export const groupFeatureKey = 'group';
 export interface State {
   loadSuccess: boolean;
   postSuccess: boolean;
+  postSuccessCount: number;
   deleteSuccess: boolean;
   groups: Group[];
   group: Group;
@@ -16,6 +17,7 @@ export interface State {
 export const initialState: State = {
   loadSuccess: undefined,
   postSuccess: undefined,
+  postSuccessCount: 0,
   deleteSuccess: undefined,
   groups: [],
   group: null
@@ -40,10 +42,14 @@ export const reducer = createReducer(
   }),
   on(GroupActions.postGroup, (state) => state),
   on(GroupActions.postGroupSuccess, (state, action) => {
-    return { ...state, postSuccess: action.success };
+    return { 
+        ...state, 
+        postSuccess: action.success,
+        postSuccessCount: action.success ? state.postSuccessCount + 1 : 0 
+      };
   }),
   on(GroupActions.cleanPostGroupSuccess, (state) => {
-    return { ...state, postSuccess: undefined };
+    return { ...state, postSuccess: undefined, postSuccessCount: 0 };
   }),
   on(GroupActions.saveSingleGroupToStore, (state, action) => {
     return { ...state, group: action.group };
@@ -58,7 +64,7 @@ export const reducer = createReducer(
     return { ...state, deleteSuccess: undefined };
   }),
   on(GroupActions.removeGroupFromState, (state, action) => {
-    return { ...state, Groups : state.groups.filter(s => s.id !== action.groupId) };
+    return { ...state, groups : state.groups.filter(s => s.id !== action.groupId) };
   }),
 
 );

@@ -20,6 +20,10 @@ import { ArrayGroupInputsComponent } from './reusable-elements/array-group-input
 import { CheckboxComponent } from "./reusable-elements/checkbox/checkbox.component";
 import { RadioButtonOptionsComponent } from "./reusable-elements/radio-button-options/radio-button-options.component";
 import { SliderComponent } from "./reusable-elements/slider/slider.component";
+import { InputStepComponent } from "./reusable-elements/input-step/input-step.component";
+import { DescriptionStepComponent } from "./reusable-elements/description-step/description-step.component";
+import { TestListItemComponent } from "./reusable-elements/test-list-item/test-list-item.component";
+import { ImageComponent } from './reusable-elements/image/image.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,11 @@ import { SliderComponent } from "./reusable-elements/slider/slider.component";
     ArrayGroupInputsComponent,
     CheckboxComponent,
     RadioButtonOptionsComponent,
-    SliderComponent
+    SliderComponent,
+    InputStepComponent,
+    DescriptionStepComponent,
+    TestListItemComponent,
+    ImageComponent,
   ],
   imports: [
     CommonModule,
@@ -62,7 +70,11 @@ import { SliderComponent } from "./reusable-elements/slider/slider.component";
     ArrayGroupInputsComponent,
     CheckboxComponent,
     RadioButtonOptionsComponent,
-    SliderComponent
+    SliderComponent,
+    InputStepComponent,
+    DescriptionStepComponent,
+    TestListItemComponent,
+    ImageComponent,
   ],
   entryComponents: [],
 })

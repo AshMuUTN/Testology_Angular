@@ -151,7 +151,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     this.store$.dispatch(cleanLoginUserSuccess());
     this.store$.dispatch(notificationScreenActions.removeNotificationScreens());
     if (this.success) {
-      this.redirectorService.goToTests();
+      this.redirectorService.goToTestsForProtocols();
     } else {
       this.formSent = false;
     }

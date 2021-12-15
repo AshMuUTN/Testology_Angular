@@ -1,7 +1,8 @@
 export interface Answer {
     id?: number;
     protocolId: number;
-    QuestionId: number;
-    NumberAnswer?: number;
-    OptionId?: number;
+    questionId: number;
+    numberAnswer?: number;
+    textAnswer?: string;
+    optionId?: number;
 }

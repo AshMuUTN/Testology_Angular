@@ -14,7 +14,7 @@
       [fieldName]="'clone'"
       *ngSwitchCase="'clone'"
     ></app-radio-button-step>
-    <app-title-step
+    <app-input-step
       [formGroup]="form"
       [label]="titleLabel"
       [name]="'title'"
@@ -22,7 +22,7 @@
       [subtext]="titleSubtext"
       (attemptSubmit)="submitAttemptedViaEnter()"
       *ngSwitchCase="'title'"
-    ></app-title-step>
+    ></app-input-step>
     <app-description-step
       [formGroup]="form"
       [label]="descriptionLabel"

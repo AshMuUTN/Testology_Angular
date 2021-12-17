@@ -12,6 +12,7 @@
         ><i class="bi bi-trash"></i
       ></a>
       <a
+        *ngIf="!noEdits"
         data-toggle="tooltip"
         title="{{ cloneFlag ? 'Clonar' : 'Editar' }}"
         class="editLink editLinkSmall"

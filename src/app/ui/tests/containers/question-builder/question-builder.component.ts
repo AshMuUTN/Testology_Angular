@@ -513,7 +513,7 @@ export class QuestionBuilderComponent implements OnInit {
     if (success) {
       this.statusText = `Pregunta ${verbsWeWillUse.participle} con éxito!`;
       this.statusButtonText = `Volver`;
-      this.statusSecondaryActionText = 'Elegir Imagen'
+      this.statusSecondaryActionText = this.deleteFlag ? '' : 'Elegir Imagen'
       this.statusTitle = "Listo!";
     } else {
       this.statusText =

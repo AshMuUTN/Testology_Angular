@@ -24,6 +24,7 @@
   <app-test-list-item
     *ngFor="let question of faq | filterList: filter"
     [testItem]="question"
+    [noEdits]="true"
     [deletingEnabled]="false"
     (editOrCloneAction)="dummyAction(question)"
     (showTestEvent)="dummyAction(question)"

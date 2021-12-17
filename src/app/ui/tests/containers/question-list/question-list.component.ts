@@ -28,7 +28,7 @@ import * as subtestSelectors from "src/app/application/state/domain-state/subtes
   styleUrls: ["./question-list.component.scss"],
 })
 export class QuestionListComponent implements OnInit {
-  titleText = "Questions";
+  titleText = "Preguntas";
   titleForwardText = "Nuevo";
   titleBackText = "Subtests";
   titleBackUrl = "/tests/subtests";
@@ -44,7 +44,7 @@ export class QuestionListComponent implements OnInit {
   questions: Question[];
   subtest: Subtest;
 
-  itemName = "question";
+  itemName = "pregunta";
 
   onDestroy$: Subject<void>;
 

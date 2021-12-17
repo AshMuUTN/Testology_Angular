@@ -47,7 +47,7 @@ export class SubtestAsFormComponent implements OnInit {
 
 
   questions: ProtocolQuestion[];
-  itemName = "question";
+  itemName = "pregunta";
   protocol: Protocol;
   subtest: Subtest;
 

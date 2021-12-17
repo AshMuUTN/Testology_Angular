@@ -39,6 +39,7 @@ export class FAQComponent implements OnInit, OnDestroy {
       this.titleBackText = 'Login';
       this.titleBackUrl = '/sesion/login'
     }
+    this.listenForSearchChangesAndUpdateFilter();
   }
 
   ngOnDestroy() {

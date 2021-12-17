@@ -15,6 +15,7 @@ export class TestListItemComponent implements OnInit {
   @Input() testItem: Test|Subtest|Protocol;
   @Input() cloneFlag: boolean;
   @Input() deletingEnabled: boolean;
+  @Input() noEdits: boolean;
   @Output() showTestEvent = new EventEmitter<void>();
   @Output() editOrCloneAction =  new EventEmitter<void>();
   @Output() deleteAction =  new EventEmitter<void>();
